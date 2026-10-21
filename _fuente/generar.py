@@ -578,7 +578,7 @@ def inicio(tarjetas):
 <section class="confianza" id="confianza">
   <div><b>Experiencia</b><span>MÁS DE 25 AÑOS<br>EN FINCA RAÍZ</span></div>
   <div><b>Asesoría</b><span>PENSADA PARA TU<br>MOMENTO DE VIDA</span></div>
-  <div><b>Acompañamiento</b><span>CONTIGO EN CADA PASO,<br>HASTA LLEGAR A CASA</span></div>
+  <div><b>Acompañamiento</b><span>CONTIGO HASTA EL MOMENTO<br>EN QUE ENCUENTRAS TU LUGAR</span></div>
 </section>
 <section class="frase">
   <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
