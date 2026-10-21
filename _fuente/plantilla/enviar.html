@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>dûo · Enviar</title>
+<link rel="icon" href="/marca/favicon.png">
+<link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="dûo Enviar">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=IBM+Plex+Mono:wght@500&family=Red+Hat+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#435E86;--azul-profundo:#2E4160;--crema:#F4EEDF;--crema-tarjeta:#EAE1CB;--linea:#E3D7BC;--tinta:#1C2333;--tinta-suave:#565F78;--verde:#1F7A4D;
+  --serif:"Gilda Display",Georgia,serif;--mono:"IBM Plex Mono",monospace;--sans:"Red Hat Display",Helvetica,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--sans);font-size:18px;line-height:1.45;padding-bottom:130px}
+header{background:var(--azul);color:var(--crema);padding:16px 16px 14px}
+header img{width:110px;display:block}
+header p{margin:6px 0 0;font-size:15px;opacity:.9}
+.pin{margin:14px 16px 0;padding:14px;border-radius:14px;background:#fff;border:1px solid var(--linea)}
+.pin p{margin:0 0 10px;font-size:16px}
+.pin form{display:flex;gap:8px}
+.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;text-align:center;padding:10px;border:1px solid var(--linea);border-radius:10px}
+.pin button{font:inherit;font-weight:700;padding:10px 18px;border:0;border-radius:10px;background:var(--azul);color:var(--crema)}
+.pin .err{color:#B3261E;font-size:15px;margin:8px 0 0}
+.nota{margin:12px 16px 0;font-size:14px;color:var(--tinta-suave)}
+.buscar{padding:14px 16px 4px;display:grid;gap:10px;position:sticky;top:0;background:var(--crema);z-index:4}
+.buscar input{width:100%;font:inherit;font-size:18px;padding:14px 16px;border:1px solid var(--linea);border-radius:12px;background:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:inherit;font-size:15px;padding:9px 14px;border-radius:999px;border:1px solid var(--azul);background:transparent;color:var(--azul)}
+.chip[aria-pressed=true]{background:var(--azul);color:var(--crema)}
+.filtros{margin:0 16px;background:#fff;border:1px solid var(--linea);border-radius:14px}
+.filtros summary{list-style:none;cursor:pointer;padding:12px 14px;font-weight:700;color:var(--azul-profundo);display:flex;justify-content:space-between;align-items:center}
+.filtros summary::-webkit-details-marker{display:none}
+.filtros summary::after{content:"▾";font-size:14px}
+.filtros[open] summary::after{content:"▴"}
+.filtros .cuerpo{padding:0 14px 14px;display:grid;gap:14px}
+.filtros h4{margin:0 0 6px;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg .chip{text-align:center}
+.rango{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rango label{display:grid;gap:2px;font-size:13px;color:var(--tinta-suave)}
+.rango input{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:var(--crema)}
+.sectores{display:flex;flex-wrap:wrap;gap:8px}
+.acciones{display:flex;align-items:center;gap:16px}
+.ver{flex:1;font:inherit;font-weight:700;font-size:17px;padding:14px;border:0;border-radius:12px;background:var(--azul);color:var(--crema)}
+.limpiar{background:none;border:0;padding:0;font:inherit;font-size:15px;color:var(--azul);text-decoration:underline}
+.conteo{scroll-margin-top:96px;padding:4px 16px;margin:0;font-size:15px;color:var(--tinta-suave)}
+.lista{display:grid;gap:14px;padding:6px 16px}
+.card{background:#fff;border-radius:16px;overflow:hidden;border:2px solid transparent}
+.card.sel{border-color:var(--verde)}
+.fila{display:flex;gap:12px;padding:12px}
+.fila img{width:96px;height:96px;object-fit:cover;border-radius:10px;flex:none;background:var(--crema-tarjeta)}
+.cod{font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--azul)}
+.nom{font-weight:700;font-size:16px;color:var(--azul-profundo);margin-top:2px}
+.tit{font-family:var(--serif);font-size:20px;line-height:1.2;margin:2px 0}
+.dat{font-size:15px;color:var(--tinta-suave)}
+.precio{font-weight:700;font-size:17px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linea);border-top:1px solid var(--linea)}
+.btns a{display:flex;align-items:center;justify-content:center;gap:6px;padding:16px 8px;background:#fff;text-decoration:none;font-weight:700;font-size:17px;color:var(--azul-profundo)}
+.btns a.cli{color:var(--verde)}
+.marcar{display:flex;align-items:center;gap:8px;padding:0 12px 12px;font-size:15px;color:var(--tinta-suave)}
+.marcar input{width:22px;height:22px;accent-color:var(--verde)}
+.vacio{padding:20px 16px;color:var(--tinta-suave)}
+.barra{position:fixed;left:0;right:0;bottom:0;background:var(--azul-profundo);color:var(--crema);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;gap:10px;flex-wrap:wrap;align-items:center;z-index:6}
+.barra.on{display:flex}
+.barra b{width:100%;font-size:16px}
+.barra a{flex:1;text-align:center;padding:14px 8px;border-radius:12px;background:var(--crema);color:var(--azul-profundo);font-weight:700;text-decoration:none;font-size:16px}
+.barra button{background:none;border:0;color:var(--crema);font:inherit;font-size:14px;text-decoration:underline;padding:4px}
+</style>
+</head>
+<body>
+<header>
+  <img src="/marca/logo-header.png" alt="dûo real estate">
+  <p>Busca la propiedad y toca a quién se la mandas.</p>
+</header>
+<div class="pin" id="pin" hidden>
+  <p>Escribe el PIN para buscar también por nombre del edificio.</p>
+  <form id="pinForm"><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="PIN"><button>Entrar</button></form>
+  <p class="err" id="pinErr" hidden>Ese no es el PIN. Intenta otra vez.</p>
+</div>
+<p class="nota" id="sinLlave" hidden>Puedes buscar por código o sector. Para buscar por nombre del edificio, abre el link de instalación que te mandó Camila.</p>
+<div class="buscar">
+  <input id="q" type="search" placeholder="Buscar: nombre, código, sector…" autocomplete="off">
+</div>
+<details class="filtros" id="filtros">
+  <summary><span id="resumenF">Filtros</span></summary>
+  <div class="cuerpo">
+    <div><h4>OPERACIÓN</h4><div class="seg" id="fOp">
+      <button class="chip" type="button" data-v="" aria-pressed="true">Todas</button>
+      <button class="chip" type="button" data-v="Venta" aria-pressed="false">Venta</button>
+      <button class="chip" type="button" data-v="Alquiler" aria-pressed="false">Arriendo</button></div></div>
+    <div><h4 id="tPrecio">PRECIO (MILLONES)</h4><div class="rango">
+      <label>Desde<input id="pDesde" type="number" inputmode="numeric" min="0" placeholder="0"></label>
+      <label>Hasta<input id="pHasta" type="number" inputmode="numeric" min="0" placeholder="Sin límite"></label></div></div>
+    <div><h4>ÁREA (M²)</h4><div class="rango">
+      <label>Desde<input id="aDesde" type="number" inputmode="numeric" min="0" placeholder="0"></label>
+      <label>Hasta<input id="aHasta" type="number" inputmode="numeric" min="0" placeholder="Sin límite"></label></div></div>
+    <div><h4>UBICACIÓN</h4><div class="sectores" id="fSec"></div></div>
+    <div class="acciones"><button class="ver" id="verF" type="button">Ver propiedades</button>
+      <button class="limpiar" id="limpiarF" type="button">Limpiar filtros</button></div>
+  </div>
+</details>
+<p class="conteo" id="conteo"></p>
+<div class="lista" id="lista"></div>
+<div class="barra" id="barra">
+  <b id="nsel"></b>
+  <a id="varCli" target="_blank" rel="noopener">🏠 A cliente</a>
+  <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
+  <button id="limpiar" type="button">Quitar selección</button>
+</div>
+<script>
+const P = /*DATOS*/[];
+const CIFRADO = /*NOMBRES*/"";
+let NOMBRES = {};
+
+// ---------- Nombres cifrados (mismo algoritmo que enviar.py) ----------
+const te = new TextEncoder();
+const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const leer = k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+async function sha(...partes) {
+  const b = new Uint8Array(partes.reduce((n, p) => n + p.length, 0)); let o = 0;
+  for (const p of partes) { b.set(p, o); o += p.length; }
+  return new Uint8Array(await crypto.subtle.digest("SHA-256", b));
+}
+async function descifrar(llaveHex, pin) {
+  if (!/^[0-9a-f]{64}$/.test(llaveHex) || !CIFRADO) return null;
+  const raw = Uint8Array.from(atob(CIFRADO), c => c.charCodeAt(0));
+  const llave = await sha(new Uint8Array(llaveHex.match(/../g).map(x => parseInt(x, 16))), te.encode(pin));
+  const nonce = raw.slice(0, 16), tag = raw.slice(16, 32), cif = raw.slice(32);
+  const t = (await sha(te.encode("tag"), llave, nonce, cif)).slice(0, 16);
+  if (t.some((v, i) => v !== tag[i])) return null;
+  const out = new Uint8Array(cif.length);
+  for (let i = 0, b = 0; i < cif.length; b++) {
+    const f = await sha(llave, nonce, new Uint8Array([b >>> 24, (b >>> 16) & 255, (b >>> 8) & 255, b & 255]));
+    for (let j = 0; j < 32 && i < cif.length; j++, i++) out[i] = cif[i] ^ f[j];
+  }
+  return JSON.parse(new TextDecoder().decode(out));
+}
+async function iniciarNombres() {
+  const m = location.hash.match(/k=([0-9a-f]{64})/);
+  const llave = m ? m[1] : leer("duo-llave");
+  if (m) guardar("duo-llave", llave);
+  if (!CIFRADO) return;
+  if (!llave) { $("sinLlave").hidden = false; return; }
+  const n = leer("duo-pin") && await descifrar(llave, leer("duo-pin"));
+  if (n) { NOMBRES = n; pintar(); return; }
+  $("pin").hidden = false;
+  $("pinForm").onsubmit = async e => {
+    e.preventDefault();
+    const pin = $("pinIn").value.trim(), r = await descifrar(llave, pin);
+    if (!r) { $("pinErr").hidden = false; return; }
+    guardar("duo-pin", pin); NOMBRES = r; $("pin").hidden = true; pintar();
+  };
+}
+
+// ---------- Mensajes ----------
+const fmtM = v => "$" + Math.round(v / 1e6).toLocaleString("es-CO") + " millones";
+const precio = p => p.venta ? fmtM(p.venta) : (p.canon ? "$" + Math.round(p.canon).toLocaleString("es-CO") + "/mes" : "");
+const datos = p => [p.area && Math.round(p.area).toLocaleString("es-CO") + " m²", p.lote && "lote " + Math.round(p.lote).toLocaleString("es-CO") + " m²", p.alc && p.alc + (p.alc === 1 ? " alcoba" : " alcobas")].filter(Boolean).join(" · ");
+const bloque = p => {
+  const ops = [p.ops.includes("Venta") && p.venta && "VENTA", p.ops.includes("Alquiler") && p.canon && "ALQUILER"].filter(Boolean);
+  const precios = [p.ops.includes("Venta") && p.venta && fmtM(p.venta),
+                   p.ops.includes("Alquiler") && p.canon && "$" + Math.round(p.canon).toLocaleString("es-CO") + " / mes"].filter(Boolean);
+  const m2 = v => Math.round(v).toLocaleString("es-CO") + " m²";
+  const areas = p.tipo === "Casa" ? [p.area && m2(p.area) + " construidos", p.lote && m2(p.lote) + " de lote"]
+    : p.tipo === "Lote" ? [p.area && m2(p.area) + " de lote"] : [p.area && m2(p.area)];
+  const vinetas = [...areas, p.alc && p.alc + (p.alc === 1 ? " alcoba" : " alcobas"), ...precios];
+  return [(ops.length ? ops : p.ops.map(o => o === "Alquiler" ? "ALQUILER" : "VENTA")).join(" Y "),
+          `${p.tipo} en ${p.sector}`, "", ...vinetas.filter(Boolean).map(v => "* " + v)].join("\n");
+};
+const armar = (ps, link, firma) => ps.map(p => `${bloque(p)}\n\nFotos y detalles: ${link(p)}`).join("\n\n\n") + (firma ? "\n\nDÛO REAL ESTATE 💙" : "");
+const wa = t => "https://wa.me/?text=" + encodeURIComponent(t);
+const msgCli = ps => armar(ps, p => p.web, true);
+const msgCol = ps => armar(ps, p => p.ficha, false);
+
+// ---------- Búsqueda (tolera errores de escritura) ----------
+const norm = s => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+function lev(a, b) {
+  const d = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = d[0]; d[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const t = d[j]; d[j] = Math.min(d[j] + 1, d[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = t;
+    }
+  }
+  return d[b.length];
+}
+function coincide(q, texto) {
+  const t = norm(texto), palabras = t.split(/[^a-z0-9]+/).filter(Boolean);
+  return q.split(/\s+/).filter(Boolean).every(w => t.includes(w) || (w.length >= 5 && palabras.some(x =>
+    lev(w, x) <= Math.floor(w.length / 3) || (x.length > w.length && lev(w, x.slice(0, w.length)) <= Math.floor(w.length / 4)))));
+}
+const nombre = p => NOMBRES[p.cod] ? NOMBRES[p.cod].filter(Boolean).join(" · ") : "";
+
+// ---------- Lista ----------
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const sectores = [...new Set(P.map(p => p.sector).filter(Boolean))].sort();
+let op = "", secSel = new Set(), sel = new Set();
+$("fSec").innerHTML = sectores.map(s => `<button class="chip" type="button" aria-pressed="false">${esc(s)}</button>`).join("");
+$("fOp").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; op = b.dataset.v;
+  [...$("fOp").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  $("tPrecio").textContent = op === "Alquiler" ? "CANON MENSUAL (MILLONES)" : "PRECIO (MILLONES)"; pintar(); };
+$("fSec").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; const s = b.textContent;
+  secSel.has(s) ? secSel.delete(s) : secSel.add(s); b.setAttribute("aria-pressed", secSel.has(s)); pintar(); };
+["pDesde", "pHasta", "aDesde", "aHasta"].forEach(id => $(id).oninput = pintar);
+$("limpiarF").onclick = () => { op = ""; secSel.clear(); ["pDesde", "pHasta", "aDesde", "aHasta"].forEach(id => $(id).value = "");
+  [...$("fOp").children].forEach((x, i) => x.setAttribute("aria-pressed", i === 0));
+  [...$("fSec").children].forEach(x => x.setAttribute("aria-pressed", false)); $("tPrecio").textContent = "PRECIO (MILLONES)"; pintar(); };
+$("verF").onclick = () => { $("filtros").open = false; $("conteo").scrollIntoView({ behavior: "smooth" }); };
+$("q").oninput = pintar;
+const num = id => { const v = parseFloat($(id).value); return isNaN(v) ? null : v; };
+const enRango = (v, d, h) => (d === null || v >= d) && (h === null || v <= h);
+
+function pintar() {
+  const q = norm($("q").value.trim());
+  const vis = P.filter(p => {
+    if (op && !p.ops.includes(op)) return false;
+    if (secSel.size && !secSel.has(p.sector)) return false;
+    const pd = num("pDesde"), ph = num("pHasta");
+    if (pd !== null || ph !== null) {
+      const v = p.ops.includes("Venta") && p.venta ? p.venta / 1e6 : null, c = p.ops.includes("Alquiler") && p.canon ? p.canon / 1e6 : null;
+      const ok = op === "Venta" ? v !== null && enRango(v, pd, ph) : op === "Alquiler" ? c !== null && enRango(c, pd, ph)
+        : (v !== null && enRango(v, pd, ph)) || (c !== null && enRango(c, pd, ph));
+      if (!ok) return false;
+    }
+    const ad = num("aDesde"), ah = num("aHasta");
+    if ((ad !== null || ah !== null) && !(p.area && enRango(p.area, ad, ah))) return false;
+    return !q || coincide(q, [nombre(p), p.cod, p.tipo, p.sector, p.titulo, datos(p)].join(" "));
+  });
+  const nF = (op ? 1 : 0) + (secSel.size ? 1 : 0) + (num("pDesde") !== null || num("pHasta") !== null ? 1 : 0) + (num("aDesde") !== null || num("aHasta") !== null ? 1 : 0);
+  $("resumenF").textContent = nF ? `Filtros (${nF})` : "Filtros";
+  $("conteo").textContent = vis.length + (vis.length === 1 ? " propiedad" : " propiedades");
+  $("verF").textContent = vis.length === 1 ? "Ver 1 propiedad" : `Ver ${vis.length} propiedades`;
+  $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">
+    <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
+      <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
+      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div></div></div>
+    <label class="marcar"><input type="checkbox" data-cod="${esc(p.cod)}" ${sel.has(p.cod) ? "checked" : ""}> Marcar para mandar varias juntas</label>
+    <div class="btns"><a class="cli" href="${esc(wa(msgCli([p])))}" target="_blank" rel="noopener">🏠 A cliente</a>
+      <a href="${esc(wa(msgCol([p])))}" target="_blank" rel="noopener">🤝 A colega</a></div></div>`).join("")
+    : `<p class="vacio">No encontré nada con eso. Prueba con el código (D012) o el sector.</p>`;
+}
+$("lista").onchange = e => { const c = e.target.dataset.cod; if (!c) return;
+  e.target.checked ? sel.add(c) : sel.delete(c); e.target.closest(".card").classList.toggle("sel", e.target.checked); barra(); };
+$("limpiar").onclick = () => { sel.clear(); pintar(); barra(); };
+function barra() {
+  const ps = P.filter(p => sel.has(p.cod));
+  $("barra").classList.toggle("on", ps.length > 0);
+  $("nsel").textContent = `${ps.length} marcada${ps.length === 1 ? "" : "s"}: mandarlas juntas`;
+  $("varCli").href = wa(msgCli(ps)); $("varCol").href = wa(msgCol(ps));
+}
+pintar();
+iniciarNombres();
+</script>
+</body>
+</html>

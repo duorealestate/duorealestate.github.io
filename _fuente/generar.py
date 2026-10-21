@@ -24,11 +24,15 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+import enviar
+
 RAIZ = Path(__file__).resolve().parent
 # En GitHub Actions el código vive en <repo>/_fuente y el sitio es la raíz del repo (DUO_SITIO).
 SITIO = Path(os.environ["DUO_SITIO"]) if os.environ.get("DUO_SITIO") else RAIZ / "sitio"
-FUENTE = ["generar.py", "config.json", "plantilla", "marca"]
+FUENTE = ["generar.py", "enviar.py", "config.json", "plantilla", "marca"]
 MARCA = RAIZ / "marca"
+# Sitio neutro para colegas (fichas-dre.github.io): mismas fichas sin marca, contacto ni rastro de dûo.
+FICHAS = Path(os.environ["DUO_FICHAS"]) if os.environ.get("DUO_FICHAS") else RAIZ / "fichas"
 CFG = json.loads((RAIZ / "config.json").read_text())
 
 UA = "Mozilla/5.0 (Macintosh) duo-web/1.0"
@@ -394,7 +398,7 @@ def ficha(p, cuerpo, claves):
 
     problemas = revisar_privacidad(p.get("Título", ""), *(texto_plano(t) for t in textos))
     if problemas:
-        return None, problemas, None
+        return None, problemas, None, None
 
     url = f"{CFG['url_sitio']}/{codigo}"
     og_img = f"{CFG['url_sitio']}/fotos/{codigo}/og-{claves[0]}.jpg" if claves else None
@@ -480,11 +484,66 @@ def ficha(p, cuerpo, claves):
 </body>
 </html>
 """
+    colega = neutra(html_out, codigo, wa, slug_tipo(tipo), og_img, descripcion)
     tarjeta = {"codigo": codigo, "tipo": tipo, "sector": sector, "titulo": gancho, "ops": ops,
                "venta": venta or 0, "canon": canon or 0, "area": area or 0, "ext": ext or 0,
                "alc": alc or 0, "ban": ban or 0, "parq": parq or 0,
                "foto": f"{fotos[0]}-800.jpg" if fotos else "", "precios": precios}
-    return html_out, [], tarjeta
+    return html_out, [], tarjeta, colega
+
+
+def neutra(html_out, codigo, wa, activo, og_img, descripcion):
+    """Ficha para colegas: la misma página sin logo, menú, WhatsApp, contacto ni nada que diga dûo."""
+    url_d, url_f = f"{CFG['url_sitio']}/{codigo}", f"{CFG['url_fichas']}/{codigo}"
+    h = html_out
+    for bloque in (encabezado(wa, activo) + "\n", contacto(wa) + "\n", pie(wa) + "\n",
+                   f'<a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>\n',
+                   f'      <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Agenda tu visita por WhatsApp</a>\n',
+                   '      <p class="resumen-nota">Coordinamos la visita contigo, sin compromiso.</p>\n',
+                   '<meta property="og:site_name" content="dûo real estate">\n',
+                   '<link rel="icon" type="image/png" href="/marca/favicon.png">\n',
+                   '<link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">\n'):
+        assert bloque in h, bloque[:40]
+        h = h.replace(bloque, "")
+    h = h.replace(" Confírmalos con nosotras antes de visitar.", "")
+    h = h.replace(esc(descripcion), esc(descripcion.replace(" | dûo real estate", "")))
+    h = h.replace(f'"{esc(url_d)}"', f'"{esc(url_f)}"')
+    if og_img:
+        h = h.replace(esc(og_img), esc(og_img.replace(CFG["url_sitio"], CFG["url_fichas"])))
+    h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex">', 1)
+    rastro = re.findall(r"\bd[uûú]o\b|duorealestate|" + re.escape(re.sub(r"\D", "", CFG.get("whatsapp", ""))[-7:] or "x"), h, re.I)
+    if rastro:
+        raise ValueError(f"la ficha neutra conserva rastro de dûo: {rastro}")
+    return h
+
+
+def publicar_fichas(publicadas, neutras):
+    """Escribe el sitio neutro: una página por propiedad con sus fotos, estilos y visor."""
+    FICHAS.mkdir(exist_ok=True)
+    for nombre in ("estilos.css", "visor.js"):  # sin comentarios: pueden mencionar a dûo
+        codigo_fuente = re.sub(r"/\*.*?\*/", "", (SITIO / nombre).read_text(), flags=re.S)
+        if re.search(r"\bd[uûú]o\b|duorealestate", codigo_fuente, re.I):
+            raise ValueError(f"{nombre} menciona a dûo fuera de un comentario")
+        (FICHAS / nombre).write_text(codigo_fuente)
+    (FICHAS / ".nojekyll").write_text("")
+    vacia = ('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex">'
+             '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Fichas</title></head>'
+             '<body style="font-family:sans-serif;padding:40px;color:#565F78">Esta ficha no está disponible.</body></html>')
+    (FICHAS / "index.html").write_text(vacia)
+    (FICHAS / "404.html").write_text(vacia)
+    for codigo, html_c in neutras.items():
+        (FICHAS / codigo).mkdir(exist_ok=True)
+        (FICHAS / codigo / "index.html").write_text(html_c)
+        origen, destino = SITIO / "fotos" / codigo, FICHAS / "fotos" / codigo
+        if origen.exists():
+            shutil.copytree(origen, destino, dirs_exist_ok=True)
+            for f in destino.iterdir():
+                if not (origen / f.name).exists():
+                    f.unlink()
+    for d in list(FICHAS.iterdir()) + (list((FICHAS / "fotos").iterdir()) if (FICHAS / "fotos").exists() else []):
+        if d.is_dir() and re.fullmatch(r"D\d{3}", d.name) and d.name not in publicadas:
+            shutil.rmtree(d)
+    print(f"Fichas para colegas: {len(neutras)}")
 
 
 def slug_tipo(tipo):
@@ -694,7 +753,7 @@ def main():
     if anteriores and len(catalogo) < len(anteriores) * 0.6:
         sys.exit(f"ALTO: el catálogo trae {len(catalogo)} fichas y el sitio tiene {len(anteriores)}. "
                  "Puede ser una falla de Notion; no se borra nada. Si de verdad salieron tantas, borra sitio/propiedades.json y vuelve a correr.")
-    publicadas, omitidas = {}, []
+    publicadas, omitidas, neutras = {}, [], {}
     TIPOS_CON_INVENTARIO.update(p.get("Tipo propiedad") for p in catalogo if p.get("Tipo propiedad"))
     for p in sorted(catalogo, key=lambda x: x.get("Código", "")):
         codigo = (p.get("Código") or "").strip().upper()
@@ -710,7 +769,7 @@ def main():
                 omitidas.append((codigo, "sin fotos en la ficha"))
                 continue
             claves = preparar_fotos(codigo, urls)
-            pagina, problemas, tarjeta = ficha(p, cuerpo, claves)
+            pagina, problemas, tarjeta, colega = ficha(p, cuerpo, claves)
         except Exception as e:  # Notion falló con esta ficha: se deja la versión anterior y se reintenta en la próxima corrida
             if (SITIO / codigo / "index.html").exists() and codigo in anteriores:
                 publicadas[codigo] = anteriores[codigo]
@@ -724,6 +783,7 @@ def main():
         carpeta = SITIO / codigo
         carpeta.mkdir(exist_ok=True)
         (carpeta / "index.html").write_text(pagina)
+        neutras[codigo] = colega
         publicadas[codigo] = {"url": f"{CFG['url_sitio']}/{codigo}", "notion_id": p["_id"], "fotos": len(claves),
                               "tarjeta": tarjeta}
         print(f"  {codigo} ok ({len(claves)} fotos)")
@@ -753,6 +813,14 @@ def main():
         elif carpeta.exists():
             shutil.rmtree(carpeta)
     (SITIO / "404.html").write_text(no_encontrada())
+    # Sitio neutro para colegas (solo si existe su carpeta: el clon de fichas-dre.github.io).
+    if not solo and FICHAS.exists():
+        try:
+            publicar_fichas(publicadas, neutras)
+        except Exception as e:
+            omitidas.append(("fichas para colegas", f"no se generaron ({e})"))
+    # Página privada para enviar propiedades por WhatsApp (nombres de edificio cifrados con PIN).
+    enviar.generar(SITIO, CFG, todas, (RAIZ / "plantilla" / "enviar.html").read_text())
 
     print(f"Publicadas: {len(publicadas)}")
     for c, motivo in omitidas:
@@ -786,6 +854,30 @@ def subir():
     print("Subido a GitHub Pages." if r.returncode == 0 else f"ERROR al subir: {r.stderr.strip()}")
     if r.returncode != 0:
         sys.exit(1)
+    subir_fichas()
+
+
+def subir_fichas():
+    """Sube el sitio neutro para colegas con el token de fichas-dre (llavero: duo-fichas-token)."""
+    if not (FICHAS / ".git").exists():
+        return
+    token = enviar.secreto("FICHAS_TOKEN", "duo-fichas-token")
+    if not token:
+        print("Fichas para colegas: falta el token de fichas-dre; no se subieron.")
+        return
+    remoto = f"https://x-access-token:{token}@github.com/fichas-dre/fichas-dre.github.io.git"
+    def git(*a, check=True):
+        return subprocess.run(["git", "-C", str(FICHAS), "-c", "user.name=fichas",
+                               "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com", *a],
+                              check=check, capture_output=True, text=True)
+    git("add", "-A")
+    if not git("status", "--porcelain").stdout.strip():
+        print("Fichas para colegas: sin cambios.")
+        return
+    git("commit", "-m", f"Actualización {time.strftime('%Y-%m-%d %H:%M')}")
+    git("pull", "--rebase", "-X", "theirs", remoto, "main", check=False)
+    r = git("push", remoto, "HEAD:main", check=False)
+    print("Fichas para colegas subidas." if r.returncode == 0 else "ERROR al subir las fichas para colegas.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>dûo · Enviar</title>
+<link rel="icon" href="/marca/favicon.png">
+<link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="dûo Enviar">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=IBM+Plex+Mono:wght@500&family=Red+Hat+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#435E86;--azul-profundo:#2E4160;--crema:#F4EEDF;--crema-tarjeta:#EAE1CB;--linea:#E3D7BC;--tinta:#1C2333;--tinta-suave:#565F78;--verde:#1F7A4D;
+  --serif:"Gilda Display",Georgia,serif;--mono:"IBM Plex Mono",monospace;--sans:"Red Hat Display",Helvetica,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--sans);font-size:18px;line-height:1.45;padding-bottom:130px}
+header{background:var(--azul);color:var(--crema);padding:16px 16px 14px}
+header img{width:110px;display:block}
+header p{margin:6px 0 0;font-size:15px;opacity:.9}
+.pin{margin:14px 16px 0;padding:14px;border-radius:14px;background:#fff;border:1px solid var(--linea)}
+.pin p{margin:0 0 10px;font-size:16px}
+.pin form{display:flex;gap:8px}
+.pin input{flex:1;min-width:0;font:inherit;font-size:22px;letter-spacing:.3em;text-align:center;padding:10px;border:1px solid var(--linea);border-radius:10px}
+.pin button{font:inherit;font-weight:700;padding:10px 18px;border:0;border-radius:10px;background:var(--azul);color:var(--crema)}
+.pin .err{color:#B3261E;font-size:15px;margin:8px 0 0}
+.nota{margin:12px 16px 0;font-size:14px;color:var(--tinta-suave)}
+.buscar{padding:14px 16px 4px;display:grid;gap:10px;position:sticky;top:0;background:var(--crema);z-index:4}
+.buscar input{width:100%;font:inherit;font-size:18px;padding:14px 16px;border:1px solid var(--linea);border-radius:12px;background:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:inherit;font-size:15px;padding:9px 14px;border-radius:999px;border:1px solid var(--azul);background:transparent;color:var(--azul)}
+.chip[aria-pressed=true]{background:var(--azul);color:var(--crema)}
+.filtros{margin:0 16px;background:#fff;border:1px solid var(--linea);border-radius:14px}
+.filtros summary{list-style:none;cursor:pointer;padding:12px 14px;font-weight:700;color:var(--azul-profundo);display:flex;justify-content:space-between;align-items:center}
+.filtros summary::-webkit-details-marker{display:none}
+.filtros summary::after{content:"▾";font-size:14px}
+.filtros[open] summary::after{content:"▴"}
+.filtros .cuerpo{padding:0 14px 14px;display:grid;gap:14px}
+.filtros h4{margin:0 0 6px;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg .chip{text-align:center}
+.rango{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rango label{display:grid;gap:2px;font-size:13px;color:var(--tinta-suave)}
+.rango input{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:var(--crema)}
+.sectores{display:flex;flex-wrap:wrap;gap:8px}
+.acciones{display:flex;align-items:center;gap:16px}
+.ver{flex:1;font:inherit;font-weight:700;font-size:17px;padding:14px;border:0;border-radius:12px;background:var(--azul);color:var(--crema)}
+.limpiar{background:none;border:0;padding:0;font:inherit;font-size:15px;color:var(--azul);text-decoration:underline}
+.conteo{scroll-margin-top:96px;padding:4px 16px;margin:0;font-size:15px;color:var(--tinta-suave)}
+.lista{display:grid;gap:14px;padding:6px 16px}
+.card{background:#fff;border-radius:16px;overflow:hidden;border:2px solid transparent}
+.card.sel{border-color:var(--verde)}
+.fila{display:flex;gap:12px;padding:12px}
+.fila img{width:96px;height:96px;object-fit:cover;border-radius:10px;flex:none;background:var(--crema-tarjeta)}
+.cod{font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--azul)}
+.nom{font-weight:700;font-size:16px;color:var(--azul-profundo);margin-top:2px}
+.tit{font-family:var(--serif);font-size:20px;line-height:1.2;margin:2px 0}
+.dat{font-size:15px;color:var(--tinta-suave)}
+.precio{font-weight:700;font-size:17px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linea);border-top:1px solid var(--linea)}
+.btns a{display:flex;align-items:center;justify-content:center;gap:6px;padding:16px 8px;background:#fff;text-decoration:none;font-weight:700;font-size:17px;color:var(--azul-profundo)}
+.btns a.cli{color:var(--verde)}
+.marcar{display:flex;align-items:center;gap:8px;padding:0 12px 12px;font-size:15px;color:var(--tinta-suave)}
+.marcar input{width:22px;height:22px;accent-color:var(--verde)}
+.vacio{padding:20px 16px;color:var(--tinta-suave)}
+.barra{position:fixed;left:0;right:0;bottom:0;background:var(--azul-profundo);color:var(--crema);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;gap:10px;flex-wrap:wrap;align-items:center;z-index:6}
+.barra.on{display:flex}
+.barra b{width:100%;font-size:16px}
+.barra a{flex:1;text-align:center;padding:14px 8px;border-radius:12px;background:var(--crema);color:var(--azul-profundo);font-weight:700;text-decoration:none;font-size:16px}
+.barra button{background:none;border:0;color:var(--crema);font:inherit;font-size:14px;text-decoration:underline;padding:4px}
+</style>
+</head>
+<body>
+<header>
+  <img src="/marca/logo-header.png" alt="dûo real estate">
+  <p>Busca la propiedad y toca a quién se la mandas.</p>
+</header>
+<div class="pin" id="pin" hidden>
+  <p>Escribe el PIN para buscar también por nombre del edificio.</p>
+  <form id="pinForm"><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="PIN"><button>Entrar</button></form>
+  <p class="err" id="pinErr" hidden>Ese no es el PIN. Intenta otra vez.</p>
+</div>
+<p class="nota" id="sinLlave" hidden>Puedes buscar por código o sector. Para buscar por nombre del edificio, abre el link de instalación que te mandó Camila.</p>
+<div class="buscar">
+  <input id="q" type="search" placeholder="Buscar: nombre, código, sector…" autocomplete="off">
+</div>
+<details class="filtros" id="filtros">
+  <summary><span id="resumenF">Filtros</span></summary>
+  <div class="cuerpo">
+    <div><h4>OPERACIÓN</h4><div class="seg" id="fOp">
+      <button class="chip" type="button" data-v="" aria-pressed="true">Todas</button>
+      <button class="chip" type="button" data-v="Venta" aria-pressed="false">Venta</button>
+      <button class="chip" type="button" data-v="Alquiler" aria-pressed="false">Arriendo</button></div></div>
+    <div><h4 id="tPrecio">PRECIO (MILLONES)</h4><div class="rango">
+      <label>Desde<input id="pDesde" type="number" inputmode="numeric" min="0" placeholder="0"></label>
+      <label>Hasta<input id="pHasta" type="number" inputmode="numeric" min="0" placeholder="Sin límite"></label></div></div>
+    <div><h4>ÁREA (M²)</h4><div class="rango">
+      <label>Desde<input id="aDesde" type="number" inputmode="numeric" min="0" placeholder="0"></label>
+      <label>Hasta<input id="aHasta" type="number" inputmode="numeric" min="0" placeholder="Sin límite"></label></div></div>
+    <div><h4>UBICACIÓN</h4><div class="sectores" id="fSec"></div></div>
+    <div class="acciones"><button class="ver" id="verF" type="button">Ver propiedades</button>
+      <button class="limpiar" id="limpiarF" type="button">Limpiar filtros</button></div>
+  </div>
+</details>
+<p class="conteo" id="conteo"></p>
+<div class="lista" id="lista"></div>
+<div class="barra" id="barra">
+  <b id="nsel"></b>
+  <a id="varCli" target="_blank" rel="noopener">🏠 A cliente</a>
+  <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
+  <button id="limpiar" type="button">Quitar selección</button>
+</div>
+<script>
+const P = [{"cod": "D080", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Remodelado y con luz por todos lados", "ops": ["Venta", "Alquiler"], "venta": 2400000000.0, "canon": 17000000.0, "area": 207.0, "alc": 3.0, "foto": "/fotos/D080/315920d358-800.jpg", "web": "https://duorealestate.github.io/D080", "ficha": "https://fichas-dre.github.io/D080"}, {"cod": "D079", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Remodelado, con 90 m² de terrazas", "ops": ["Venta"], "venta": 4200000000.0, "canon": 0, "area": 268.0, "alc": 3.0, "foto": "/fotos/D079/7f1c701b26-800.jpg", "web": "https://duorealestate.github.io/D079", "ficha": "https://fichas-dre.github.io/D079"}, {"cod": "D078", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Amplio, con doble salón y mucho verde", "ops": ["Alquiler"], "venta": 0, "canon": 9000000.0, "area": 218.0, "alc": 3.0, "foto": "/fotos/D078/c34eeec1b1-800.jpg", "web": "https://duorealestate.github.io/D078", "ficha": "https://fichas-dre.github.io/D078"}, {"cod": "D077", "tipo": "Casa", "sector": "Envigado", "titulo": "Espacio de sobra y terraza cubierta", "ops": ["Venta"], "venta": 1950000000.0, "canon": 0, "area": 240.0, "alc": 3.0, "foto": "/fotos/D077/b3c27bcfdb-800.jpg", "web": "https://duorealestate.github.io/D077", "ficha": "https://fichas-dre.github.io/D077"}, {"cod": "D076", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "240 m² con vista panorámica", "ops": ["Venta"], "venta": 2500000000.0, "canon": 0, "area": 240.0, "alc": 3.0, "foto": "/fotos/D076/bade4187c7-800.jpg", "web": "https://duorealestate.github.io/D076", "ficha": "https://fichas-dre.github.io/D076"}, {"cod": "D075", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Balcón y cocina abierta", "ops": ["Venta"], "venta": 865000000.0, "canon": 0, "area": 81.0, "alc": 2.0, "foto": "/fotos/D075/e9d6ede70b-800.jpg", "web": "https://duorealestate.github.io/D075", "ficha": "https://fichas-dre.github.io/D075"}, {"cod": "D074", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Piso alto con la ciudad a tus pies", "ops": ["Venta"], "venta": 1550000000.0, "canon": 0, "area": 129.0, "alc": 2.0, "foto": "/fotos/D074/7c10865652-800.jpg", "web": "https://duorealestate.github.io/D074", "ficha": "https://fichas-dre.github.io/D074"}, {"cod": "D073", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Reformado, con vigas a la vista y luz natural", "ops": ["Venta"], "venta": 2200000000.0, "canon": 0, "area": 210.0, "alc": 3.0, "foto": "/fotos/D073/672cf277b0-800.jpg", "web": "https://duorealestate.github.io/D073", "ficha": "https://fichas-dre.github.io/D073"}, {"cod": "D072", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Piso alto con vista panorámica y balcón amplio", "ops": ["Venta"], "venta": 2100000000.0, "canon": 0, "area": 203.0, "alc": 3.0, "foto": "/fotos/D072/1540d1d61b-800.jpg", "web": "https://duorealestate.github.io/D072", "ficha": "https://fichas-dre.github.io/D072"}, {"cod": "D071", "tipo": "Lote", "sector": "Alto de las Palmas", "titulo": "4.169 m² con matrícula independiente", "ops": ["Venta"], "venta": 1300000000.0, "canon": 0, "area": 4169.0, "alc": 0, "foto": "/fotos/D071/3bd77f70ef-800.jpg", "web": "https://duorealestate.github.io/D071", "ficha": "https://fichas-dre.github.io/D071"}, {"cod": "D070", "tipo": "Lote", "sector": "Alto de las Palmas", "titulo": "4.282 m² con matrícula independiente", "ops": ["Venta"], "venta": 1300000000.0, "canon": 0, "area": 4282.0, "alc": 0, "foto": "/fotos/D070/3bd77f70ef-800.jpg", "web": "https://duorealestate.github.io/D070", "ficha": "https://fichas-dre.github.io/D070"}, {"cod": "D069", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Diseño mariposa y vista a la ciudad", "ops": ["Venta"], "venta": 1600000000.0, "canon": 0, "area": 129.0, "alc": 2.0, "foto": "/fotos/D069/86d950419c-800.jpg", "web": "https://duorealestate.github.io/D069", "ficha": "https://fichas-dre.github.io/D069"}, {"cod": "D068", "tipo": "Apartamento", "sector": "Rionegro", "titulo": "Terraza de 20 m² para vivir hacia afuera", "ops": ["Venta"], "venta": 550000000.0, "canon": 0, "area": 69.0, "alc": 2.0, "foto": "/fotos/D068/8c9a97ea68-800.jpg", "web": "https://duorealestate.github.io/D068", "ficha": "https://fichas-dre.github.io/D068"}, {"cod": "D067", "tipo": "Lote", "sector": "El Retiro", "titulo": "En unidad con infraestructura deportiva de primer nivel", "ops": ["Venta"], "venta": 650000000.0, "canon": 0, "area": 2658.0, "alc": 0, "foto": "/fotos/D067/e7f02bcbbb-800.jpg", "web": "https://duorealestate.github.io/D067", "ficha": "https://fichas-dre.github.io/D067"}, {"cod": "D066", "tipo": "Casa", "sector": "El Retiro", "titulo": "Moderna, con agua propia y doble acceso", "ops": ["Venta"], "venta": 3800000000.0, "canon": 0, "area": 262.0, "alc": 3.0, "foto": "/fotos/D066/338e91d6df-800.jpg", "web": "https://duorealestate.github.io/D066", "ficha": "https://fichas-dre.github.io/D066"}, {"cod": "D065", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Terraza alta de 46 m² en unidad con todo", "ops": ["Venta"], "venta": 3000000000.0, "canon": 0, "area": 275.0, "alc": 3.0, "foto": "/fotos/D065/a06b026646-800.jpg", "web": "https://duorealestate.github.io/D065", "ficha": "https://fichas-dre.github.io/D065"}, {"cod": "D064", "tipo": "Lote", "sector": "Rionegro", "titulo": "Tres lotes con lago y servicios de EPM", "ops": ["Venta"], "venta": 3350000000.0, "canon": 0, "area": 12825.0, "alc": 0, "foto": "/fotos/D064/5b29d40a02-800.jpg", "web": "https://duorealestate.github.io/D064", "ficha": "https://fichas-dre.github.io/D064"}, {"cod": "D063", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Dúplex tipo loft con dos balcones", "ops": ["Venta"], "venta": 1100000000.0, "canon": 0, "area": 110.0, "alc": 1.0, "foto": "/fotos/D063/031329878b-800.jpg", "web": "https://duorealestate.github.io/D063", "ficha": "https://fichas-dre.github.io/D063"}, {"cod": "D062", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Para vivir o invertir, cerca de la CES", "ops": ["Venta"], "venta": 790000000.0, "canon": 0, "area": 81.0, "alc": 2.0, "foto": "/fotos/D062/3a2c31fda4-800.jpg", "web": "https://duorealestate.github.io/D062", "ficha": "https://fichas-dre.github.io/D062"}, {"cod": "D061", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Piso alto con balcón terraza y vista espectacular", "ops": ["Venta"], "venta": 3600000000.0, "canon": 0, "area": 330.0, "alc": 3.0, "foto": "/fotos/D061/3ae2073aa2-800.jpg", "web": "https://duorealestate.github.io/D061", "ficha": "https://fichas-dre.github.io/D061"}, {"cod": "D060", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Para estrenar, rodeado de verde", "ops": ["Venta"], "venta": 2190000000.0, "canon": 0, "area": 178.0, "alc": 2.0, "foto": "/fotos/D060/109f8d7520-800.jpg", "web": "https://duorealestate.github.io/D060", "ficha": "https://fichas-dre.github.io/D060"}, {"cod": "D059", "tipo": "Apartamento", "sector": "Castropol", "titulo": "Espacios generosos, ideal para reformar", "ops": ["Venta"], "venta": 850000000.0, "canon": 0, "area": 168.0, "alc": 3.0, "foto": "/fotos/D059/e8b9ead8a1-800.jpg", "web": "https://duorealestate.github.io/D059", "ficha": "https://fichas-dre.github.io/D059"}, {"cod": "D058", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Luz por todas partes y terraza espectacular", "ops": ["Venta"], "venta": 1750000000.0, "canon": 0, "area": 296.0, "alc": 3.0, "foto": "/fotos/D058/1892313c4e-800.jpg", "web": "https://duorealestate.github.io/D058", "ficha": "https://fichas-dre.github.io/D058"}, {"cod": "D057", "tipo": "Casa", "sector": "El Poblado", "titulo": "Gran potencial en unidad arborizada con piscina", "ops": ["Venta"], "venta": 1300000000.0, "canon": 0, "area": 187.0, "alc": 3.0, "foto": "/fotos/D057/0460872325-800.jpg", "web": "https://duorealestate.github.io/D057", "ficha": "https://fichas-dre.github.io/D057"}, {"cod": "D056", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Una terraza de 120 m² que se siente como casa", "ops": ["Venta"], "venta": 3200000000.0, "canon": 0, "area": 190.0, "alc": 2.0, "foto": "/fotos/D056/42fb92b898-800.jpg", "web": "https://duorealestate.github.io/D056", "ficha": "https://fichas-dre.github.io/D056"}, {"cod": "D055", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Estilo industrial lleno de luz", "ops": ["Venta"], "venta": 2480000000.0, "canon": 0, "area": 175.0, "alc": 2.0, "foto": "/fotos/D055/17a9b22ab4-800.jpg", "web": "https://duorealestate.github.io/D055", "ficha": "https://fichas-dre.github.io/D055"}, {"cod": "D054", "tipo": "Casa", "sector": "Alto de las Palmas", "titulo": "Alcoba en primer nivel y unidad con tenis", "ops": ["Venta"], "venta": 3950000000.0, "canon": 0, "area": 436.68, "alc": 4.0, "foto": "/fotos/D054/d422564bc2-800.jpg", "web": "https://duorealestate.github.io/D054", "ficha": "https://fichas-dre.github.io/D054", "lote": 1603}, {"cod": "D053", "tipo": "Casa", "sector": "El Poblado", "titulo": "Con apartaestudio independiente y jardín", "ops": ["Venta"], "venta": 2300000000.0, "canon": 0, "area": 291.3, "alc": 3.0, "foto": "/fotos/D053/ef2da42aae-800.jpg", "web": "https://duorealestate.github.io/D053", "ficha": "https://fichas-dre.github.io/D053", "lote": 417}, {"cod": "D052", "tipo": "Casa", "sector": "El Escobero", "titulo": "Suite con turco propio y terraza al jardín", "ops": ["Venta"], "venta": 3500000000.0, "canon": 0, "area": 450.0, "alc": 4.0, "foto": "/fotos/D052/efa4498f41-800.jpg", "web": "https://duorealestate.github.io/D052", "ficha": "https://fichas-dre.github.io/D052", "lote": 650}, {"cod": "D051", "tipo": "Casa", "sector": "La Ceja", "titulo": "Casa principal y segunda casa entre el bosque", "ops": ["Venta"], "venta": 3200000000.0, "canon": 0, "area": 350.0, "alc": 4.0, "foto": "/fotos/D051/33aca248b6-800.jpg", "web": "https://duorealestate.github.io/D051", "ficha": "https://fichas-dre.github.io/D051"}, {"cod": "D050", "tipo": "Casa", "sector": "Alto de las Palmas", "titulo": "Arquitectura moderna sobre 2.020 m² de lote", "ops": ["Venta"], "venta": 4900000000.0, "canon": 0, "area": 445.0, "alc": 3.0, "foto": "/fotos/D050/ba7eb5f95f-800.jpg", "web": "https://duorealestate.github.io/D050", "ficha": "https://fichas-dre.github.io/D050", "lote": 2020}, {"cod": "D049", "tipo": "Apartamento", "sector": "Castropol", "titulo": "Dos salones independientes y vista a la ciudad", "ops": ["Venta"], "venta": 1750000000.0, "canon": 0, "area": 320.0, "alc": 4.0, "foto": "/fotos/D049/3413475873-800.jpg", "web": "https://duorealestate.github.io/D049", "ficha": "https://fichas-dre.github.io/D049"}, {"cod": "D048", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Vista a Medellín y cava de vinos", "ops": ["Venta"], "venta": 2300000000.0, "canon": 0, "area": 217.0, "alc": 3.0, "foto": "/fotos/D048/c8df3ff331-800.jpg", "web": "https://duorealestate.github.io/D048", "ficha": "https://fichas-dre.github.io/D048"}, {"cod": "D047", "tipo": "Lote", "sector": "El Retiro", "titulo": "Vista a reserva natural sobre 15.000 m²", "ops": ["Venta"], "venta": 2400000000.0, "canon": 0, "area": 15000.0, "alc": 0, "foto": "/fotos/D047/165b66b14a-800.jpg", "web": "https://duorealestate.github.io/D047", "ficha": "https://fichas-dre.github.io/D047"}, {"cod": "D046", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Todo a pie, con vista y espacio de sobra", "ops": ["Venta"], "venta": 1500000000.0, "canon": 0, "area": 189.96, "alc": 3.0, "foto": "/fotos/D046/58a37c2d55-800.jpg", "web": "https://duorealestate.github.io/D046", "ficha": "https://fichas-dre.github.io/D046"}, {"cod": "D045", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "342 m² con balcón terraza y vista a la ciudad", "ops": ["Venta"], "venta": 2500000000.0, "canon": 0, "area": 342.0, "alc": 4.0, "foto": "/fotos/D045/8d81de3680-800.jpg", "web": "https://duorealestate.github.io/D045", "ficha": "https://fichas-dre.github.io/D045"}, {"cod": "D044", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Principal con dos vestieres, para arrendar", "ops": ["Alquiler"], "venta": 0, "canon": 8500000.0, "area": 130.0, "alc": 2.0, "foto": "/fotos/D044/b4c32b7c35-800.jpg", "web": "https://duorealestate.github.io/D044", "ficha": "https://fichas-dre.github.io/D044"}, {"cod": "D042", "tipo": "Lote", "sector": "El Retiro", "titulo": "5.000 m² en parcelación consolidada", "ops": ["Venta"], "venta": 1250000000.0, "canon": 0, "area": 5000.0, "alc": 0, "foto": "/fotos/D042/887e74aba7-800.jpg", "web": "https://duorealestate.github.io/D042", "ficha": "https://fichas-dre.github.io/D042"}, {"cod": "D041", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "270 m² cerca de todo y en silencio", "ops": ["Venta"], "venta": 2750000000.0, "canon": 0, "area": 270.0, "alc": 3.0, "foto": "/fotos/D041/d6a997c4f2-800.jpg", "web": "https://duorealestate.github.io/D041", "ficha": "https://fichas-dre.github.io/D041"}, {"cod": "D040", "tipo": "Lote", "sector": "El Retiro", "titulo": "8.079 m² totalmente planos en unidad cerrada", "ops": ["Venta"], "venta": 2020000000.0, "canon": 0, "area": 8079.0, "alc": 0, "foto": "/fotos/D040/8830a418c1-800.jpg", "web": "https://duorealestate.github.io/D040", "ficha": "https://fichas-dre.github.io/D040"}, {"cod": "D036", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Terraza de 45 m² rodeada de verde", "ops": ["Venta"], "venta": 1250000000.0, "canon": 0, "area": 130.0, "alc": 2.0, "foto": "/fotos/D036/3bd5ed42b5-800.jpg", "web": "https://duorealestate.github.io/D036", "ficha": "https://fichas-dre.github.io/D036"}, {"cod": "D034", "tipo": "Casa", "sector": "El Retiro", "titulo": "Lago propio sobre más de una hectárea", "ops": ["Venta"], "venta": 3300000000.0, "canon": 0, "area": 530.0, "alc": 3.0, "foto": "/fotos/D034/90a1b4e565-800.jpg", "web": "https://duorealestate.github.io/D034", "ficha": "https://fichas-dre.github.io/D034", "lote": 10200}, {"cod": "D033", "tipo": "Oficina", "sector": "El Poblado", "titulo": "Lista para trabajar en el corazón de El Poblado", "ops": ["Venta"], "venta": 980000000.0, "canon": 0, "area": 75.54, "alc": 0, "foto": "/fotos/D033/c8bef7fc93-800.jpg", "web": "https://duorealestate.github.io/D033", "ficha": "https://fichas-dre.github.io/D033"}, {"cod": "D032", "tipo": "Casa", "sector": "Envigado", "titulo": "Jardín de 100 m² en unidad de solo 27 casas", "ops": ["Venta"], "venta": 1600000000.0, "canon": 0, "area": 240.0, "alc": 3.0, "foto": "/fotos/D032/5ba1616ae9-800.jpg", "web": "https://duorealestate.github.io/D032", "ficha": "https://fichas-dre.github.io/D032"}, {"cod": "D031", "tipo": "Casa", "sector": "Envigado", "titulo": "Terraza, jardín y garaje para cuatro carros", "ops": ["Venta"], "venta": 2450000000.0, "canon": 0, "area": 350.0, "alc": 3.0, "foto": "/fotos/D031/71bb1c3638-800.jpg", "web": "https://duorealestate.github.io/D031", "ficha": "https://fichas-dre.github.io/D031", "lote": 400}, {"cod": "D030", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Domótica total y luces indirectas", "ops": ["Venta"], "venta": 2250000000.0, "canon": 0, "area": 172.0, "alc": 3.0, "foto": "/fotos/D030/a5d35988b4-800.jpg", "web": "https://duorealestate.github.io/D030", "ficha": "https://fichas-dre.github.io/D030"}, {"cod": "D029", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Calidez y balcón entre árboles", "ops": ["Venta", "Alquiler"], "venta": 1550000000.0, "canon": 8000000.0, "area": 112.0, "alc": 1.0, "foto": "/fotos/D029/af692f6ffb-800.jpg", "web": "https://duorealestate.github.io/D029", "ficha": "https://fichas-dre.github.io/D029"}, {"cod": "D028", "tipo": "Lote", "sector": "Alto de las Palmas", "titulo": "Matrícula independiente y estudios listos", "ops": ["Venta"], "venta": 1300000000.0, "canon": 0, "area": 3150.0, "alc": 0, "foto": "/fotos/D028/4e9b2ae84f-800.jpg", "web": "https://duorealestate.github.io/D028", "ficha": "https://fichas-dre.github.io/D028"}, {"cod": "D027", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Balcón terraza con vista al verde", "ops": ["Venta"], "venta": 2850000000.0, "canon": 0, "area": 245.0, "alc": 3.0, "foto": "/fotos/D027/803f935abb-800.jpg", "web": "https://duorealestate.github.io/D027", "ficha": "https://fichas-dre.github.io/D027"}, {"cod": "D026", "tipo": "Casa", "sector": "Envigado", "titulo": "Tres niveles rodeados de naturaleza", "ops": ["Venta"], "venta": 1990000000.0, "canon": 0, "area": 275.0, "alc": 4.0, "foto": "/fotos/D026/0732146573-800.jpg", "web": "https://duorealestate.github.io/D026", "ficha": "https://fichas-dre.github.io/D026", "lote": 303}, {"cod": "D025", "tipo": "Casa", "sector": "El Retiro", "titulo": "Moderna, de un solo nivel y lote plano", "ops": ["Venta"], "venta": 2400000000.0, "canon": 0, "area": 320.0, "alc": 4.0, "foto": "/fotos/D025/5df482ed2f-800.jpg", "web": "https://duorealestate.github.io/D025", "ficha": "https://fichas-dre.github.io/D025", "lote": 2000}, {"cod": "D024", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Terraza techada y cafés a pie", "ops": ["Venta"], "venta": 680000000.0, "canon": 0, "area": 93.0, "alc": 2.0, "foto": "/fotos/D024/17f3752aa6-800.jpg", "web": "https://duorealestate.github.io/D024", "ficha": "https://fichas-dre.github.io/D024"}, {"cod": "D021", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Áreas generosas y mucha luz", "ops": ["Venta"], "venta": 1200000000.0, "canon": 0, "area": 171.88, "alc": 2.0, "foto": "/fotos/D021/6bc28089fa-800.jpg", "web": "https://duorealestate.github.io/D021", "ficha": "https://fichas-dre.github.io/D021"}, {"cod": "D020", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "295 m² en un edificio clásico de una sola torre", "ops": ["Venta"], "venta": 2400000000.0, "canon": 0, "area": 295.0, "alc": 3.0, "foto": "/fotos/D020/02a7e1fd92-800.jpg", "web": "https://duorealestate.github.io/D020", "ficha": "https://fichas-dre.github.io/D020"}, {"cod": "D019", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Un balcón tipo terraza entre los árboles", "ops": ["Venta"], "venta": 1520000000.0, "canon": 0, "area": 179.0, "alc": 3.0, "foto": "/fotos/D019/54cd381062-800.jpg", "web": "https://duorealestate.github.io/D019", "ficha": "https://fichas-dre.github.io/D019"}, {"cod": "D018", "tipo": "Casa", "sector": "Alto de las Palmas", "titulo": "Nueva para estrenar entre el bosque", "ops": ["Venta"], "venta": 5000000000.0, "canon": 0, "area": 415.0, "alc": 3.0, "foto": "/fotos/D018/e762b29e98-800.jpg", "web": "https://duorealestate.github.io/D018", "ficha": "https://fichas-dre.github.io/D018"}, {"cod": "D016", "tipo": "Apartamento", "sector": "Rionegro", "titulo": "Terraza techada para vivir el clima del oriente", "ops": ["Venta"], "venta": 630000000.0, "canon": 0, "area": 92.0, "alc": 2.0, "foto": "/fotos/D016/f24ffeab1c-800.jpg", "web": "https://duorealestate.github.io/D016", "ficha": "https://fichas-dre.github.io/D016"}, {"cod": "D015", "tipo": "Lote", "sector": "Llanogrande", "titulo": "Diseños listos para construir", "ops": ["Venta"], "venta": 920000000.0, "canon": 0, "area": 2017.0, "alc": 0, "foto": "/fotos/D015/6778f68a1d-800.jpg", "web": "https://duorealestate.github.io/D015", "ficha": "https://fichas-dre.github.io/D015"}, {"cod": "D014", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Dúplex con biblioteca, cerca de todo", "ops": ["Venta"], "venta": 1200000000.0, "canon": 0, "area": 130.0, "alc": 3.0, "foto": "/fotos/D014/8eeda92d15-800.jpg", "web": "https://duorealestate.github.io/D014", "ficha": "https://fichas-dre.github.io/D014"}, {"cod": "D013", "tipo": "Casa", "sector": "Alto de las Palmas", "titulo": "La ciudad entera desde tu ventana", "ops": ["Venta"], "venta": 5100000000.0, "canon": 0, "area": 540.0, "alc": 3.0, "foto": "/fotos/D013/84e932ded1-800.jpg", "web": "https://duorealestate.github.io/D013", "ficha": "https://fichas-dre.github.io/D013", "lote": 5623}, {"cod": "D012", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Remodelado, 3 alcobas con baño propio", "ops": ["Venta"], "venta": 1470000000.0, "canon": 0, "area": 160.0, "alc": 3.0, "foto": "/fotos/D012/39f8158078-800.jpg", "web": "https://duorealestate.github.io/D012", "ficha": "https://fichas-dre.github.io/D012"}, {"cod": "D011", "tipo": "Apartamento", "sector": "Laureles", "titulo": "200 m² con gran balcón en el corazón de Laureles", "ops": ["Venta"], "venta": 1490000000.0, "canon": 0, "area": 200.0, "alc": 3.0, "foto": "/fotos/D011/a4bab32244-800.jpg", "web": "https://duorealestate.github.io/D011", "ficha": "https://fichas-dre.github.io/D011"}, {"cod": "D010", "tipo": "Apartamento", "sector": "El Retiro", "titulo": "A pasos del parque, por debajo del precio de sala de ventas", "ops": ["Venta"], "venta": 540000000.0, "canon": 0, "area": 58.0, "alc": 2.0, "foto": "/fotos/D010/8437ebb120-800.jpg", "web": "https://duorealestate.github.io/D010", "ficha": "https://fichas-dre.github.io/D010"}, {"cod": "D009", "tipo": "Casa", "sector": "El Poblado", "titulo": "Una cascada de piedra en tu jardín", "ops": ["Venta"], "venta": 3000000000.0, "canon": 0, "area": 323.0, "alc": 3.0, "foto": "/fotos/D009/fac5b6b68b-800.jpg", "web": "https://duorealestate.github.io/D009", "ficha": "https://fichas-dre.github.io/D009", "lote": 502}, {"cod": "D008", "tipo": "Apartamento", "sector": "Envigado", "titulo": "Vista panorámica", "ops": ["Venta"], "venta": 875000000.0, "canon": 0, "area": 84.0, "alc": 2.0, "foto": "/fotos/D008/7078c120c6-800.jpg", "web": "https://duorealestate.github.io/D008", "ficha": "https://fichas-dre.github.io/D008"}, {"cod": "D007", "tipo": "Casa", "sector": "Llanogrande", "titulo": "Lote plano junto al club", "ops": ["Venta"], "venta": 6000000000.0, "canon": 0, "area": 670.0, "alc": 4.0, "foto": "/fotos/D007/0b587471f7-800.jpg", "web": "https://duorealestate.github.io/D007", "ficha": "https://fichas-dre.github.io/D007", "lote": 3600}, {"cod": "D006", "tipo": "Casa", "sector": "El Retiro", "titulo": "todo en un mismo lugar", "ops": ["Venta"], "venta": 6800000000.0, "canon": 0, "area": 480.0, "alc": 5.0, "foto": "/fotos/D006/b7984c5b3b-800.jpg", "web": "https://duorealestate.github.io/D006", "ficha": "https://fichas-dre.github.io/D006", "lote": 7000}, {"cod": "D005", "tipo": "Casa", "sector": "El Poblado", "titulo": "Espacios amplios", "ops": ["Venta"], "venta": 3650000000.0, "canon": 0, "area": 293.0, "alc": 3.0, "foto": "/fotos/D005/28da5d9519-800.jpg", "web": "https://duorealestate.github.io/D005", "ficha": "https://fichas-dre.github.io/D005", "lote": 878}, {"cod": "D004", "tipo": "Casa", "sector": "Llanogrande", "titulo": "Un solo nivel con piscina, turco y domótica", "ops": ["Venta"], "venta": 8500000000.0, "canon": 0, "area": 780.0, "alc": 3.0, "foto": "/fotos/D004/b734fea2e8-800.jpg", "web": "https://duorealestate.github.io/D004", "ficha": "https://fichas-dre.github.io/D004", "lote": 2900}, {"cod": "D002", "tipo": "Casa", "sector": "Llanogrande", "titulo": "Diseño de Mauricio Zapata y piscina climatizada", "ops": ["Venta"], "venta": 5000000000.0, "canon": 0, "area": 363.0, "alc": 3.0, "foto": "/fotos/D002/20541e7741-800.jpg", "web": "https://duorealestate.github.io/D002", "ficha": "https://fichas-dre.github.io/D002", "lote": 1094}, {"cod": "D001", "tipo": "Apartamento", "sector": "El Poblado", "titulo": "Un club completo sin salir de casa", "ops": ["Venta"], "venta": 1180000000.0, "canon": 0, "area": 118.0, "alc": 3.0, "foto": "/fotos/D001/024919d373-800.jpg", "web": "https://duorealestate.github.io/D001", "ficha": "https://fichas-dre.github.io/D001"}];
+const CIFRADO = "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";
+let NOMBRES = {};
+
+// ---------- Nombres cifrados (mismo algoritmo que enviar.py) ----------
+const te = new TextEncoder();
+const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const leer = k => { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } };
+async function sha(...partes) {
+  const b = new Uint8Array(partes.reduce((n, p) => n + p.length, 0)); let o = 0;
+  for (const p of partes) { b.set(p, o); o += p.length; }
+  return new Uint8Array(await crypto.subtle.digest("SHA-256", b));
+}
+async function descifrar(llaveHex, pin) {
+  if (!/^[0-9a-f]{64}$/.test(llaveHex) || !CIFRADO) return null;
+  const raw = Uint8Array.from(atob(CIFRADO), c => c.charCodeAt(0));
+  const llave = await sha(new Uint8Array(llaveHex.match(/../g).map(x => parseInt(x, 16))), te.encode(pin));
+  const nonce = raw.slice(0, 16), tag = raw.slice(16, 32), cif = raw.slice(32);
+  const t = (await sha(te.encode("tag"), llave, nonce, cif)).slice(0, 16);
+  if (t.some((v, i) => v !== tag[i])) return null;
+  const out = new Uint8Array(cif.length);
+  for (let i = 0, b = 0; i < cif.length; b++) {
+    const f = await sha(llave, nonce, new Uint8Array([b >>> 24, (b >>> 16) & 255, (b >>> 8) & 255, b & 255]));
+    for (let j = 0; j < 32 && i < cif.length; j++, i++) out[i] = cif[i] ^ f[j];
+  }
+  return JSON.parse(new TextDecoder().decode(out));
+}
+async function iniciarNombres() {
+  const m = location.hash.match(/k=([0-9a-f]{64})/);
+  const llave = m ? m[1] : leer("duo-llave");
+  if (m) guardar("duo-llave", llave);
+  if (!CIFRADO) return;
+  if (!llave) { $("sinLlave").hidden = false; return; }
+  const n = leer("duo-pin") && await descifrar(llave, leer("duo-pin"));
+  if (n) { NOMBRES = n; pintar(); return; }
+  $("pin").hidden = false;
+  $("pinForm").onsubmit = async e => {
+    e.preventDefault();
+    const pin = $("pinIn").value.trim(), r = await descifrar(llave, pin);
+    if (!r) { $("pinErr").hidden = false; return; }
+    guardar("duo-pin", pin); NOMBRES = r; $("pin").hidden = true; pintar();
+  };
+}
+
+// ---------- Mensajes ----------
+const fmtM = v => "$" + Math.round(v / 1e6).toLocaleString("es-CO") + " millones";
+const precio = p => p.venta ? fmtM(p.venta) : (p.canon ? "$" + Math.round(p.canon).toLocaleString("es-CO") + "/mes" : "");
+const datos = p => [p.area && Math.round(p.area).toLocaleString("es-CO") + " m²", p.lote && "lote " + Math.round(p.lote).toLocaleString("es-CO") + " m²", p.alc && p.alc + (p.alc === 1 ? " alcoba" : " alcobas")].filter(Boolean).join(" · ");
+const bloque = p => {
+  const ops = [p.ops.includes("Venta") && p.venta && "VENTA", p.ops.includes("Alquiler") && p.canon && "ALQUILER"].filter(Boolean);
+  const precios = [p.ops.includes("Venta") && p.venta && fmtM(p.venta),
+                   p.ops.includes("Alquiler") && p.canon && "$" + Math.round(p.canon).toLocaleString("es-CO") + " / mes"].filter(Boolean);
+  const m2 = v => Math.round(v).toLocaleString("es-CO") + " m²";
+  const areas = p.tipo === "Casa" ? [p.area && m2(p.area) + " construidos", p.lote && m2(p.lote) + " de lote"]
+    : p.tipo === "Lote" ? [p.area && m2(p.area) + " de lote"] : [p.area && m2(p.area)];
+  const vinetas = [...areas, p.alc && p.alc + (p.alc === 1 ? " alcoba" : " alcobas"), ...precios];
+  return [(ops.length ? ops : p.ops.map(o => o === "Alquiler" ? "ALQUILER" : "VENTA")).join(" Y "),
+          `${p.tipo} en ${p.sector}`, "", ...vinetas.filter(Boolean).map(v => "* " + v)].join("\n");
+};
+const armar = (ps, link, firma) => ps.map(p => `${bloque(p)}\n\nFotos y detalles: ${link(p)}`).join("\n\n\n") + (firma ? "\n\nDÛO REAL ESTATE 💙" : "");
+const wa = t => "https://wa.me/?text=" + encodeURIComponent(t);
+const msgCli = ps => armar(ps, p => p.web, true);
+const msgCol = ps => armar(ps, p => p.ficha, false);
+
+// ---------- Búsqueda (tolera errores de escritura) ----------
+const norm = s => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+function lev(a, b) {
+  const d = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = d[0]; d[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const t = d[j]; d[j] = Math.min(d[j] + 1, d[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = t;
+    }
+  }
+  return d[b.length];
+}
+function coincide(q, texto) {
+  const t = norm(texto), palabras = t.split(/[^a-z0-9]+/).filter(Boolean);
+  return q.split(/\s+/).filter(Boolean).every(w => t.includes(w) || (w.length >= 5 && palabras.some(x =>
+    lev(w, x) <= Math.floor(w.length / 3) || (x.length > w.length && lev(w, x.slice(0, w.length)) <= Math.floor(w.length / 4)))));
+}
+const nombre = p => NOMBRES[p.cod] ? NOMBRES[p.cod].filter(Boolean).join(" · ") : "";
+
+// ---------- Lista ----------
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const sectores = [...new Set(P.map(p => p.sector).filter(Boolean))].sort();
+let op = "", secSel = new Set(), sel = new Set();
+$("fSec").innerHTML = sectores.map(s => `<button class="chip" type="button" aria-pressed="false">${esc(s)}</button>`).join("");
+$("fOp").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; op = b.dataset.v;
+  [...$("fOp").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  $("tPrecio").textContent = op === "Alquiler" ? "CANON MENSUAL (MILLONES)" : "PRECIO (MILLONES)"; pintar(); };
+$("fSec").onclick = e => { const b = e.target.closest(".chip"); if (!b) return; const s = b.textContent;
+  secSel.has(s) ? secSel.delete(s) : secSel.add(s); b.setAttribute("aria-pressed", secSel.has(s)); pintar(); };
+["pDesde", "pHasta", "aDesde", "aHasta"].forEach(id => $(id).oninput = pintar);
+$("limpiarF").onclick = () => { op = ""; secSel.clear(); ["pDesde", "pHasta", "aDesde", "aHasta"].forEach(id => $(id).value = "");
+  [...$("fOp").children].forEach((x, i) => x.setAttribute("aria-pressed", i === 0));
+  [...$("fSec").children].forEach(x => x.setAttribute("aria-pressed", false)); $("tPrecio").textContent = "PRECIO (MILLONES)"; pintar(); };
+$("verF").onclick = () => { $("filtros").open = false; $("conteo").scrollIntoView({ behavior: "smooth" }); };
+$("q").oninput = pintar;
+const num = id => { const v = parseFloat($(id).value); return isNaN(v) ? null : v; };
+const enRango = (v, d, h) => (d === null || v >= d) && (h === null || v <= h);
+
+function pintar() {
+  const q = norm($("q").value.trim());
+  const vis = P.filter(p => {
+    if (op && !p.ops.includes(op)) return false;
+    if (secSel.size && !secSel.has(p.sector)) return false;
+    const pd = num("pDesde"), ph = num("pHasta");
+    if (pd !== null || ph !== null) {
+      const v = p.ops.includes("Venta") && p.venta ? p.venta / 1e6 : null, c = p.ops.includes("Alquiler") && p.canon ? p.canon / 1e6 : null;
+      const ok = op === "Venta" ? v !== null && enRango(v, pd, ph) : op === "Alquiler" ? c !== null && enRango(c, pd, ph)
+        : (v !== null && enRango(v, pd, ph)) || (c !== null && enRango(c, pd, ph));
+      if (!ok) return false;
+    }
+    const ad = num("aDesde"), ah = num("aHasta");
+    if ((ad !== null || ah !== null) && !(p.area && enRango(p.area, ad, ah))) return false;
+    return !q || coincide(q, [nombre(p), p.cod, p.tipo, p.sector, p.titulo, datos(p)].join(" "));
+  });
+  const nF = (op ? 1 : 0) + (secSel.size ? 1 : 0) + (num("pDesde") !== null || num("pHasta") !== null ? 1 : 0) + (num("aDesde") !== null || num("aHasta") !== null ? 1 : 0);
+  $("resumenF").textContent = nF ? `Filtros (${nF})` : "Filtros";
+  $("conteo").textContent = vis.length + (vis.length === 1 ? " propiedad" : " propiedades");
+  $("verF").textContent = vis.length === 1 ? "Ver 1 propiedad" : `Ver ${vis.length} propiedades`;
+  $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">
+    <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
+      <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
+      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div></div></div>
+    <label class="marcar"><input type="checkbox" data-cod="${esc(p.cod)}" ${sel.has(p.cod) ? "checked" : ""}> Marcar para mandar varias juntas</label>
+    <div class="btns"><a class="cli" href="${esc(wa(msgCli([p])))}" target="_blank" rel="noopener">🏠 A cliente</a>
+      <a href="${esc(wa(msgCol([p])))}" target="_blank" rel="noopener">🤝 A colega</a></div></div>`).join("")
+    : `<p class="vacio">No encontré nada con eso. Prueba con el código (D012) o el sector.</p>`;
+}
+$("lista").onchange = e => { const c = e.target.dataset.cod; if (!c) return;
+  e.target.checked ? sel.add(c) : sel.delete(c); e.target.closest(".card").classList.toggle("sel", e.target.checked); barra(); };
+$("limpiar").onclick = () => { sel.clear(); pintar(); barra(); };
+function barra() {
+  const ps = P.filter(p => sel.has(p.cod));
+  $("barra").classList.toggle("on", ps.length > 0);
+  $("nsel").textContent = `${ps.length} marcada${ps.length === 1 ? "" : "s"}: mandarlas juntas`;
+  $("varCli").href = wa(msgCli(ps)); $("varCol").href = wa(msgCol(ps));
+}
+pintar();
+iniciarNombres();
+</script>
+</body>
+</html>
