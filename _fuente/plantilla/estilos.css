@@ -54,7 +54,8 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 @keyframes fundido{0%{opacity:0; transform:scale(1.06)} 4%{opacity:1} 17%{opacity:1} 22%{opacity:0; transform:scale(1)} 100%{opacity:0}}
 .hero-velo{position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,26,40,.45) 0%, rgba(20,26,40,.05) 30%, rgba(20,26,40,.3) 50%, rgba(20,26,40,.82) 100%)}
 .hero-txt{position:relative; width:100%; max-width:var(--ancho); margin:0 auto; padding:150px var(--lado) clamp(64px, 11vh, 120px)}
-.hero-txt .eyebrow{color:var(--crema-suave)}
+.hero-txt .eyebrow{color:var(--crema)}
+.hero-txt > .eyebrow, .hero-inicio h1, .bajada, .hero-link{text-shadow:0 1px 16px rgba(20,26,40,.55)}
 .hero-inicio h1{font-size:clamp(36px, 6vw, 72px); line-height:1.05; letter-spacing:-.01em; margin:18px 0 20px; max-width:18ch}
 .bajada{font-size:clamp(17px, 2vw, 20px); max-width:52ch; margin:0 0 32px; opacity:.95}
 .hero-btns{display:flex; flex-wrap:wrap; gap:12px}
