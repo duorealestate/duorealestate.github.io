@@ -1,0 +1,110 @@
+/* dûo real estate · fichas de propiedad. Tokens del design system dûo (project/tokens.json). */
+:root{
+  --azul:#435E86; --azul-profundo:#2E4160; --crema:#F4EEDF; --crema-tarjeta:#EAE1CB; --crema-suave:#D9CDB0;
+  --tinta:#1C2333; --tinta-suave:#565F78; --linea:#E3D7BC; --acento:#C0546B;
+  --serif:"Fraunces", Georgia, serif; --mono:"IBM Plex Mono", Consolas, monospace;
+  --sans:"Red Hat Display", Helvetica, Calibri, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--crema); color:var(--tinta); font-family:var(--sans); font-size:17px; line-height:1.55}
+img{max-width:100%; display:block}
+a{color:var(--azul)}
+h1,h2{font-family:var(--serif); font-weight:600; text-wrap:balance}
+
+/* Encabezado: logo oficial (PNG) sobre azul */
+.top{background:var(--azul); display:flex; justify-content:space-between; align-items:center;
+  padding:4px max(16px, env(safe-area-inset-right)) 4px max(10px, env(safe-area-inset-left))}
+.logo img{width:200px; height:auto}
+.top-wa{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.16em; color:var(--crema);
+  text-decoration:none; border:1px solid rgba(244,238,223,.55); padding:8px 12px; border-radius:4px}
+.top-wa:hover{background:rgba(244,238,223,.12)}
+
+.ficha{max-width:760px; margin:0 auto; background:var(--crema)}
+.in{padding:0 20px}
+@media (min-width:760px){ .ficha{margin-top:28px} .in{padding:0 36px} }
+
+/* Foto principal */
+.hero{position:relative; background:var(--crema-tarjeta)}
+.hero img{width:100%; aspect-ratio:4/3; object-fit:cover}
+@media (min-width:760px){ .hero img{border-radius:8px} }
+.etqs{position:absolute; left:14px; top:14px; display:flex; gap:8px; flex-wrap:wrap}
+.etq{color:var(--crema); font-weight:700; font-size:19px; letter-spacing:.1em; padding:5px 12px; border-radius:4px; line-height:1.3}
+.etq.venta{background:var(--acento)}
+.etq.arriendo{background:var(--azul)}
+.contador{position:absolute; right:12px; bottom:12px; background:rgba(28,35,51,.74); color:var(--crema); border:0; cursor:pointer;
+  font-family:var(--mono); font-size:12px; letter-spacing:.1em; padding:6px 10px; border-radius:4px}
+
+.eyebrow, .in .eyebrow{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.18em; color:var(--azul); margin:26px 0 0}
+h1{font-size:clamp(30px, 7vw, 44px); line-height:1.08; margin:10px 0 16px}
+.precios{border-top:1px solid var(--linea); border-bottom:1px solid var(--linea); padding:12px 0; display:flex; flex-wrap:wrap; gap:8px 32px}
+.precio{font-family:var(--mono); font-weight:500; font-size:20px; letter-spacing:.04em}
+.precio small{display:block; color:var(--tinta-suave); font-size:12px; letter-spacing:.18em; margin-bottom:2px}
+
+.tarjetas{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin:18px 0 8px}
+@media (min-width:560px){ .tarjetas{grid-template-columns:repeat(3, minmax(0,1fr))} }
+.tarjetas div{background:var(--crema-tarjeta); border-radius:8px; padding:14px 16px}
+.tarjetas b{display:block; font-family:var(--serif); font-weight:600; font-size:28px; color:var(--azul); line-height:1.1}
+.tarjetas span{font-family:var(--mono); font-weight:500; font-size:11.5px; letter-spacing:.14em; color:var(--tinta-suave)}
+
+.lead{font-family:var(--serif); font-style:italic; font-size:22px; line-height:1.4; color:var(--azul); margin:22px 0 10px}
+.in p{margin:0 0 14px}
+.in h2, .in-h{font-size:24px; margin:30px 0 12px}
+.in-h{padding:0 20px}
+@media (min-width:760px){ .in-h{padding:0 36px} }
+.lista{list-style:none; padding:0; margin:0 0 8px; display:grid; gap:8px}
+.lista li{display:grid; grid-template-columns:16px 1fr; gap:8px}
+.lista li::before{content:""; width:7px; height:7px; margin-top:10px; background:var(--azul); border-radius:50%}
+
+/* Galería */
+.galeria{display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:0 20px}
+@media (min-width:760px){ .galeria{grid-template-columns:repeat(3,1fr); padding:0 36px} }
+.galeria .g{padding:0; border:0; background:var(--crema-tarjeta); cursor:zoom-in; border-radius:6px; overflow:hidden}
+.galeria img{width:100%; aspect-ratio:1/1; object-fit:cover; transition:transform .3s}
+.galeria .g:hover img{transform:scale(1.03)}
+.galeria .g:first-child{grid-column:1 / -1}
+.galeria .g:first-child img{aspect-ratio:16/10}
+
+.detalles{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 12px; font-size:16px}
+.detalles dt{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--tinta-suave); padding-top:3px}
+.detalles dd{margin:0}
+.nota{font-size:14px; color:var(--tinta-suave)}
+
+/* Contacto */
+.contacto{background:var(--azul); color:var(--crema); margin:32px 0 0; padding:34px 20px 40px; text-align:center}
+@media (min-width:760px){ .contacto{border-radius:8px 8px 0 0} }
+.contacto img{width:80px; height:80px; margin:0 auto 8px}
+.contacto h2{font-size:28px; margin:0}
+.contacto .rol{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.18em; margin:6px 0 20px}
+.btn{display:block; max-width:380px; margin:0 auto; background:var(--crema); color:var(--azul-profundo); font-weight:700; font-size:17px;
+  border-radius:8px; padding:15px; text-decoration:none}
+.btn:hover{background:#fff8ea}
+.ig{display:inline-block; margin-top:16px; font-family:var(--mono); font-weight:500; font-size:14px; letter-spacing:.08em; color:var(--crema)}
+.contacto .tag, .portada .tag{font-family:var(--serif); font-style:italic; font-size:18px; margin:20px 0 0}
+
+/* Botón flotante en celular */
+.flota{position:fixed; right:16px; bottom:max(16px, env(safe-area-inset-bottom)); z-index:5; background:var(--azul); color:var(--crema);
+  font-weight:700; font-size:15px; text-decoration:none; padding:12px 18px; border-radius:999px; box-shadow:0 6px 18px rgba(28,35,51,.28)}
+@media (min-width:900px){ .flota{display:none} }
+
+/* Visor de fotos */
+.visor{position:fixed; inset:0; z-index:10; background:#11161f}
+.visor[hidden]{display:none}
+.tira{display:flex; height:100%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
+.tira::-webkit-scrollbar{display:none}
+.tira figure{flex:0 0 100%; margin:0; display:flex; align-items:center; justify-content:center; scroll-snap-align:center}
+.tira img{max-width:100%; max-height:100%; object-fit:contain}
+.cerrar{position:absolute; top:max(12px, env(safe-area-inset-top)); right:14px; width:44px; height:44px; border-radius:50%; border:0;
+  background:rgba(244,238,223,.16); color:var(--crema); font-size:20px; cursor:pointer}
+.pos{position:absolute; left:50%; transform:translateX(-50%); bottom:max(14px, env(safe-area-inset-bottom)); color:var(--crema);
+  font-family:var(--mono); font-size:12px; letter-spacing:.12em}
+
+/* Inicio y 404 */
+.portada{background:var(--azul); color:var(--crema); min-height:100vh}
+.bienvenida{max-width:520px; margin:0 auto; padding:24px 20px 56px; text-align:center}
+.bienvenida img{width:min(360px, 90%); margin:0 auto}
+.bienvenida p{font-size:18px}
+.vacia{padding-top:20px; padding-bottom:10px}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; scroll-behavior:auto!important} }
