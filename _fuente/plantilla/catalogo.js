@@ -35,6 +35,8 @@
       'area-desc': function (a, b) { return +b.dataset.area - +a.dataset.area; }
     }[orden || 'nuevas'];
     cards.slice().sort(orden_fn).forEach(function (c) { grid.appendChild(c); });
+    var filtrando = Array.prototype.some.call(campos, function (c) { return c.dataset.f !== 'orden' && c.value; });
+    conteo.parentNode.hidden = !filtrando;
     conteo.textContent = visibles;
     conteo.nextSibling.textContent = visibles === 1 ? ' propiedad' : ' propiedades';
     vacio.hidden = visibles > 0;

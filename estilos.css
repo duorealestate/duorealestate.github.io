@@ -55,9 +55,21 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .hero-velo{position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,26,40,.45) 0%, rgba(20,26,40,.05) 30%, rgba(20,26,40,.3) 50%, rgba(20,26,40,.82) 100%)}
 .hero-txt{position:relative; width:100%; max-width:var(--ancho); margin:0 auto; padding:150px var(--lado) clamp(64px, 11vh, 120px)}
 .hero-txt .eyebrow{color:var(--crema-suave)}
-.hero-inicio h1{font-size:clamp(44px, 9vw, 96px); line-height:1; letter-spacing:-.01em; margin:18px 0 22px}
+.hero-inicio h1{font-size:clamp(36px, 6vw, 72px); line-height:1.05; letter-spacing:-.01em; margin:18px 0 20px; max-width:18ch}
 .bajada{font-size:clamp(17px, 2vw, 20px); max-width:52ch; margin:0 0 32px; opacity:.95}
 .hero-btns{display:flex; flex-wrap:wrap; gap:12px}
+.buscador{display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:720px; background:rgba(244,238,223,.96); padding:14px; border-radius:2px}
+@media (min-width:700px){ .buscador{grid-template-columns:1fr 1fr auto; align-items:end; padding:16px 18px} }
+.buscador label{display:grid; gap:4px; min-width:0}
+.buscador span{font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--tinta-suave)}
+.buscador select{font:inherit; font-size:16px; color:var(--tinta); background:transparent; border:0; border-bottom:1px solid var(--tinta-suave);
+  border-radius:0; padding:6px 22px 8px 0; width:100%; appearance:none; -webkit-appearance:none; cursor:pointer;
+  background-image:linear-gradient(45deg, transparent 50%, var(--azul) 50%), linear-gradient(135deg, var(--azul) 50%, transparent 50%);
+  background-position:calc(100% - 9px) 55%, calc(100% - 4px) 55%; background-size:5px 5px; background-repeat:no-repeat}
+.buscador .btn{grid-column:1 / -1; background:var(--azul); color:var(--crema); border:0; cursor:pointer; font:inherit; font-weight:700; padding:14px 26px}
+@media (min-width:700px){ .buscador .btn{grid-column:auto} }
+.buscador .btn:hover{background:var(--azul-profundo)}
+.hero-link{display:inline-block; margin-top:16px; color:var(--crema); font-size:15px; opacity:.9}
 .hero-baja{position:absolute; left:50%; bottom:18px; transform:translateX(-50%); color:var(--crema); text-decoration:none; font-size:28px; opacity:.8;
   animation:baja 2.4s infinite}
 @keyframes baja{0%,100%{transform:translate(-50%,0)} 50%{transform:translate(-50%,6px)}}
@@ -66,7 +78,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
   padding:34px var(--lado); gap:10px; text-align:center}
 .confianza div{border-left:1px solid rgba(244,238,223,.18)}
 .confianza div:first-child{border-left:0}
-.confianza b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(34px, 6vw, 52px); line-height:1}
+.confianza b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(19px, 3.2vw, 32px); line-height:1.1}
 .confianza span{display:block; font-family:var(--mono); font-weight:500; font-size:clamp(9.5px, 1.6vw, 12px); letter-spacing:.18em; color:var(--crema-suave); margin-top:10px}
 
 .frase{max-width:900px; margin:0 auto; padding:88px var(--lado) 40px; text-align:center}
@@ -104,6 +116,16 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .card-precio{font-family:var(--serif); font-size:21px; letter-spacing:.01em; margin:0; padding-top:12px; border-top:1px solid var(--linea)}
 .card-datos{font-size:14px; color:var(--tinta-suave); margin:4px 0 0}
 .vacio{border:1px solid var(--linea); padding:24px; text-align:center}
+
+/* ---------- Cómo te acompañamos ---------- */
+.proceso{max-width:var(--ancho); margin:0 auto; padding:72px var(--lado) 24px; text-align:center}
+.proceso h2{font-size:clamp(30px, 4.5vw, 46px); line-height:1.1; margin:12px auto 44px; max-width:20ch}
+.pasos{list-style:none; padding:0; margin:0; display:grid; gap:36px; text-align:left}
+@media (min-width:860px){ .pasos{grid-template-columns:repeat(3, 1fr); gap:48px} }
+.pasos li{border-top:1px solid var(--azul); padding-top:20px}
+.paso-n{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.22em; color:var(--azul)}
+.pasos h3{font-size:28px; margin:10px 0 10px}
+.pasos p{margin:0; color:var(--tinta-suave)}
 
 /* ---------- Quiénes somos ---------- */
 .nosotras{background:var(--crema-tarjeta); margin-top:56px}

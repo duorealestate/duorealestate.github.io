@@ -529,7 +529,7 @@ def filtros(tarjetas, tipo_fijo=""):
   <label><span>Alcobas</span><select data-f="alc"><option value="">Cualquiera</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option></select></label>
   <label><span>Ordenar</span><select data-f="orden"><option value="nuevas">Más recientes</option><option value="precio-asc">Menor precio</option><option value="precio-desc">Mayor precio</option><option value="area-desc">Más área</option></select></label>
 </form>
-<p class="conteo" aria-live="polite"><b>{len(tarjetas)}</b> propiedades</p>"""
+<p class="conteo" aria-live="polite" hidden><b>{len(tarjetas)}</b> propiedades</p>"""
 
 
 def portafolio(tarjetas, tipo_fijo=""):
@@ -552,6 +552,9 @@ def inicio(tarjetas):
                             key=lambda t: t["venta"], reverse=True)[:6]
     fondos = "".join(f'<img src="{esc(t["foto"].replace("-800.jpg", ".jpg"))}" alt="" {"fetchpriority=high" if i == 0 else "loading=lazy"} '
                      f'style="animation-delay:{i * 6 - 1.5}s">' for i, t in enumerate(destacadas))
+    opciones_tipo = "".join(f'<option value="{esc(tp)}">{esc(nom)}</option>' for tp, _, nom in SECCIONES
+                            if any(x["tipo"] == tp for x in tarjetas))
+    opciones_sector = "".join(f'<option>{esc(s)}</option>' for s in sorted({x["sector"] for x in tarjetas if x["sector"]}))
     return cabeza("dûo real estate · Propiedades en Medellín y el Oriente",
                   f"Inmobiliaria madre e hija. Propiedades en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
                   url, CFG["url_sitio"] + "/marca/og-duo.jpg") + f"""
@@ -561,35 +564,48 @@ def inicio(tarjetas):
   <div class="hero-fondos" style="--n:{max(len(destacadas), 1)}">{fondos}</div>
   <div class="hero-velo"></div>
   <div class="hero-txt">
-    <p class="eyebrow">EL POBLADO · ALTO DE LAS PALMAS · LLANOGRANDE</p>
-    <h1>Dos generaciones,<br>un criterio.</h1>
-    <p class="bajada">Somos madre e hija. Acompañamos a quienes quieren vender o comprar vivienda como se hacía antes, con criterio y palabra, pero mostrada como se hace ahora.</p>
-    <div class="hero-btns"><a class="btn" href="#propiedades">Ver todas las propiedades</a><a class="btn-sec" href="{esc(wa)}" rel="noopener">Escríbenos</a></div>
+    <p class="eyebrow">INMOBILIARIA MADRE E HIJA · MEDELLÍN</p>
+    <h1>Encuentra tu próximo hogar en El Poblado, Alto de las Palmas y Llanogrande</h1>
+    <p class="bajada">Apartamentos, casas y lotes, con la asesoría de madre e hija.</p>
+    <form class="buscador" action="/#propiedades" method="get" aria-label="Buscar propiedades">
+      <label><span>Tipo</span><select name="tipo"><option value="">Todos</option>{opciones_tipo}</select></label>
+      <label><span>Sector</span><select name="sector"><option value="">Todos</option>{opciones_sector}</select></label>
+      <button class="btn" type="submit">Ver propiedades</button>
+    </form>
+    <a class="hero-link" href="{esc(wa)}" rel="noopener">o escríbenos por WhatsApp</a>
   </div>
   <a class="hero-baja" href="#confianza" aria-label="Seguir bajando">&#8964;</a>
 </section>
 <section class="confianza" id="confianza">
-  <div><b>25</b><span>AÑOS DE LUZ STELLA<br>EN FINCA RAÍZ</span></div>
-  <div><b>{n}</b><span>PROPIEDADES<br>EN PORTAFOLIO</span></div>
-  <div><b>2</b><span>GENERACIONES,<br>UN MISMO TRATO</span></div>
+  <div><b>Experiencia</b><span>25 AÑOS DE LUZ STELLA<br>EN FINCA RAÍZ</span></div>
+  <div><b>Asesoría</b><span>PENSADA PARA TU<br>MOMENTO DE VIDA</span></div>
+  <div><b>Acompañamiento</b><span>DE LA PRIMERA VISITA<br>A LA ENTREGA</span></div>
 </section>
 <section class="frase">
   <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
-  <blockquote>“La confianza que se construyó puerta a puerta, con la forma de mostrar cada propiedad que hoy esperas.”</blockquote>
+  <blockquote>“Comprar o vender tu casa es una decisión grande. Por eso la tomamos contigo: con 25 años de experiencia de Luz Stella y la tranquilidad de saber que siempre buscamos lo mejor para ti.”</blockquote>
 </section>
 <main class="listado" id="propiedades">
   <p class="eyebrow">PORTAFOLIO</p>
   <h2>Nuestras propiedades</h2>
   {portafolio(tarjetas)}
 </main>
+<section class="proceso" id="como-te-acompanamos">
+  <p class="eyebrow">CÓMO TE ACOMPAÑAMOS</p>
+  <h2>Primero te entendemos, después te mostramos</h2>
+  <ol class="pasos">
+    <li><span class="paso-n">01</span><h3>Te escuchamos</h3><p>Entendemos tu momento de vida: si la familia crece, si los hijos se van, si buscas más espacio o una mejor ubicación.</p></li>
+    <li><span class="paso-n">02</span><h3>Te asesoramos</h3><p>Te mostramos solo lo que tiene sentido para ti, con datos claros de precio y de la zona.</p></li>
+    <li><span class="paso-n">03</span><h3>Te acompañamos</h3><p>En cada visita, en la negociación, la promesa, la notaría y la entrega.</p></li>
+  </ol>
+</section>
 <section class="nosotras" id="nosotras">
   <div class="nosotras-in">
     <img src="/marca/duo-isotipo-azul-sobre-crema.png" alt="" width="120" height="120">
     <div>
-      <p class="eyebrow">QUIÉNES SOMOS</p>
-      <h2>Madre e hija, una sola forma de trabajar</h2>
-      <p>Somos Luz Stella Ortiz y Camila Calle. Luz Stella lleva 25 años acompañando a familias a vender y comprar vivienda, con relaciones que se construyeron puerta a puerta y clientes que vuelven. Camila suma la forma de mostrar cada propiedad hoy: fotos, video y contenido cuidado para cada inmueble.</p>
-      <p>Conocemos la zona y te ayudamos a encontrar la propiedad que encaja con tu momento de vida.</p>
+      <p class="eyebrow">QUIÉNES SOMOS · LUZ STELLA ORTIZ Y CAMILA CALLE</p>
+      <h2>Dos generaciones, un criterio.</h2>
+      <p>En dûo se juntan dos miradas. La de Luz Stella, con 25 años de experiencia, relaciones de confianza y clientes que vuelven. Y la de Camila, que llegó para hacer equipo y traer nuevas ideas. Lo que nos une es lo mismo: que tomes una buena decisión y te sientas acompañado en cada paso.</p>
       <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Hablemos por WhatsApp</a>
     </div>
   </div>
@@ -613,7 +629,7 @@ def seccion(tipo, slug, nombre, tarjetas):
         cod = portada.split("/")[2]
         ogs = sorted((SITIO / "fotos" / cod).glob("og-*.jpg"))
         og_img = f"{CFG['url_sitio']}/fotos/{cod}/{ogs[0].name}" if ogs else ""
-    return cabeza(f"{nombre} · dûo real estate", f"{len(propias)} {nombre.lower()} en venta y arriendo en Medellín y el Oriente.",
+    return cabeza(f"{nombre} · dûo real estate", f"{nombre} en venta y arriendo en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
                   url, og_img or None) + f"""
 <body>
 {encabezado(wa, slug)}
