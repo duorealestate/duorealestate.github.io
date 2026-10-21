@@ -8,7 +8,7 @@ Uso:
 
 Fuente: el Catálogo DÚO publicado en notion.site (solo lo que está en el catálogo;
 las propiedades que salen del catálogo se borran del sitio). No necesita claves de Notion.
-Requiere macOS (usa `sips` para las fotos) y Python 3 sin librerías extra.
+Fotos: en macOS usa `sips`; en otros sistemas (GitHub Actions en Linux) usa Pillow + pillow-heif.
 """
 import hashlib
 import html
@@ -81,6 +81,98 @@ def leer_catalogo():
             continue
         p = {nombres.get(k, k): texto_plano(v) for k, v in b["properties"].items()}
         p["_id"] = bid
+        props.append(p)
+    return props
+
+
+# ---------- Fuente: PROPIEDADES - interno (API oficial de Notion, solo lectura) ----------
+
+PUBLICABLES = {"Activa", "Oferta recibida", "Por completar"}
+
+
+def leer_interno():
+    """Lee el interno y devuelve las propiedades publicables en el mismo formato que leer_catalogo(),
+    con su cuerpo ya armado en "_cuerpo". Solo usa campos públicos: nunca Título (edificio), Número,
+    propietario, Lo wow ni dirección."""
+    token = enviar.secreto("NOTION_TOKEN", "duo-notion-token")
+    if not token:
+        sys.exit("Falta NOTION_TOKEN (llave de solo lectura de PROPIEDADES - interno).")
+    filas, cursor = [], None
+    while True:
+        cuerpo = {"page_size": 100}
+        if cursor:
+            cuerpo["start_cursor"] = cursor
+        for i in range(4):
+            try:
+                req = urllib.request.Request(
+                    f"https://api.notion.com/v1/databases/{enviar.DB_INTERNA}/query", data=json.dumps(cuerpo).encode(),
+                    headers={"Authorization": f"Bearer {token}", "Notion-Version": "2022-06-28", "Content-Type": "application/json"})
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    d = json.load(r)
+                break
+            except Exception:
+                if i == 3:
+                    raise
+                time.sleep(3 * (i + 1))
+        filas += d["results"]
+        if not d.get("has_more"):
+            break
+        cursor = d["next_cursor"]
+
+    def v(pr, nombre):
+        x = pr.get(nombre) or {}
+        tipo = x.get("type")
+        if tipo in ("title", "rich_text"):
+            return "".join(t["plain_text"] for t in x[tipo]).strip()
+        if tipo == "number":
+            return x["number"]
+        if tipo in ("select", "status"):
+            return (x[tipo] or {}).get("name")
+        if tipo == "multi_select":
+            return [o["name"] for o in x[tipo]]
+        if tipo == "formula":
+            return (x["formula"] or {}).get((x["formula"] or {}).get("type"))
+        if tipo == "files":
+            return x["files"]
+        return None
+
+    texto = lambda n: "" if n in (None, "") else (str(int(n)) if float(n) == int(n) else str(n))
+    props = []
+    for fila in filas:
+        pr = fila["properties"]
+        codigo = (v(pr, "Código DÚO") or "").strip().upper()
+        if v(pr, "Estado comercial") not in PUBLICABLES or not re.fullmatch(r"D\d{3}", codigo):
+            continue
+        tipo, sector = v(pr, "Tipo propiedad") or "", v(pr, "Sector") or ""
+        area = v(pr, "Área lote m²") if tipo == "Lote" else v(pr, "Área construida m²")
+        hab = v(pr, "Habitación de servicio")
+        per = v(pr, "Periodicidad predial")
+        titulo_web = v(pr, "Título web") or (f"{tipo} en {sector}" if sector else tipo)
+        p = {"Código": codigo, "Tipo propiedad": tipo, "Sector": sector,
+             "Título": f"{tipo} | {titulo_web} | {sector}",
+             "Operación": ", ".join(v(pr, "Operación") or []),
+             "Precio venta COP": texto(v(pr, "Precio venta COP")), "Canon mensual COP": texto(v(pr, "Canon arriendo COP")),
+             "Área m²": texto(area), "Área exterior m²": texto(v(pr, "Área exterior m²")),
+             "Alcobas": texto(v(pr, "Alcobas")), "Baños": texto(v(pr, "Baños")), "Parqueaderos": texto(v(pr, "Parqueaderos")),
+             "Estrato": texto(v(pr, "Estrato")), "Hab servicio": hab if hab in ("Sí", "No") else "",
+             "Administración COP": texto(v(pr, "Administración mensual COP")), "Predial COP": texto(v(pr, "Predial COP")),
+             "Periodicidad predial": per if per and per != "Por confirmar" else "",
+             "Lote m²": texto(v(pr, "Área lote m²")) if tipo == "Casa" else "",
+             "_id": fila["id"]}
+        # Cuerpo con la misma forma que las fichas del catálogo: viñetas, y la descripción con la primera frase en negrita.
+        cuerpo = [("texto", [["\n".join("• " + l.strip() for l in (v(pr, "Lo que tiene") or "").split("\n") if l.strip())]])]
+        for i, parrafo in enumerate(x.strip() for x in re.split(r"\n\s*\n", v(pr, "Descripción pública") or "") if x.strip()):
+            m = re.match(r"(.+?[.!?])\s+(.+)", parrafo, re.S) if i == 0 else None
+            cuerpo.append(("texto", [[m.group(1), [["b"]]], [" " + m.group(2)]] if m else [[parrafo]]))
+        for arch in v(pr, "Fotos") or []:
+            url = (arch.get("file") or arch.get("external") or {}).get("url")
+            if not url:
+                continue
+            ruta = urllib.parse.urlparse(url).path.strip("/").split("/")
+            # Misma clave que tenían en el catálogo (attachment:<id>:<nombre>), para no volver a descargar.
+            fuente = f"attachment:{ruta[-2]}:{urllib.parse.unquote(ruta[-1])}" if len(ruta) >= 2 else url
+            cuerpo.append(("foto", (fuente, url)))
+        p["_cuerpo"] = cuerpo
         props.append(p)
     return props
 
@@ -196,6 +288,41 @@ def sips(*args):
     subprocess.run(["sips", *args], check=True, capture_output=True)
 
 
+HAY_SIPS = shutil.which("sips") is not None
+
+
+def reducir(orig, destino, lado_max, calidad):
+    """JPEG con el lado mayor en lado_max px (sin agrandar)."""
+    if HAY_SIPS:
+        sips("-s", "format", "jpeg", "-s", "formatOptions", str(calidad), "-Z", str(lado_max), str(orig), "--out", str(destino))
+        return
+    from PIL import Image, ImageOps
+    try:
+        import pillow_heif
+        pillow_heif.register_heif_opener()
+    except ImportError:
+        pass
+    with Image.open(orig) as im:
+        im = ImageOps.exif_transpose(im).convert("RGB")
+        im.thumbnail((lado_max, lado_max), Image.LANCZOS)
+        im.save(destino, "JPEG", quality=calidad, optimize=True, progressive=True)
+
+
+def imagen_og(base, og):
+    """Imagen 1200×630 para la vista previa de WhatsApp, recortada al centro."""
+    if HAY_SIPS:
+        sips("-s", "format", "jpeg", "-s", "formatOptions", "70", "--resampleWidth", "1200", str(base), "--out", str(og))
+        alto = int(re.search(r"pixelHeight: (\d+)", subprocess.run(
+            ["sips", "-g", "pixelHeight", str(og)], capture_output=True, text=True).stdout).group(1))
+        if alto < 630:
+            sips("--resampleHeight", "630", str(og))
+        sips("-c", "630", "1200", str(og))
+        return
+    from PIL import Image, ImageOps
+    with Image.open(base) as im:
+        ImageOps.fit(im.convert("RGB"), (1200, 630), Image.LANCZOS).save(og, "JPEG", quality=70, optimize=True)
+
+
 def descargar(url, destino, intentos=4):
     for i in range(intentos):
         try:
@@ -216,7 +343,10 @@ def preparar_fotos(codigo, urls):
     claves = []
     for url in urls:
         # La clave sale de la fuente (attachment:…), no de la URL firmada, para que no cambie.
-        fuente = urllib.parse.unquote(url.split("/image/", 1)[1].split("?", 1)[0])
+        if isinstance(url, tuple):
+            fuente, url = url
+        else:
+            fuente = urllib.parse.unquote(url.split("/image/", 1)[1].split("?", 1)[0])
         clave = hashlib.sha1(fuente.encode()).hexdigest()[:10]
         claves.append(clave)
         grande, chica = carpeta / f"{clave}.jpg", carpeta / f"{clave}-800.jpg"
@@ -225,8 +355,8 @@ def preparar_fotos(codigo, urls):
         with tempfile.TemporaryDirectory() as tmp:
             orig = Path(tmp) / "orig"
             descargar(url, orig)
-            sips("-s", "format", "jpeg", "-s", "formatOptions", "72", "-Z", "1600", str(orig), "--out", str(grande))
-            sips("-s", "format", "jpeg", "-s", "formatOptions", "70", "-Z", "800", str(orig), "--out", str(chica))
+            reducir(orig, grande, 1600, 72)
+            reducir(orig, chica, 800, 70)
     # Imagen para WhatsApp (1200×630) a partir de la primera foto.
     if claves:
         og = carpeta / f"og-{claves[0]}.jpg"
@@ -234,12 +364,7 @@ def preparar_fotos(codigo, urls):
             for viejo in carpeta.glob("og-*.jpg"):
                 viejo.unlink()
             base = carpeta / f"{claves[0]}.jpg"
-            sips("-s", "format", "jpeg", "-s", "formatOptions", "70", "--resampleWidth", "1200", str(base), "--out", str(og))
-            alto = int(re.search(r"pixelHeight: (\d+)", subprocess.run(
-                ["sips", "-g", "pixelHeight", str(og)], capture_output=True, text=True).stdout).group(1))
-            if alto < 630:
-                sips("--resampleHeight", "630", str(og))
-            sips("-c", "630", "1200", str(og))
+            imagen_og(base, og)
     # Borrar fotos que ya no están en la ficha.
     vigentes = {f"{c}.jpg" for c in claves} | {f"{c}-800.jpg" for c in claves} | ({f"og-{claves[0]}.jpg"} if claves else set())
     for f in carpeta.iterdir():
@@ -369,6 +494,9 @@ def ficha(p, cuerpo, claves):
     tarjetas = []
     if area:
         tarjetas.append((fmt_num(area), "M² DE LOTE" if es_lote else "M² CONSTRUIDOS"))
+    lote = numero(p.get("Lote m²") or "")
+    if lote and not es_lote:
+        tarjetas.append((fmt_num(lote), "M² DE LOTE"))
     if ext:
         tarjetas.append((fmt_num(ext), "M² EXTERIORES"))
     if alc:
@@ -748,7 +876,7 @@ def main():
 
     previas = SITIO / "propiedades.json"
     anteriores = json.loads(previas.read_text()) if previas.exists() else {}
-    catalogo = leer_catalogo()
+    catalogo = leer_interno() if os.environ.get("DUO_FUENTE", CFG.get("fuente")) == "interno" else leer_catalogo()
     print(f"Catálogo: {len(catalogo)} fichas")
     if anteriores and len(catalogo) < len(anteriores) * 0.6:
         sys.exit(f"ALTO: el catálogo trae {len(catalogo)} fichas y el sitio tiene {len(anteriores)}. "
@@ -763,7 +891,7 @@ def main():
         if solo and codigo not in solo:
             continue
         try:
-            cuerpo = leer_cuerpo(p["_id"])
+            cuerpo = p["_cuerpo"] if "_cuerpo" in p else leer_cuerpo(p["_id"])
             urls = [u for k, u in cuerpo if k == "foto"]
             if not urls:
                 omitidas.append((codigo, "sin fotos en la ficha"))
