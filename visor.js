@@ -1,5 +1,26 @@
-// Visor de fotos: se abre al tocar una foto; se desliza con el dedo o con las flechas.
+// Carrusel de la ficha (se desliza con el dedo o las flechas) y visor de fotos a pantalla completa.
 (function () {
+  // ---- Carrusel ----
+  var car = document.querySelector('.carrusel');
+  if (car) {
+    var cinta = car.querySelector('.car-tira');
+    var total = cinta.children.length;
+    var n = car.querySelector('.car-n');
+    function idx() { return Math.round(cinta.scrollLeft / cinta.clientWidth); }
+    function ir(i) { cinta.scrollTo({ left: ((i + total) % total) * cinta.clientWidth, behavior: 'smooth' }); }
+    var ant = car.querySelector('.car-ant'), sig = car.querySelector('.car-sig');
+    if (ant) ant.addEventListener('click', function () { ir(idx() - 1); });
+    if (sig) sig.addEventListener('click', function () { ir(idx() + 1); });
+    cinta.addEventListener('scroll', function () {
+      window.requestAnimationFrame(function () { if (n) n.textContent = idx() + 1; });
+    });
+    car.querySelector('.car-pos').addEventListener('click', function () { abrir(idx()); });
+    cinta.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('click', function () { abrir(+img.dataset.i); });
+    });
+  }
+
+  // ---- Visor ----
   var visor = document.querySelector('.visor');
   if (!visor) return;
   var tira = visor.querySelector('.tira');
@@ -25,13 +46,14 @@
   }
   function cerrar() { visor.hidden = true; document.body.style.overflow = ''; }
 
-  document.querySelectorAll('[data-i]').forEach(function (b) {
-    b.addEventListener('click', function () { abrir(+b.dataset.i); });
-  });
   visor.querySelector('.cerrar').addEventListener('click', cerrar);
   tira.addEventListener('scroll', function () { window.requestAnimationFrame(marcar); });
   document.addEventListener('keydown', function (e) {
-    if (visor.hidden) return;
+    if (visor.hidden) {
+      if (car && e.key === 'ArrowRight') car.querySelector('.car-sig') && car.querySelector('.car-sig').click();
+      if (car && e.key === 'ArrowLeft') car.querySelector('.car-ant') && car.querySelector('.car-ant').click();
+      return;
+    }
     if (e.key === 'Escape') cerrar();
     if (e.key === 'ArrowRight') tira.scrollBy({ left: tira.clientWidth });
     if (e.key === 'ArrowLeft') tira.scrollBy({ left: -tira.clientWidth });
