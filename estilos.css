@@ -100,11 +100,85 @@ h1{font-size:clamp(30px, 7vw, 44px); line-height:1.08; margin:10px 0 16px}
 .pos{position:absolute; left:50%; transform:translateX(-50%); bottom:max(14px, env(safe-area-inset-bottom)); color:var(--crema);
   font-family:var(--mono); font-size:12px; letter-spacing:.12em}
 
-/* Inicio y 404 */
-.portada{background:var(--azul); color:var(--crema); min-height:100vh}
-.bienvenida{max-width:520px; margin:0 auto; padding:24px 20px 56px; text-align:center}
-.bienvenida img{width:min(360px, 90%); margin:0 auto}
-.bienvenida p{font-size:18px}
+/* Menú */
+.top{flex-wrap:wrap; gap:0 12px}
+.menu{display:flex; gap:4px 22px; align-items:center; order:3; width:100%; overflow-x:auto; scrollbar-width:none;
+  padding:0 6px 12px; -webkit-overflow-scrolling:touch}
+.menu::-webkit-scrollbar{display:none}
+.menu a{color:var(--crema); text-decoration:none; font-weight:500; font-size:15px; white-space:nowrap; padding:4px 0; border-bottom:2px solid transparent}
+.menu a:hover, .menu a[aria-current]{border-bottom-color:var(--crema)}
+@media (min-width:900px){
+  .top{flex-wrap:nowrap; padding-left:max(24px, env(safe-area-inset-left)); padding-right:max(32px, env(safe-area-inset-right))}
+  .menu{order:0; width:auto; margin-left:auto; padding:0; gap:28px; overflow:visible}
+  .top-wa{margin-left:12px}
+}
+
+/* Portada del inicio */
+.portada{background:var(--azul); color:var(--crema); border-top:1px solid rgba(244,238,223,.18)}
+.portada-in{max-width:1120px; margin:0 auto; padding:44px 20px 56px}
+.portada .eyebrow{color:var(--crema-suave); margin:0}
+.portada h1{font-size:clamp(38px, 8vw, 64px); line-height:1.04; margin:12px 0 16px; max-width:14ch}
+.bajada{font-size:19px; max-width:56ch; margin:0 0 28px; opacity:.95}
+.portada-btns{display:flex; flex-wrap:wrap; gap:12px}
+.portada-btns .btn{margin:0; display:inline-block; padding:15px 24px}
+.btn-sec{display:inline-block; color:var(--crema); border:1px solid rgba(244,238,223,.6); border-radius:8px; padding:14px 22px;
+  text-decoration:none; font-weight:700; font-size:17px}
+.btn-sec:hover{background:rgba(244,238,223,.1)}
+
+/* Listado */
+.listado{max-width:1120px; margin:0 auto; padding:36px 20px 24px}
+.listado > h2, .listado > h1{font-size:clamp(28px, 5vw, 40px); margin:6px 0 18px}
+.listado > .eyebrow{margin:0}
+.filtros{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; background:var(--crema-tarjeta); border-radius:8px; padding:14px}
+@media (min-width:760px){ .filtros{grid-template-columns:repeat(3, minmax(0,1fr))} }
+@media (min-width:1080px){ .filtros{grid-template-columns:repeat(6, minmax(0,1fr))} }
+.filtros label{display:grid; gap:4px; min-width:0}
+.filtros span{font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--tinta-suave)}
+.filtros select{font:inherit; font-size:15px; color:var(--tinta); background:var(--crema); border:1px solid var(--linea); border-radius:6px;
+  padding:9px 10px; width:100%; min-width:0; appearance:none; -webkit-appearance:none;
+  background-image:linear-gradient(45deg, transparent 50%, var(--azul) 50%), linear-gradient(135deg, var(--azul) 50%, transparent 50%);
+  background-position:calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size:5px 5px; background-repeat:no-repeat}
+.filtros select:focus{outline:2px solid var(--azul); outline-offset:1px}
+.conteo{font-family:var(--mono); font-size:13px; letter-spacing:.08em; color:var(--tinta-suave); margin:16px 0 14px}
+.conteo b{color:var(--azul)}
+.grid{display:grid; grid-template-columns:1fr; gap:18px}
+@media (min-width:620px){ .grid{grid-template-columns:repeat(2, minmax(0,1fr))} }
+@media (min-width:980px){ .grid{grid-template-columns:repeat(3, minmax(0,1fr))} }
+.card{display:flex; flex-direction:column; background:var(--crema-tarjeta); border-radius:8px; overflow:hidden; color:var(--tinta); text-decoration:none;
+  transition:transform .2s, box-shadow .2s}
+.card[hidden]{display:none}
+.card:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(28,35,51,.12)}
+.card-foto{position:relative; background:var(--linea)}
+.card-foto img{width:100%; aspect-ratio:4/3; object-fit:cover}
+.card-etqs{position:absolute; left:10px; top:10px; display:flex; gap:6px}
+.etq-s{color:var(--crema); font-weight:700; font-size:12px; letter-spacing:.1em; padding:4px 8px; border-radius:4px}
+.etq-s.venta{background:var(--acento)}
+.etq-s.arriendo{background:var(--azul)}
+.card-in{padding:14px 16px 18px}
+.card-eye{font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.16em; color:var(--azul); margin:0}
+.card h3{font-family:var(--serif); font-weight:600; font-size:21px; line-height:1.18; margin:6px 0 10px; text-wrap:balance}
+.card-precio{font-family:var(--mono); font-weight:500; font-size:16px; margin:0}
+.card-datos{font-size:14px; color:var(--tinta-suave); margin:4px 0 0}
+.vacio{background:var(--crema-tarjeta); border-radius:8px; padding:20px; text-align:center}
+
+/* Quiénes somos */
+.nosotras{background:var(--crema-tarjeta); margin-top:40px}
+.nosotras-in{max-width:880px; margin:0 auto; padding:48px 20px; display:grid; gap:24px}
+@media (min-width:760px){ .nosotras-in{grid-template-columns:140px 1fr; gap:40px; align-items:start} }
+.nosotras img{width:120px; height:120px; border-radius:8px}
+.nosotras .eyebrow{margin:0}
+.nosotras h2{font-size:clamp(26px, 4.5vw, 36px); line-height:1.12; margin:8px 0 14px}
+.nosotras p{margin:0 0 14px}
+.nosotras .btn{margin:22px 0 0; display:inline-block; padding:15px 24px; background:var(--azul); color:var(--crema)}
+
+/* Pie */
+.pie{background:var(--azul-profundo); color:var(--crema); text-align:center; padding:36px 20px 90px}
+.pie img{margin:0 auto 6px}
+.pie .tag{font-family:var(--serif); font-style:italic; font-size:18px; margin:6px 0}
+.pie .dato{font-family:var(--mono); font-weight:500; font-size:12px; letter-spacing:.16em; color:var(--crema-suave); margin:6px 0 14px}
+.pie a{color:var(--crema)}
+.ficha + .pie{margin-top:0}
+
 .vacia{padding-top:20px; padding-bottom:10px}
 
 @media (prefers-reduced-motion: reduce){ *{transition:none!important; scroll-behavior:auto!important} }
