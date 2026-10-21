@@ -1,0 +1,58 @@
+name: Actualizar web desde Notion
+
+# Regenera la web de d√ªo, la p√°gina Enviar y las p√°ginas neutras para colegas (fichas-dre.github.io)
+# desde Notion, y publica si hubo cambios.
+# Corre sola cada 10 minutos (de 7 a. m. a 11 p. m., hora de Colombia) y cuando se active a mano.
+on:
+  schedule:
+    - cron: "*/10 12-23 * * *"
+    - cron: "*/10 0-4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-web
+  cancel-in-progress: false
+
+jobs:
+  web:
+    runs-on: macos-latest   # el generador usa sips (macOS) para las fotos
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Traer las p√°ginas para colegas (fichas-dre.github.io)
+        env:
+          FICHAS_TOKEN: ${{ secrets.FICHAS_TOKEN }}
+        run: |
+          if [ -z "$FICHAS_TOKEN" ]; then echo "Sin FICHAS_TOKEN: no se generan las p√°ginas para colegas."; exit 0; fi
+          git clone -q "https://x-access-token:${FICHAS_TOKEN}@github.com/fichas-dre/fichas-dre.github.io.git" "$RUNNER_TEMP/fichas"
+      - name: Generar la web
+        env:
+          DUO_SITIO: ${{ github.workspace }}
+          DUO_FICHAS: ${{ runner.temp }}/fichas   # sitio neutro para colegas (sin marca d√ªo)
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}   # solo lectura de PROPIEDADES - interno (p√°gina Enviar)
+          DUO_ENVIAR: ${{ secrets.DUO_ENVIAR }}       # llave:PIN para cifrar los nombres de edificio
+        run: python3 _fuente/generar.py
+      - name: Publicar si hubo cambios
+        run: |
+          git config user.name "d√ªo web"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Sin cambios."; exit 0; fi
+          git commit -m "Actualizaci√≥n autom√°tica $(TZ=America/Bogota date '+%Y-%m-%d %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1
+      - name: Publicar las p√°ginas para colegas si hubo cambios
+        run: |
+          cd "$RUNNER_TEMP/fichas" 2>/dev/null || { echo "Sin p√°ginas para colegas."; exit 0; }
+          git config user.name "fichas"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Sin cambios."; exit 0; fi
+          git commit -q -m "Actualizaci√≥n $(TZ=America/Bogota date '+%Y-%m-%d %H:%M')"
+          git push -q origin HEAD:main
