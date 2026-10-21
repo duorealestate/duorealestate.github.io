@@ -564,7 +564,6 @@ def inicio(tarjetas):
   <div class="hero-fondos" style="--n:{max(len(destacadas), 1)}">{fondos}</div>
   <div class="hero-velo"></div>
   <div class="hero-txt">
-    <p class="eyebrow">INMOBILIARIA MADRE E HIJA · MEDELLÍN</p>
     <h1>Encuentra el hogar que encaja con tu momento de vida</h1>
     <p class="bajada">Más de 25 años asesorando a familias en finca raíz.</p>
     <form class="buscador" action="/#propiedades" method="get" aria-label="Buscar propiedades">
@@ -577,13 +576,13 @@ def inicio(tarjetas):
   <a class="hero-baja" href="#confianza" aria-label="Seguir bajando">&#8964;</a>
 </section>
 <section class="confianza" id="confianza">
-  <div><b>Experiencia</b><span>25 AÑOS DE LUZ STELLA<br>EN FINCA RAÍZ</span></div>
+  <div><b>Experiencia</b><span>MÁS DE 25 AÑOS<br>EN FINCA RAÍZ</span></div>
   <div><b>Asesoría</b><span>PENSADA PARA TU<br>MOMENTO DE VIDA</span></div>
-  <div><b>Acompañamiento</b><span>DE LA PRIMERA VISITA<br>A LA ENTREGA</span></div>
+  <div><b>Acompañamiento</b><span>CONTIGO EN CADA PASO,<br>HASTA LLEGAR A CASA</span></div>
 </section>
 <section class="frase">
   <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
-  <blockquote>“Comprar o vender tu casa es una decisión grande. Por eso la tomamos contigo: con 25 años de experiencia de Luz Stella y la tranquilidad de saber que siempre buscamos lo mejor para ti.”</blockquote>
+  <blockquote>“Comprar o vender tu casa es una decisión grande. Por eso la tomamos contigo: con más de 25 años de experiencia y la tranquilidad de saber que siempre buscamos lo mejor para ti.”</blockquote>
 </section>
 <main class="listado" id="propiedades">
   <p class="eyebrow">PORTAFOLIO</p>
