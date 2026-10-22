@@ -1,7 +1,7 @@
 {
  "D001": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-81f1-82f4-de0c3ba585bc",
+  "notion_id": "3ce22d40-016d-8026-af21-ff7d2698a451",
   "tarjeta": {
    "alc": 3.0,
    "area": 118.0,
@@ -9,7 +9,7 @@
    "canon": 0,
    "codigo": "D001",
    "ext": 0,
-   "foto": "/fotos/D001/024919d373-800.jpg",
+   "foto": "/fotos/D001/c55726588c-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -29,7 +29,7 @@
  },
  "D002": {
   "fotos": 9,
-  "notion_id": "3fe22d40-016d-8108-9936-fbd2bbe97ccd",
+  "notion_id": "3ce22d40-016d-805a-8be4-dffdab42ff96",
   "tarjeta": {
    "alc": 3.0,
    "area": 363.0,
@@ -37,7 +37,7 @@
    "canon": 0,
    "codigo": "D002",
    "ext": 0,
-   "foto": "/fotos/D002/20541e7741-800.jpg",
+   "foto": "/fotos/D002/618cbc8ffc-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -57,7 +57,7 @@
  },
  "D004": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-81ba-8857-c1e4ae1c20ab",
+  "notion_id": "3ce22d40-016d-80e8-8d5e-c221eab63b53",
   "tarjeta": {
    "alc": 3.0,
    "area": 780.0,
@@ -65,7 +65,7 @@
    "canon": 0,
    "codigo": "D004",
    "ext": 0,
-   "foto": "/fotos/D004/b734fea2e8-800.jpg",
+   "foto": "/fotos/D004/e2510eaefa-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -85,7 +85,7 @@
  },
  "D005": {
   "fotos": 10,
-  "notion_id": "3fe22d40-016d-810d-8e49-da169eb6c5e6",
+  "notion_id": "3ce22d40-016d-800b-a63c-d76327808b6b",
   "tarjeta": {
    "alc": 3.0,
    "area": 293.0,
@@ -93,7 +93,7 @@
    "canon": 0,
    "codigo": "D005",
    "ext": 0,
-   "foto": "/fotos/D005/28da5d9519-800.jpg",
+   "foto": "/fotos/D005/c48b564074-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -113,7 +113,7 @@
  },
  "D006": {
   "fotos": 10,
-  "notion_id": "3fe22d40-016d-8108-a2cf-c9cf222c196a",
+  "notion_id": "3ce22d40-016d-8005-99d4-e7d7d01aa257",
   "tarjeta": {
    "alc": 5.0,
    "area": 480.0,
@@ -121,7 +121,7 @@
    "canon": 0,
    "codigo": "D006",
    "ext": 0,
-   "foto": "/fotos/D006/b7984c5b3b-800.jpg",
+   "foto": "/fotos/D006/b493a827b8-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -134,14 +134,14 @@
    ],
    "sector": "El Retiro",
    "tipo": "Casa",
-   "titulo": "todo en un mismo lugar",
+   "titulo": "Todo en un mismo lugar",
    "venta": 6800000000.0
   },
   "url": "https://duorealestate.github.io/D006"
  },
  "D007": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-8101-8661-fe3f5c4448e7",
+  "notion_id": "3ce22d40-016d-80fc-902e-ef7983ca5723",
   "tarjeta": {
    "alc": 4.0,
    "area": 670.0,
@@ -149,7 +149,7 @@
    "canon": 0,
    "codigo": "D007",
    "ext": 0,
-   "foto": "/fotos/D007/0b587471f7-800.jpg",
+   "foto": "/fotos/D007/643ce36f43-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -169,7 +169,7 @@
  },
  "D008": {
   "fotos": 9,
-  "notion_id": "3fe22d40-016d-8119-87f4-e9b846939781",
+  "notion_id": "3ce22d40-016d-808d-8e81-e85e534253ae",
   "tarjeta": {
    "alc": 2.0,
    "area": 84.0,
@@ -177,7 +177,7 @@
    "canon": 0,
    "codigo": "D008",
    "ext": 0,
-   "foto": "/fotos/D008/7078c120c6-800.jpg",
+   "foto": "/fotos/D008/148a760bd0-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -197,7 +197,7 @@
  },
  "D009": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-8131-8c18-e5baf7ec6011",
+  "notion_id": "3ce22d40-016d-80c4-9854-f84142e20865",
   "tarjeta": {
    "alc": 3.0,
    "area": 323.0,
@@ -205,7 +205,7 @@
    "canon": 0,
    "codigo": "D009",
    "ext": 0,
-   "foto": "/fotos/D009/fac5b6b68b-800.jpg",
+   "foto": "/fotos/D009/6678bc0c76-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -225,7 +225,7 @@
  },
  "D010": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-81cd-b981-c08cab6f7a96",
+  "notion_id": "3ce22d40-016d-80a3-bff0-c5c1f8393d76",
   "tarjeta": {
    "alc": 2.0,
    "area": 58.0,
@@ -233,7 +233,7 @@
    "canon": 0,
    "codigo": "D010",
    "ext": 0,
-   "foto": "/fotos/D010/8437ebb120-800.jpg",
+   "foto": "/fotos/D010/7eb63741a6-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -253,7 +253,7 @@
  },
  "D011": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-817a-810a-d2c21a505b2b",
+  "notion_id": "3ce22d40-016d-80d0-9f34-fde038b5a37b",
   "tarjeta": {
    "alc": 3.0,
    "area": 200.0,
@@ -261,7 +261,7 @@
    "canon": 0,
    "codigo": "D011",
    "ext": 0,
-   "foto": "/fotos/D011/a4bab32244-800.jpg",
+   "foto": "/fotos/D011/815eb7ff07-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -281,7 +281,7 @@
  },
  "D012": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-815a-848b-f377b5f5cc23",
+  "notion_id": "3ce22d40-016d-8099-92d5-e9421c893ce5",
   "tarjeta": {
    "alc": 3.0,
    "area": 160.0,
@@ -289,7 +289,7 @@
    "canon": 0,
    "codigo": "D012",
    "ext": 0,
-   "foto": "/fotos/D012/39f8158078-800.jpg",
+   "foto": "/fotos/D012/48494a028d-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -309,7 +309,7 @@
  },
  "D013": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-814b-a370-c393d12dcd36",
+  "notion_id": "3ce22d40-016d-80a6-803d-e8efd17b4765",
   "tarjeta": {
    "alc": 3.0,
    "area": 540.0,
@@ -317,7 +317,7 @@
    "canon": 0,
    "codigo": "D013",
    "ext": 0,
-   "foto": "/fotos/D013/84e932ded1-800.jpg",
+   "foto": "/fotos/D013/3dffde613c-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -337,7 +337,7 @@
  },
  "D014": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-818a-846c-ea7692eac98a",
+  "notion_id": "3ce22d40-016d-80c1-9001-cfeab1379bd3",
   "tarjeta": {
    "alc": 3.0,
    "area": 130.0,
@@ -345,7 +345,7 @@
    "canon": 0,
    "codigo": "D014",
    "ext": 0,
-   "foto": "/fotos/D014/8eeda92d15-800.jpg",
+   "foto": "/fotos/D014/a8605d8028-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -1210,7 +1210,7 @@
  },
  "D053": {
   "fotos": 10,
-  "notion_id": "3fc22d40-016d-8159-ad84-c7902285b812",
+  "notion_id": "3ce22d40-016d-805f-858f-e8137779843c",
   "tarjeta": {
    "alc": 3.0,
    "area": 291.3,
@@ -1238,7 +1238,7 @@
  },
  "D054": {
   "fotos": 9,
-  "notion_id": "3fc22d40-016d-81fa-a541-cf2b4f20673e",
+  "notion_id": "3ce22d40-016d-80dc-8c25-c3c5222e2105",
   "tarjeta": {
    "alc": 4.0,
    "area": 436.68,
@@ -1322,7 +1322,7 @@
  },
  "D057": {
   "fotos": 9,
-  "notion_id": "3fc22d40-016d-8133-a7b9-cd01d850b48b",
+  "notion_id": "3f022d40-016d-812a-8853-c4a52ffee291",
   "tarjeta": {
    "alc": 3.0,
    "area": 187.0,
@@ -1518,7 +1518,7 @@
  },
  "D064": {
   "fotos": 7,
-  "notion_id": "3fc22d40-016d-81a9-960d-cf12e3ad4b58",
+  "notion_id": "3f022d40-016d-818c-86f1-ddb5b8d630d2",
   "tarjeta": {
    "alc": 0,
    "area": 12825.0,
@@ -1546,7 +1546,7 @@
  },
  "D065": {
   "fotos": 7,
-  "notion_id": "3fc22d40-016d-81a4-8849-d00e20489e5e",
+  "notion_id": "3f022d40-016d-818d-add1-ec635547c4d2",
   "tarjeta": {
    "alc": 3.0,
    "area": 275.0,
@@ -1574,7 +1574,7 @@
  },
  "D066": {
   "fotos": 7,
-  "notion_id": "3fc22d40-016d-8177-84a0-ddefaa3824cc",
+  "notion_id": "3f022d40-016d-819c-80c2-c9879af2e0b8",
   "tarjeta": {
    "alc": 3.0,
    "area": 262.0,
@@ -1602,7 +1602,7 @@
  },
  "D067": {
   "fotos": 3,
-  "notion_id": "3fc22d40-016d-810b-8b53-f6910d387f2d",
+  "notion_id": "3f022d40-016d-81b7-9a6d-e1c75d56caf0",
   "tarjeta": {
    "alc": 0,
    "area": 2658.0,
@@ -1630,7 +1630,7 @@
  },
  "D068": {
   "fotos": 8,
-  "notion_id": "3fc22d40-016d-8151-997f-f5275fd3862b",
+  "notion_id": "3f022d40-016d-81da-818e-f778703ec749",
   "tarjeta": {
    "alc": 2.0,
    "area": 69.0,
@@ -1686,7 +1686,7 @@
  },
  "D070": {
   "fotos": 8,
-  "notion_id": "3fc22d40-016d-8167-a448-d700015325a5",
+  "notion_id": "3f922d40-016d-805e-ac10-ea15e437f56c",
   "tarjeta": {
    "alc": 0,
    "area": 4282.0,
@@ -1714,7 +1714,7 @@
  },
  "D071": {
   "fotos": 8,
-  "notion_id": "3fc22d40-016d-8147-9c75-e1fd1889620d",
+  "notion_id": "3f922d40-016d-80c0-a613-f1f738542a79",
   "tarjeta": {
    "alc": 0,
    "area": 4169.0,
@@ -1742,7 +1742,7 @@
  },
  "D072": {
   "fotos": 8,
-  "notion_id": "3fc22d40-016d-8136-9b89-f496acb201c7",
+  "notion_id": "3f922d40-016d-813b-aa74-f1dce9ce0f61",
   "tarjeta": {
    "alc": 3.0,
    "area": 203.0,
@@ -1854,7 +1854,7 @@
  },
  "D076": {
   "fotos": 7,
-  "notion_id": "3fd22d40-016d-81af-8dfd-e1102b09f1c3",
+  "notion_id": "3fd22d40-016d-81f2-963c-f9df0dc1a0ac",
   "tarjeta": {
    "alc": 3.0,
    "area": 240.0,
@@ -1862,7 +1862,7 @@
    "canon": 0,
    "codigo": "D076",
    "ext": 0,
-   "foto": "/fotos/D076/bade4187c7-800.jpg",
+   "foto": "/fotos/D076/ffb9517b61-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -1879,34 +1879,6 @@
    "venta": 2500000000.0
   },
   "url": "https://duorealestate.github.io/D076"
- },
- "D077": {
-  "fotos": 7,
-  "notion_id": "3fe22d40-016d-8194-92ea-ecfff75a0acc",
-  "tarjeta": {
-   "alc": 3.0,
-   "area": 240.0,
-   "ban": 5.0,
-   "canon": 0,
-   "codigo": "D077",
-   "ext": 0,
-   "foto": "/fotos/D077/b3c27bcfdb-800.jpg",
-   "ops": [
-    "Venta"
-   ],
-   "parq": 3.0,
-   "precios": [
-    [
-     "VENTA",
-     "$1.950 millones"
-    ]
-   ],
-   "sector": "Envigado",
-   "tipo": "Casa",
-   "titulo": "Espacio de sobra y terraza cubierta",
-   "venta": 1950000000.0
-  },
-  "url": "https://duorealestate.github.io/D077"
  },
  "D078": {
   "fotos": 6,
