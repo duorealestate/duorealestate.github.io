@@ -164,17 +164,33 @@ def leer_interno():
         for i, parrafo in enumerate(x.strip() for x in re.split(r"\n\s*\n", v(pr, "Descripción pública") or "") if x.strip()):
             m = re.match(r"(.+?[.!?])\s+(.+)", parrafo, re.S) if i == 0 else None
             cuerpo.append(("texto", [[m.group(1), [["b"]]], [" " + m.group(2)]] if m else [[parrafo]]))
-        for arch in v(pr, "Fotos") or []:
-            url = (arch.get("file") or arch.get("external") or {}).get("url")
-            if not url:
-                continue
-            ruta = urllib.parse.urlparse(url).path.strip("/").split("/")
-            # Misma clave que tenían en el catálogo (attachment:<id>:<nombre>), para no volver a descargar.
-            fuente = f"attachment:{ruta[-2]}:{urllib.parse.unquote(ruta[-1])}" if len(ruta) >= 2 else url
-            cuerpo.append(("foto", (fuente, url)))
+        cuerpo += fotos_de(v(pr, "Fotos") or [])
         p["_cuerpo"] = cuerpo
         props.append(p)
     return props
+
+
+def fotos_de(archivos):
+    """[('foto', (fuente, url firmada))] en orden. La fuente (attachment:<id>:<nombre>) no cambia aunque la URL venza."""
+    salida = []
+    for arch in archivos:
+        url = (arch.get("file") or arch.get("external") or {}).get("url")
+        if not url:
+            continue
+        ruta = urllib.parse.urlparse(url).path.strip("/").split("/")
+        fuente = f"attachment:{ruta[-2]}:{urllib.parse.unquote(ruta[-1])}" if len(ruta) >= 2 else url
+        salida.append(("foto", (fuente, url)))
+    return salida
+
+
+def refrescar_fotos(p):
+    """Las URLs firmadas de Notion vencen en minutos: se piden de nuevo justo antes de descargar."""
+    token = enviar.secreto("NOTION_TOKEN", "duo-notion-token")
+    req = urllib.request.Request(f"https://api.notion.com/v1/pages/{p['_id']}",
+                                 headers={"Authorization": f"Bearer {token}", "Notion-Version": "2022-06-28"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        archivos = json.load(r)["properties"].get("Fotos", {}).get("files", [])
+    p["_cuerpo"] = [x for x in p["_cuerpo"] if x[0] != "foto"] + fotos_de(archivos)
 
 
 def leer_cuerpo(page_id):
@@ -891,6 +907,8 @@ def main():
         if solo and codigo not in solo:
             continue
         try:
+            if "_cuerpo" in p:
+                refrescar_fotos(p)
             cuerpo = p["_cuerpo"] if "_cuerpo" in p else leer_cuerpo(p["_id"])
             urls = [u for k, u in cuerpo if k == "foto"]
             if not urls:
