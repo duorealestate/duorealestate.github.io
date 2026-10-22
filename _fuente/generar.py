@@ -183,6 +183,17 @@ def fotos_de(archivos):
     return salida
 
 
+def fotos_al_dia(codigo, cuerpo):
+    """True si todas las fotos ya están descargadas (no hace falta pedir URLs nuevas a Notion)."""
+    carpeta = SITIO / "fotos" / codigo
+    for k, x in cuerpo:
+        if k == "foto":
+            clave = hashlib.sha1(x[0].encode()).hexdigest()[:10]
+            if not ((carpeta / f"{clave}.jpg").exists() and (carpeta / f"{clave}-800.jpg").exists()):
+                return False
+    return any(k == "foto" for k, _ in cuerpo)
+
+
 def refrescar_fotos(p):
     """Las URLs firmadas de Notion vencen en minutos: se piden de nuevo justo antes de descargar."""
     token = enviar.secreto("NOTION_TOKEN", "duo-notion-token")
@@ -907,7 +918,7 @@ def main():
         if solo and codigo not in solo:
             continue
         try:
-            if "_cuerpo" in p:
+            if "_cuerpo" in p and not fotos_al_dia(codigo, p["_cuerpo"]):
                 refrescar_fotos(p)
             cuerpo = p["_cuerpo"] if "_cuerpo" in p else leer_cuerpo(p["_id"])
             urls = [u for k, u in cuerpo if k == "foto"]
