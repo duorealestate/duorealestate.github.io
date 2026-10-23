@@ -760,34 +760,6 @@
   },
   "url": "https://duorealestate.github.io/D031"
  },
- "D032": {
-  "fotos": 9,
-  "notion_id": "3ce22d40-016d-8008-9c48-d7f16af4c7df",
-  "tarjeta": {
-   "alc": 3.0,
-   "area": 240.0,
-   "ban": 5.0,
-   "canon": 0,
-   "codigo": "D032",
-   "ext": 0,
-   "foto": "/fotos/D032/5e582fa715-800.jpg",
-   "ops": [
-    "Venta"
-   ],
-   "parq": 2.0,
-   "precios": [
-    [
-     "VENTA",
-     "$1.600 millones"
-    ]
-   ],
-   "sector": "Envigado",
-   "tipo": "Casa",
-   "titulo": "Jardín de 100 m² en unidad de solo 27 casas",
-   "venta": 1600000000.0
-  },
-  "url": "https://duorealestate.github.io/D032"
- },
  "D033": {
   "fotos": 8,
   "notion_id": "3ce22d40-016d-80fb-b66a-f7c71df6be62",
