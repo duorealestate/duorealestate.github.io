@@ -1940,5 +1940,33 @@
    "venta": 2400000000.0
   },
   "url": "https://duorealestate.github.io/D080"
+ },
+ "D082": {
+  "fotos": 7,
+  "notion_id": "40222d40-016d-8126-959f-e244c2dbf262",
+  "tarjeta": {
+   "alc": 3.0,
+   "area": 211.0,
+   "ban": 4.0,
+   "canon": 9200000.0,
+   "codigo": "D082",
+   "ext": 0,
+   "foto": "/fotos/D082/aaa2665bf4-800.jpg",
+   "ops": [
+    "Alquiler"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "ARRIENDO",
+     "$9.200.000 / mes"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Amplio, luminoso y con baño en cada alcoba",
+   "venta": 0
+  },
+  "url": "https://duorealestate.github.io/D082"
  }
 }
