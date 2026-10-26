@@ -1953,10 +1953,15 @@
    "ext": 0,
    "foto": "/fotos/D082/aaa2665bf4-800.jpg",
    "ops": [
+    "Venta",
     "Alquiler"
    ],
    "parq": 2.0,
    "precios": [
+    [
+     "VENTA",
+     "$1.550 millones"
+    ],
     [
      "ARRIENDO",
      "$9.200.000 / mes"
@@ -1965,7 +1970,7 @@
    "sector": "El Poblado",
    "tipo": "Apartamento",
    "titulo": "Amplio, luminoso y con baño en cada alcoba",
-   "venta": 0
+   "venta": 1550000000.0
   },
   "url": "https://duorealestate.github.io/D082"
  },
