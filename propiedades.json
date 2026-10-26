@@ -1968,5 +1968,33 @@
    "venta": 0
   },
   "url": "https://duorealestate.github.io/D082"
+ },
+ "D083": {
+  "fotos": 8,
+  "notion_id": "40522d40-016d-817f-a9ec-da349fdaa0e2",
+  "tarjeta": {
+   "alc": 3.0,
+   "area": 162.8,
+   "ban": 4.0,
+   "canon": 0,
+   "codigo": "D083",
+   "ext": 0,
+   "foto": "/fotos/D083/a3fa63b386-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.650 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Tres alcobas con baño y vista a la ciudad",
+   "venta": 1650000000.0
+  },
+  "url": "https://duorealestate.github.io/D083"
  }
 }
