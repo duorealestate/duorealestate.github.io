@@ -66,6 +66,13 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .marcar{display:flex;align-items:center;gap:8px;padding:0 12px 12px;font-size:15px;color:var(--tinta-suave)}
 .marcar input{width:22px;height:22px;accent-color:var(--verde)}
 .vacio{padding:20px 16px;color:var(--tinta-suave)}
+.abrir{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--linea);padding:12px;font:inherit;font-size:15px;font-weight:700;color:var(--azul)}
+.det{padding:0 12px 14px;font-size:16px}
+.det h5{margin:12px 0 4px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--azul);font-weight:500}
+.det ul{margin:0;padding-left:20px}
+.det dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0}
+.det dt{color:var(--tinta-suave)}
+.det dd{margin:0;font-weight:600}
 .barra{position:fixed;left:0;right:0;bottom:0;background:var(--azul-profundo);color:var(--crema);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;gap:10px;flex-wrap:wrap;align-items:center;z-index:6}
 .barra.on{display:flex}
 .barra b{width:100%;font-size:16px}
@@ -171,7 +178,7 @@ const bloque = p => {
   const areas = p.tipo === "Casa" ? [p.area && m2(p.area) + " construidos", p.lote && m2(p.lote) + " de lote"]
     : p.tipo === "Lote" ? [p.area && m2(p.area) + " de lote"] : [p.area && m2(p.area)];
   const vinetas = [...areas, p.alc && p.alc + (p.alc === 1 ? " alcoba" : " alcobas"), ...precios];
-  return [(ops.length ? ops : p.ops.map(o => o === "Alquiler" ? "ALQUILER" : "VENTA")).join(" Y "),
+  return [(ops.length ? ops : p.ops.map(o => o === "Alquiler" ? "ALQUILER" : "VENTA")).join(" O "),
           `${p.tipo} en ${p.sector}`, "", ...vinetas.filter(Boolean).map(v => "* " + v)].join("\n");
 };
 const armar = (ps, link, firma) => ps.map(p => `${bloque(p)}\n\nFotos y detalles: ${link(p)}`).join("\n\n\n") + (firma ? "\n\nDÛO REAL ESTATE 💙" : "");
@@ -196,6 +203,19 @@ function coincide(q, texto) {
   return q.split(/\s+/).filter(Boolean).every(w => t.includes(w) || (w.length >= 5 && palabras.some(x =>
     lev(w, x) <= Math.floor(w.length / 3) || (x.length > w.length && lev(w, x.slice(0, w.length)) <= Math.floor(w.length / 4)))));
 }
+const detalle = p => {
+  const n = (v, uno, varios) => v ? `${Math.round(v).toLocaleString("es-CO")} ${v === 1 ? uno : varios}` : "";
+  const m2 = v => v ? Math.round(v).toLocaleString("es-CO") + " m²" : "";
+  const d = p.det || {};
+  const filas = [["Operación", p.ops.join(" o ")], ["Precio", [p.ops.includes("Venta") && p.venta && fmtM(p.venta),
+      p.ops.includes("Alquiler") && p.canon && "$" + Math.round(p.canon).toLocaleString("es-CO") + " / mes"].filter(Boolean).join(" · ")],
+    ["Área", m2(p.area)], ["Lote", m2(p.lote)], ["Exteriores", m2(p.ext)], ["Alcobas", n(p.alc, "", "")], ["Baños", n(p.ban, "", "")],
+    ["Parqueaderos", n(p.parq, "", "")], ...(d.detalles || [])].filter(([, v]) => v && String(v).trim());
+  const lista = (t, xs) => xs && xs.length ? `<h5>${t}</h5><ul>${xs.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+  return `<dl>${filas.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`
+    + lista("CARACTERÍSTICAS", d.carac) + lista("AMENIDADES", d.amen) + lista("LO QUE TIENE", d.lista);
+};
+let abiertas = new Set();
 const nombre = p => NOMBRES[p.cod] ? NOMBRES[p.cod].filter(Boolean).join(" · ") : "";
 
 // ---------- Lista ----------
@@ -242,11 +262,15 @@ function pintar() {
     <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
       <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
       <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div></div></div>
+    <button class="abrir" type="button" data-abrir="${esc(p.cod)}" aria-expanded="${abiertas.has(p.cod)}">${abiertas.has(p.cod) ? "Ocultar características ▴" : "Ver características ▾"}</button>
+    ${abiertas.has(p.cod) ? `<div class="det">${detalle(p)}</div>` : ""}
     <label class="marcar"><input type="checkbox" data-cod="${esc(p.cod)}" ${sel.has(p.cod) ? "checked" : ""}> Marcar para mandar varias juntas</label>
     <div class="btns"><a class="cli" href="${esc(wa(msgCli([p])))}" target="_blank" rel="noopener">🏠 A cliente</a>
       <a href="${esc(wa(msgCol([p])))}" target="_blank" rel="noopener">🤝 A colega</a></div></div>`).join("")
     : `<p class="vacio">No encontré nada con eso. Prueba con el código (D012) o el sector.</p>`;
 }
+$("lista").onclick = e => { const b = e.target.closest("[data-abrir]"); if (!b) return; const c = b.dataset.abrir;
+  abiertas.has(c) ? abiertas.delete(c) : abiertas.add(c); pintar(); };
 $("lista").onchange = e => { const c = e.target.dataset.cod; if (!c) return;
   e.target.checked ? sel.add(c) : sel.delete(c); e.target.closest(".card").classList.toggle("sel", e.target.checked); barra(); };
 $("limpiar").onclick = () => { sel.clear(); pintar(); barra(); };

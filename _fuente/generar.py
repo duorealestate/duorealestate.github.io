@@ -87,7 +87,9 @@ def leer_catalogo():
 
 # ---------- Fuente: PROPIEDADES - interno (API oficial de Notion, solo lectura) ----------
 
-PUBLICABLES = {"Activa", "Oferta recibida", "Por completar"}
+# "Por verificar" es lo que deja el formulario: si ya trae fotos, sale de una vez (decisión de Camila, 26 oct. 2026).
+# El estado en Notion lo cambia después Claude (la llave del generador es de solo lectura).
+PUBLICABLES = {"Activa", "Oferta recibida", "Por completar", "Por verificar"}
 
 
 def leer_interno():
@@ -158,6 +160,7 @@ def leer_interno():
              "Administración COP": texto(v(pr, "Administración mensual COP")), "Predial COP": texto(v(pr, "Predial COP")),
              "Periodicidad predial": per if per and per != "Por confirmar" else "",
              "Lote m²": texto(v(pr, "Área lote m²")) if tipo == "Casa" else "",
+             "Características": v(pr, "Características") or [], "Amenidades": v(pr, "Amenidades unidad") or [],
              "_id": fila["id"]}
         # Cuerpo con la misma forma que las fichas del catálogo: viñetas, y la descripción con la primera frase en negrita.
         cuerpo = [("texto", [["\n".join("• " + l.strip() for l in (v(pr, "Lo que tiene") or "").split("\n") if l.strip())]])]
@@ -643,7 +646,10 @@ def ficha(p, cuerpo, claves):
     tarjeta = {"codigo": codigo, "tipo": tipo, "sector": sector, "titulo": gancho, "ops": ops,
                "venta": venta or 0, "canon": canon or 0, "area": area or 0, "ext": ext or 0,
                "alc": alc or 0, "ban": ban or 0, "parq": parq or 0,
-               "foto": f"{fotos[0]}-800.jpg" if fotos else "", "precios": precios}
+               "foto": f"{fotos[0]}-800.jpg" if fotos else "", "precios": precios,
+               # Para desplegar en Enviar: lo mismo que ya muestra la ficha pública, nada privado.
+               "det": {"lista": vinetas, "carac": p.get("Características") or [], "amen": p.get("Amenidades") or [],
+                       "detalles": [[k, v] for k, v in detalles if v and k not in ("Código", "Tipo", "Sector")]}}
     return html_out, [], tarjeta, colega
 
 

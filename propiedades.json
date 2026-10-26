@@ -8,6 +8,45 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D001",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Portería 24 h",
+     "Salón social",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$850.000"
+     ],
+     [
+      "Predial",
+      "$5.400.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón",
+     "Squash, piscina, gimnasio, salón social, zona infantil, zonas verdes y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D001/c55726588c-800.jpg",
    "ops": [
@@ -36,6 +75,43 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D002",
+   "det": {
+    "amen": [
+     "Zonas verdes",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Jardín privado",
+     "Piscina privada"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.150.000"
+     ],
+     [
+      "Predial",
+      "$2.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Alcoba principal en primer piso",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Piscina climatizada · jardín privado",
+     "Portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D002/618cbc8ffc-800.jpg",
    "ops": [
@@ -64,6 +140,47 @@
    "ban": 7.0,
    "canon": 0,
    "codigo": "D004",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Portería 24 h",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Domótica",
+     "Estudio",
+     "Piscina privada",
+     "Turco / sauna",
+     "Un solo nivel"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.400.000"
+     ],
+     [
+      "Predial",
+      "$3.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Un solo nivel",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Piscina, turco y gimnasio propios",
+     "Domótica y sonido integrado",
+     "Cancha, zonas verdes y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D004/e2510eaefa-800.jpg",
    "ops": [
@@ -92,6 +209,43 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D005",
+   "det": {
+    "amen": [
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Turco / sauna"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.735.000"
+     ],
+     [
+      "Predial",
+      "$3.250.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Dos niveles",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Sauna, turco y jacuzzi",
+     "Balcón y terraza",
+     "Zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D005/c48b564074-800.jpg",
    "ops": [
@@ -120,6 +274,42 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D006",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio",
+     "Piscina privada",
+     "Turco / sauna"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$850.000"
+     ],
+     [
+      "Predial",
+      "$1.200.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Dos bibliotecas · salón de juegos y bar",
+     "Piscina de nado, jacuzzi, turco y chimenea",
+     "Alcoba de servicio · cuarto útil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D006/b493a827b8-800.jpg",
    "ops": [
@@ -148,6 +338,38 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D007",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.800.000"
+     ],
+     [
+      "Predial",
+      "$2.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Biblioteca · alcoba de servicio · cuarto útil",
+     "Remodelada y muy iluminada"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D007/643ce36f43-800.jpg",
    "ops": [
@@ -176,6 +398,45 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D008",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$700.000"
+     ],
+     [
+      "Predial",
+      "$3.000.000 (semestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · cuarto útil",
+     "Balcón con vista panorámica",
+     "Construido en 2023",
+     "Piscina, gimnasio, squash, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D008/148a760bd0-800.jpg",
    "ops": [
@@ -204,6 +465,39 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D009",
+   "det": {
+    "amen": [
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.300.000"
+     ]
+    ],
+    "lista": [
+     "Dos niveles",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Jardín con cascada de piedra",
+     "Balcón con vista",
+     "Zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D009/6678bc0c76-800.jpg",
    "ops": [
@@ -232,6 +526,33 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D010",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "4"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
+    "lista": [
+     "Estudio · balcón · cuarto útil",
+     "Entrega: segundo semestre de 2026 (cesión de derechos)",
+     "Piscina, gimnasio y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D010/7eb63741a6-800.jpg",
    "ops": [
@@ -260,6 +581,42 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D011",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$920.000"
+     ],
+     [
+      "Predial",
+      "$1.850.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Gran balcón con vista a la ciudad",
+     "Piscina, gimnasio y zona infantil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D011/815eb7ff07-800.jpg",
    "ops": [
@@ -288,6 +645,43 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D012",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.245.200"
+     ],
+     [
+      "Predial",
+      "$1.655.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón",
+     "Remodelado",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D012/48494a028d-800.jpg",
    "ops": [
@@ -316,6 +710,45 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D013",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Salón social",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.372.069"
+     ],
+     [
+      "Predial",
+      "$10.935.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · estar de TV · chimenea",
+     "Alcoba de servicio · cuarto útil",
+     "Vista panorámica a la ciudad",
+     "Cancha, salón social, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D013/3dffde613c-800.jpg",
    "ops": [
@@ -344,6 +777,43 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D014",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Squash",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Dúplex",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$873.558"
+     ],
+     [
+      "Predial",
+      "$1.887.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Biblioteca independiente · cuarto útil",
+     "Cocina abierta · balcón",
+     "Piscina, gimnasio, squash y zona infantil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D014/a8605d8028-800.jpg",
    "ops": [
@@ -372,6 +842,34 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D015",
+   "det": {
+    "amen": [
+     "Portería 24 h",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Administración",
+      "$980.288"
+     ],
+     [
+      "Predial",
+      "$1.930.500 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Lote de 2.017 m²",
+     "Diseños listos para una casa de 310 m²",
+     "Parcelación privada de 20 lotes",
+     "Portería 24 h, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D015/b14c8035c7-800.jpg",
    "ops": [
@@ -400,6 +898,37 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D016",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$611.491"
+     ]
+    ],
+    "lista": [
+     "Cuarto útil · balcón",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D016/127bde0d57-800.jpg",
    "ops": [
@@ -428,6 +957,38 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D018",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio",
+     "Jardín privado"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.856.100"
+     ]
+    ],
+    "lista": [
+     "Dos niveles",
+     "Estudio · chimenea · jardín privado",
+     "Alcoba de servicio · cuarto útil",
+     "Para estrenar",
+     "Unidad cerrada con zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D018/1c2c58c0e5-800.jpg",
    "ops": [
@@ -456,6 +1017,41 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D019",
+   "det": {
+    "amen": [
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.350.000"
+     ],
+     [
+      "Predial",
+      "$913.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Biblioteca · alcoba de servicio",
+     "Dos cuartos útiles",
+     "Gran balcón tipo terraza",
+     "Zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D019/5b3a534150-800.jpg",
    "ops": [
@@ -484,6 +1080,40 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D020",
+   "det": {
+    "amen": [
+     "Zona infantil"
+    ],
+    "carac": [
+     "Cuarto útil",
+     "Estudio",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.193.000"
+     ],
+     [
+      "Predial",
+      "$2.900.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Gran salón · terraza cubierta",
+     "Edificio de una sola torre, remodelado",
+     "Zona infantil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D020/9c2b3975cc-800.jpg",
    "ops": [
@@ -512,6 +1142,37 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D021",
+   "det": {
+    "amen": [
+     "Zona infantil"
+    ],
+    "carac": [
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.050.000"
+     ],
+     [
+      "Predial",
+      "$1.460.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Zona infantil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D021/370b960add-800.jpg",
    "ops": [
@@ -540,6 +1201,35 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D024",
+   "det": {
+    "amen": [
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Terraza",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$818.000"
+     ]
+    ],
+    "lista": [
+     "Alcoba de servicio · cuarto útil",
+     "Terraza techada",
+     "Zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D024/4b6eb66e6f-800.jpg",
    "ops": [
@@ -568,6 +1258,42 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D025",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio",
+     "Un solo nivel"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$700.000"
+     ],
+     [
+      "Predial",
+      "$1.600.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Un solo nivel · construida en 2025",
+     "Estudio · chimenea · cuarto útil",
+     "Alcoba de servicio",
+     "Gimnasio y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D025/4db91978ff-800.jpg",
    "ops": [
@@ -596,6 +1322,40 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D026",
+   "det": {
+    "amen": [
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Cuarto útil",
+     "Jardín privado"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.522.000"
+     ],
+     [
+      "Predial",
+      "$2.480.250 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Tres niveles",
+     "Jardín privado · espacio flexible",
+     "Alcoba de servicio · cuarto útil",
+     "Zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D026/63d2c12676-800.jpg",
    "ops": [
@@ -624,6 +1384,43 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D027",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.200.000"
+     ],
+     [
+      "Predial",
+      "$3.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Gran balcón tipo terraza con vista",
+     "Piscina, gimnasio, squash, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D027/0c451b94d6-800.jpg",
    "ops": [
@@ -652,6 +1449,16 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D028",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [],
+    "lista": [
+     "Lote de 3.150 m²",
+     "Matrícula independiente",
+     "Estudios, diseños y licencia en trámite"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D028/3bd77f70ef-800.jpg",
    "ops": [
@@ -680,6 +1487,34 @@
    "ban": 2.0,
    "canon": 8000000.0,
    "codigo": "D029",
+   "det": {
+    "amen": [
+     "Gimnasio"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Administración",
+      "$900.000"
+     ],
+     [
+      "Predial",
+      "$1.900.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Cuarto útil · 2 parqueaderos",
+     "Balcón con vista a la vegetación",
+     "Gimnasio"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D029/e73634d56a-800.jpg",
    "ops": [
@@ -713,6 +1548,44 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D030",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Squash"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Domótica",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.300.000"
+     ],
+     [
+      "Predial",
+      "$2.625.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Domótica total · luces indirectas",
+     "Balcón con vista a la ciudad",
+     "Piscina, gimnasio y squash"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D030/ec178ec6bf-800.jpg",
    "ops": [
@@ -741,6 +1614,43 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D031",
+   "det": {
+    "amen": [
+     "Salón social",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.815.000"
+     ],
+     [
+      "Predial",
+      "$6.845.000 (semestral)"
+     ]
+    ],
+    "lista": [
+     "Dos niveles",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Terraza y jardín",
+     "Garaje para 4 carros",
+     "Salón social, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D031/8f3a969862-800.jpg",
    "ops": [
@@ -769,6 +1679,24 @@
    "ban": 1.0,
    "canon": 10000000.0,
    "codigo": "D033",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Administración",
+      "$950.000"
+     ]
+    ],
+    "lista": [
+     "Sala de juntas · recepción · 3 espacios de trabajo",
+     "Cocineta · baño · archivador"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D033/68b917daec-800.jpg",
    "ops": [
@@ -797,6 +1725,37 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D034",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Un solo nivel"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Predial",
+      "$3.300.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Un solo nivel",
+     "Biblioteca · alcoba de servicio · cuarto útil",
+     "Lago propio · kiosco con asador",
+     "Planta de tratamiento de agua"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D034/bc42bb3491-800.jpg",
    "ops": [
@@ -825,6 +1784,37 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D036",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$730.300"
+     ]
+    ],
+    "lista": [
+     "Biblioteca independiente",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 45.0,
    "foto": "/fotos/D036/5e988314d4-800.jpg",
    "ops": [
@@ -853,6 +1843,30 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D040",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Administración",
+      "$631.000"
+     ],
+     [
+      "Predial",
+      "$14.327.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Lote de 8.079 m²",
+     "Totalmente plano",
+     "Índice de construcción del 20 %",
+     "Unidad cerrada"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D040/5caba9e956-800.jpg",
    "ops": [
@@ -881,6 +1895,44 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D041",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.900.000"
+     ],
+     [
+      "Predial",
+      "$4.250.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Biblioteca · alcoba de servicio · cuarto útil",
+     "Cocina con isla central",
+     "Gran balcón con vista panorámica",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D041/da9b7727cb-800.jpg",
    "ops": [
@@ -909,6 +1961,24 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D042",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Administración",
+      "$580.000"
+     ]
+    ],
+    "lista": [
+     "Lote de 5.000 m²",
+     "Parcelación consolidada"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D042/d2b3e75949-800.jpg",
    "ops": [
@@ -937,6 +2007,36 @@
    "ban": 3.0,
    "canon": 8500000.0,
    "codigo": "D044",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
+    "lista": [
+     "Principal con dos vestieres",
+     "Sala de TV · biblioteca · cuarto útil",
+     "Balcón con vista",
+     "Gimnasio, zona infantil y zonas verdes",
+     "Contrato mínimo de 1 año"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D044/69bedb1e0b-800.jpg",
    "ops": [
@@ -965,6 +2065,42 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D045",
+   "det": {
+    "amen": [
+     "Salón social",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.600.000"
+     ],
+     [
+      "Predial",
+      "$3.390.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón tipo terraza con vista a la ciudad",
+     "Baños reformados",
+     "Salón social y zona infantil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D045/cc6057e601-800.jpg",
    "ops": [
@@ -993,6 +2129,42 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D046",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.100.000"
+     ],
+     [
+      "Predial",
+      "$1.694.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón con vista panorámica",
+     "Gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D046/ff9bd22c6b-800.jpg",
    "ops": [
@@ -1021,6 +2193,26 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D047",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Administración",
+      "$700.000"
+     ]
+    ],
+    "lista": [
+     "Lote de 15.000 m² (completo o dividido)",
+     "Vista a reserva natural",
+     "Servicios y vías listos",
+     "Unidad cerrada"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D047/e086cb47a1-800.jpg",
    "ops": [
@@ -1049,6 +2241,48 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D048",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Gimnasio",
+     "Piscina",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cava",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.200.000"
+     ],
+     [
+      "Predial",
+      "$3.658.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Salón doble · comedor independiente · estudio",
+     "Cava de vinos",
+     "Gran balcón con vista panorámica",
+     "Alcoba de servicio · cuarto útil",
+     "Piscina, gimnasio, squash, cancha, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D048/7fa174bda0-800.jpg",
    "ops": [
@@ -1077,6 +2311,37 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D049",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.589.000"
+     ]
+    ],
+    "lista": [
+     "Dos salones independientes · estudio",
+     "Alcoba de servicio · cuarto útil",
+     "Balcón con vista a la ciudad",
+     "Zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D049/d8aac68738-800.jpg",
    "ops": [
@@ -1105,6 +2370,46 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D050",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio",
+     "Jardín privado",
+     "Turco / sauna"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.100.000"
+     ],
+     [
+      "Predial",
+      "$4.000.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Dos niveles",
+     "Estudio · chimenea · turco",
+     "Jardín privado",
+     "Alcoba de servicio · cuarto útil",
+     "Gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D050/595a682da1-800.jpg",
    "ops": [
@@ -1133,6 +2438,42 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D051",
+   "det": {
+    "amen": [
+     "Salón social",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$336.000"
+     ],
+     [
+      "Predial",
+      "$1.500.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Casa principal de 350 m² + segunda casa de 120 m²",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón con vista panorámica",
+     "Salón social y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D051/c1c2c550ea-800.jpg",
    "ops": [
@@ -1161,6 +2502,46 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D052",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Jardín privado",
+     "Terraza",
+     "Turco / sauna"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.000.000"
+     ],
+     [
+      "Predial",
+      "$2.000.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Suite de 85 m² con turco",
+     "Terraza de 120 m² al jardín",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 120.0,
    "foto": "/fotos/D052/d17dadb925-800.jpg",
    "ops": [
@@ -1189,6 +2570,40 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D053",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Salón social",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Turco / sauna"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.052.000"
+     ]
+    ],
+    "lista": [
+     "Apartaestudio independiente en el subnivel",
+     "Biblioteca · turco · alcoba de servicio",
+     "Pérgola, patio y jardín",
+     "Gimnasio, salón social, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D053/ef2da42aae-800.jpg",
    "ops": [
@@ -1217,6 +2632,44 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D054",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Chimenea",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.134.000"
+     ],
+     [
+      "Predial",
+      "$4.750.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Oficina · salón de TV · chimenea",
+     "Terraza y jardín amplio",
+     "Alcoba de servicio · cuarto útil",
+     "Tenis, cancha, gimnasio, zona infantil y sendero"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D054/d422564bc2-800.jpg",
    "ops": [
@@ -1245,6 +2698,41 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D055",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.500.000"
+     ],
+     [
+      "Predial",
+      "$1.375.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón con vista panorámica",
+     "Gimnasio y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D055/3cb82bfa1f-800.jpg",
    "ops": [
@@ -1273,6 +2761,40 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D056",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Salón social"
+    ],
+    "carac": [
+     "Terraza",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.200.000"
+     ],
+     [
+      "Predial",
+      "$1.445.250 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Cocina abierta · comedor independiente",
+     "Alcoba de servicio",
+     "Vista al verde",
+     "Gimnasio y salón social"
+    ]
+   },
    "ext": 120.0,
    "foto": "/fotos/D056/c654210914-800.jpg",
    "ops": [
@@ -1301,6 +2823,40 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D057",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.107.000"
+     ],
+     [
+      "Predial",
+      "$1.516.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Ideal para remodelar",
+     "Piscina, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D057/0460872325-800.jpg",
    "ops": [
@@ -1329,6 +2885,40 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D058",
+   "det": {
+    "amen": [
+     "Salón social"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.180.000"
+     ],
+     [
+      "Predial",
+      "$3.684.885 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Biblioteca · sala y comedor independientes",
+     "Terraza y balcón",
+     "Alcoba de servicio",
+     "Salón social"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D058/46efed6d5f-800.jpg",
    "ops": [
@@ -1357,6 +2947,38 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D059",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$942.700"
+     ]
+    ],
+    "lista": [
+     "Biblioteca (posible cuarta alcoba)",
+     "Alcoba de servicio · zona de ropas amplia",
+     "Balcón",
+     "Cancha, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D059/98654e116d-800.jpg",
    "ops": [
@@ -1385,6 +3007,30 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D060",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Balcón"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$1.200.000"
+     ]
+    ],
+    "lista": [
+     "Balcón amplio con vista a la vegetación",
+     "Para estrenar"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D060/5e530b1de0-800.jpg",
    "ops": [
@@ -1413,6 +3059,39 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D061",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.024.000"
+     ],
+     [
+      "Predial",
+      "$5.394.250 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Doble salón · comedor independiente",
+     "Biblioteca · estar de TV",
+     "Balcón tipo terraza con vista panorámica",
+     "Alcoba de servicio · cuarto útil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D061/b14c923651-800.jpg",
    "ops": [
@@ -1441,6 +3120,41 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D062",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Piscina",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$507.300"
+     ],
+     [
+      "Predial",
+      "$3.100.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Estudio · balcón",
+     "Piscina, squash, cancha, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D062/64cbde81bf-800.jpg",
    "ops": [
@@ -1469,6 +3183,38 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D063",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Dúplex",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$1.515.153"
+     ],
+     [
+      "Predial",
+      "$1.190.250 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Cocina abierta en acero inoxidable",
+     "Dos balcones con vista panorámica",
+     "Remodelado · cuarto útil"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D063/490ebcb9a0-800.jpg",
    "ops": [
@@ -1497,6 +3243,16 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D064",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [],
+    "lista": [
+     "Matrículas independientes",
+     "Unidad cerrada de 9 lotes con lago",
+     "Energía y acueducto de EPM"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D064/5b29d40a02-800.jpg",
    "ops": [
@@ -1525,6 +3281,40 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D065",
+   "det": {
+    "amen": [
+     "Cancha",
+     "Gimnasio",
+     "Piscina",
+     "Squash",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.250.000"
+     ]
+    ],
+    "lista": [
+     "Biblioteca · alcoba de servicio",
+     "Terraza alta parcialmente techada",
+     "Piscina, gimnasio, squash, cancha, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 46.0,
    "foto": "/fotos/D065/a06b026646-800.jpg",
    "ops": [
@@ -1553,6 +3343,32 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D066",
+   "det": {
+    "amen": [
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Doble acceso: La Ceja o Llanogrande",
+     "Agua propia en la unidad",
+     "Zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D066/338e91d6df-800.jpg",
    "ops": [
@@ -1581,6 +3397,26 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D067",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Piscina",
+     "Zonas verdes"
+    ],
+    "carac": [],
+    "detalles": [
+     [
+      "Administración",
+      "$267.000"
+     ]
+    ],
+    "lista": [
+     "Lote de 2.658 m²",
+     "Unidad cerrada",
+     "Carril de nado, gimnasio y circuito de 3 km",
+     "Turco, sauna y jacuzzi"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D067/e7f02bcbbb-800.jpg",
    "ops": [
@@ -1609,6 +3445,35 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D068",
+   "det": {
+    "amen": [
+     "Gimnasio",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Terraza"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "5"
+     ],
+     [
+      "Administración",
+      "$398.410"
+     ],
+     [
+      "Predial",
+      "$1.268.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Estudio · cocina abierta",
+     "Gimnasio y zonas verdes"
+    ]
+   },
    "ext": 20.0,
    "foto": "/fotos/D068/8c9a97ea68-800.jpg",
    "ops": [
@@ -1637,6 +3502,43 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D069",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "BBQ",
+     "Portería 24 h",
+     "Salón social"
+    ],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Domótica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.200.000"
+     ],
+     [
+      "Predial",
+      "$1.700.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Alcoba de servicio · 2 parqueaderos",
+     "Balcón con vista panorámica a la ciudad",
+     "Piscina, gimnasio, BBQ, salón social y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D069/92b1b00c99-800.jpg",
    "ops": [
@@ -1665,6 +3567,16 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D070",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [],
+    "lista": [
+     "Lote de 4.282 m²",
+     "Matrícula independiente",
+     "Estudios, diseños y licencia en trámite"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D070/3bd77f70ef-800.jpg",
    "ops": [
@@ -1693,6 +3605,16 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D071",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [],
+    "lista": [
+     "Lote de 4.169 m²",
+     "Matrícula independiente",
+     "Estudios, diseños y licencia en trámite"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D071/3bd77f70ef-800.jpg",
    "ops": [
@@ -1721,6 +3643,43 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D072",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Estudio",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.689.000"
+     ],
+     [
+      "Predial",
+      "$2.220.924 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Balcón amplio con vista panorámica",
+     "Piscina, gimnasio, zona infantil y zonas verdes"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D072/1540d1d61b-800.jpg",
    "ops": [
@@ -1749,6 +3708,36 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D073",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Estudio",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.520.000"
+     ],
+     [
+      "Predial",
+      "$2.200.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · cuarto útil amplio",
+     "Reformado, estilo moderno e industrial",
+     "Luz natural en todos los espacios"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D073/adf744dbba-800.jpg",
    "ops": [
@@ -1777,6 +3766,43 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D074",
+   "det": {
+    "amen": [
+     "Portería 24 h",
+     "Salón social",
+     "Gimnasio",
+     "BBQ"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.200.000"
+     ],
+     [
+      "Predial",
+      "$1.700.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · alcoba de servicio · 2 parqueaderos",
+     "Balcón con vista panorámica a la ciudad",
+     "Gimnasio, BBQ, salón social y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D074/647a07116b-800.jpg",
    "ops": [
@@ -1805,6 +3831,40 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D075",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$677.690"
+     ],
+     [
+      "Predial",
+      "$5.717.944 (anual)"
+     ]
+    ],
+    "lista": [
+     "Sin habitación de servicio · 1 parqueadero",
+     "Balcón · cocina abierta · cuarto útil",
+     "Edificio con piscina, gimnasio y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D075/b3a6e316d7-800.jpg",
    "ops": [
@@ -1833,6 +3893,38 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D076",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Portería 24 h",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.813.000"
+     ]
+    ],
+    "lista": [
+     "Habitación de servicio · 3 parqueaderos",
+     "Balcón amplio con vista panorámica · cuarto útil",
+     "Edificio con piscina, gimnasio, zona infantil y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D076/ffb9517b61-800.jpg",
    "ops": [
@@ -1861,6 +3953,35 @@
    "ban": 4.0,
    "canon": 9000000.0,
    "codigo": "D078",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Portería 24 h",
+     "Salón social",
+     "Zonas verdes",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Estudio",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ]
+    ],
+    "lista": [
+     "Doble salón · comedor independiente · estudio",
+     "Alcoba de servicio · cuarto útil",
+     "Piscina, gimnasio, salón social, zona infantil, zonas verdes y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D078/43c39faf81-800.jpg",
    "ops": [
@@ -1889,6 +4010,44 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D079",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Portería 24 h",
+     "Salón social",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Terraza",
+     "Jardín privado",
+     "Cuarto útil",
+     "Estudio"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.400.000"
+     ],
+     [
+      "Predial",
+      "$4.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Todas las alcobas con salida a terraza y aire acondicionado",
+     "Estudio · alcoba de servicio · cuarto útil",
+     "Piscina, gimnasio, salón social, zona infantil y portería 24 h"
+    ]
+   },
    "ext": 90.0,
    "foto": "/fotos/D079/85328bae43-800.jpg",
    "ops": [
@@ -1917,6 +4076,41 @@
    "ban": 4.0,
    "canon": 17000000.0,
    "codigo": "D080",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Zona infantil",
+     "Zonas verdes",
+     "Portería 24 h",
+     "Salón social"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.500.000"
+     ]
+    ],
+    "lista": [
+     "Estudio · cuarto útil · alcoba de servicio",
+     "Remodelado · balcón en la cocina · vista panorámica",
+     "Piscina, gimnasio, zona infantil, salón social, zonas verdes y portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D080/8cf953ab5f-800.jpg",
    "ops": [
@@ -1950,6 +4144,37 @@
    "ban": 4.0,
    "canon": 9200000.0,
    "codigo": "D082",
+   "det": {
+    "amen": [
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.250.000"
+     ],
+     [
+      "Predial",
+      "$2.380.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Balcón · cuarto útil",
+     "Habitación de servicio · portería 24 horas"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D082/aaa2665bf4-800.jpg",
    "ops": [
@@ -1983,6 +4208,44 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D083",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Zona infantil",
+     "Portería 24 h",
+     "Salón social"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.362.000"
+     ],
+     [
+      "Predial",
+      "$8.308.000 (anual)"
+     ]
+    ],
+    "lista": [
+     "Cada alcoba con baño propio",
+     "Vista a la ciudad · balcón",
+     "Habitación de servicio · cuarto útil",
+     "Piscina · gimnasio · zona infantil · salón social",
+     "Portería 24 h"
+    ]
+   },
    "ext": 0,
    "foto": "/fotos/D083/a3fa63b386-800.jpg",
    "ops": [

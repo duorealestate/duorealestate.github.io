@@ -87,6 +87,7 @@ def generar(sitio, cfg, publicadas, plantilla):
             continue
         props.append({"cod": codigo, "tipo": t["tipo"], "sector": t["sector"], "titulo": t["titulo"], "ops": t["ops"],
                       "venta": t["venta"], "canon": t["canon"], "area": t["area"], "alc": t["alc"], "foto": t["foto"],
+                      "ban": t.get("ban", 0), "parq": t.get("parq", 0), "ext": t.get("ext", 0), "det": t.get("det", {}),
                       "web": v["url"], "ficha": f"{cfg['url_fichas']}/{codigo}",
                       "id": v["notion_id"].replace("-", "")})
 
