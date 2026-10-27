@@ -4264,5 +4264,66 @@
    "venta": 1650000000.0
   },
   "url": "https://duorealestate.github.io/D083"
+ },
+ "D084": {
+  "fotos": 8,
+  "notion_id": "40622d40-016d-81de-94e9-fbf920d2e0ff",
+  "tarjeta": {
+   "alc": 3.0,
+   "area": 248.98,
+   "ban": 4.0,
+   "canon": 0,
+   "codigo": "D084",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Zona infantil",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.468.216"
+     ],
+     [
+      "Predial",
+      "$4.750.000 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D084/7033f96dbc-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 3.0,
+   "precios": [
+    [
+     "VENTA",
+     "$3.250 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 3250000000.0
+  },
+  "url": "https://duorealestate.github.io/D084"
  }
 }
