@@ -4305,7 +4305,12 @@
       "$4.750.000 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Balcón tipo terraza con vista panorámica · cuarto útil",
+     "Habitación de servicio · baño y vestier en cada alcoba",
+     "Cocina que se abre o se cierra · espacio de lectura u oficina en el cuarto principal",
+     "Piscina · gimnasio · zona infantil · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D084/7033f96dbc-800.jpg",
@@ -4321,7 +4326,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Moderno, luminoso y con terraza con vista a la ciudad",
    "venta": 3250000000.0
   },
   "url": "https://duorealestate.github.io/D084"
