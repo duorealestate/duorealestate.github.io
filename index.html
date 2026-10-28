@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" href="/marca/favicon.png">
 <link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=IBM+Plex+Mono:wght@500&family=Red+Hat+Display:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="/estilos.css?v=0bc63a53">
+<link rel="stylesheet" href="/estilos.css?v=d7eec6d4">
 </head>
 <body class="pg-inicio">
 <header class="top sobre">
@@ -59,7 +59,13 @@
   <label><span>Tipo</span><select data-f="tipo"><option value="">Todos</option><option value="Apartamento">Apartamentos</option><option value="Casa">Casas</option><option value="Lote">Lotes</option><option value="Oficina">Oficinas</option></select></label>
   <label><span>Sector</span><select data-f="sector"><option value="">Todos</option><option>Alto de las Palmas</option><option>Castropol</option><option>El Escobero</option><option>El Poblado</option><option>El Retiro</option><option>Envigado</option><option>La Ceja</option><option>Laureles</option><option>Llanogrande</option><option>Rionegro</option></select></label>
   <label><span>Operación</span><select data-f="ops"><option value="">Venta y arriendo</option><option value="Venta">Venta</option><option value="Alquiler">Arriendo</option></select></label>
-  <label><span>Precio de venta hasta</span><select data-f="precio"><option value="">Cualquiera</option><option value="500000000">$500 millones</option><option value="1000000000">$1.000 millones</option><option value="1500000000">$1.500 millones</option><option value="2000000000">$2.000 millones</option><option value="3000000000">$3.000 millones</option><option value="5000000000">$5.000 millones</option></select></label>
+  <div class="rango-precio"><span>Precio de venta</span>
+    <div class="rp-pista"><div class="rp-sel"></div>
+      <input type="range" data-f="pmin" min="0" max="13" value="0" step="1" aria-label="Precio mínimo">
+      <input type="range" data-f="pmax" min="0" max="13" value="13" step="1" aria-label="Precio máximo">
+    </div>
+    <output class="rp-txt" data-pasos="0,300,500,700,1000,1300,1600,2000,2500,3000,4000,5000,7000,10000">Cualquier precio</output>
+  </div>
   <label><span>Alcobas</span><select data-f="alc"><option value="">Cualquiera</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option></select></label>
   <label><span>Ordenar</span><select data-f="orden"><option value="nuevas">Más recientes</option><option value="precio-asc">Menor precio</option><option value="precio-desc">Mayor precio</option><option value="area-desc">Más área</option></select></label>
 </form>
@@ -670,6 +676,6 @@
   <p><a href="https://wa.me/573105140640?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20d%C3%BBo%20real%20estate%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." rel="noopener">WhatsApp</a> · <a href="https://instagram.com/duorealestate.mde" rel="noopener">@duorealestate.mde</a></p>
 </footer>
 <a class="flota" href="https://wa.me/573105140640?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20d%C3%BBo%20real%20estate%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
-<script src="/catalogo.js?v=0bc63a53" defer></script>
+<script src="/catalogo.js?v=d7eec6d4" defer></script>
 </body>
 </html>

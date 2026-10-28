@@ -744,6 +744,10 @@ def tarjeta_html(t):
 </a>"""
 
 
+# Pasos de la barra de precio (millones). El último significa "sin límite".
+PASOS_PRECIO = [0, 300, 500, 700, 1000, 1300, 1600, 2000, 2500, 3000, 4000, 5000, 7000, 10000]
+
+
 def filtros(tarjetas, tipo_fijo=""):
     sectores = sorted({t["sector"] for t in tarjetas if t["sector"]})
     tipos = [(t, n) for t, _, n in SECCIONES if any(x["tipo"] == t for x in tarjetas)]
@@ -755,7 +759,13 @@ def filtros(tarjetas, tipo_fijo=""):
   {op_tipo}
   <label><span>Sector</span><select data-f="sector"><option value="">Todos</option>{"".join(f'<option>{esc(x)}</option>' for x in sectores)}</select></label>
   <label><span>Operación</span><select data-f="ops"><option value="">Venta y arriendo</option><option value="Venta">Venta</option><option value="Alquiler">Arriendo</option></select></label>
-  <label><span>Precio de venta hasta</span><select data-f="precio"><option value="">Cualquiera</option>{"".join(f'<option value="{v * 1_000_000}">{n}</option>' for v, n in precios)}</select></label>
+  <div class="rango-precio"><span>Precio de venta</span>
+    <div class="rp-pista"><div class="rp-sel"></div>
+      <input type="range" data-f="pmin" min="0" max="{len(PASOS_PRECIO) - 1}" value="0" step="1" aria-label="Precio mínimo">
+      <input type="range" data-f="pmax" min="0" max="{len(PASOS_PRECIO) - 1}" value="{len(PASOS_PRECIO) - 1}" step="1" aria-label="Precio máximo">
+    </div>
+    <output class="rp-txt" data-pasos="{",".join(str(p) for p in PASOS_PRECIO)}">Cualquier precio</output>
+  </div>
   <label><span>Alcobas</span><select data-f="alc"><option value="">Cualquiera</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option></select></label>
   <label><span>Ordenar</span><select data-f="orden"><option value="nuevas">Más recientes</option><option value="precio-asc">Menor precio</option><option value="precio-desc">Mayor precio</option><option value="area-desc">Más área</option></select></label>
 </form>
