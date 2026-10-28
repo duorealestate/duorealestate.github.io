@@ -3758,7 +3758,7 @@
   "url": "https://duorealestate.github.io/D073"
  },
  "D074": {
-  "fotos": 9,
+  "fotos": 8,
   "notion_id": "3f922d40-016d-8096-92c8-eafea59ec4a9",
   "tarjeta": {
    "alc": 2.0,
@@ -3804,7 +3804,7 @@
     ]
    },
    "ext": 0,
-   "foto": "/fotos/D074/647a07116b-800.jpg",
+   "foto": "/fotos/D074/4f8eedf41e-800.jpg",
    "ops": [
     "Venta"
    ],
@@ -3812,13 +3812,13 @@
    "precios": [
     [
      "VENTA",
-     "$1.550 millones"
+     "$1.500 millones"
     ]
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
    "titulo": "Piso alto con la ciudad a tus pies",
-   "venta": 1550000000.0
+   "venta": 1500000000.0
   },
   "url": "https://duorealestate.github.io/D074"
  },
