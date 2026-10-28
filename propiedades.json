@@ -708,7 +708,7 @@
    "alc": 3.0,
    "area": 540.0,
    "ban": 4.0,
-   "canon": 0,
+   "canon": 35000000.0,
    "codigo": "D013",
    "det": {
     "amen": [
