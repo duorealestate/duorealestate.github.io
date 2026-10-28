@@ -9,6 +9,8 @@ Secretos (en GitHub Actions como variables de entorno; en el Mac, en el llavero)
   NOTION_TOKEN  · llave de Notion de solo lectura con acceso a PROPIEDADES - interno  (llavero: duo-notion-token)
   DUO_ENVIAR    · "llave:PIN" (llave = 64 caracteres hexadecimales)                     (llavero: duo-enviar)
 Sin ellos la página se publica igual, pero sin búsqueda por nombre.
+Con "url_editor" en config.json, cada tarjeta muestra un lápiz ✏️ (solo con el PIN) que guarda en Notion
+por medio del Worker de Cloudflare "editor-duo" (automatizacion/editor-cloudflare.js).
 """
 import base64
 import hashlib
@@ -112,6 +114,7 @@ def generar(sitio, cfg, publicadas, plantilla):
     for p in props:
         del p["id"]
 
-    html = plantilla.replace("/*DATOS*/[]", json.dumps(props, ensure_ascii=False)).replace("/*NOMBRES*/\"\"", json.dumps(cifrado))
+    html = plantilla.replace("/*DATOS*/[]", json.dumps(props, ensure_ascii=False)).replace("/*NOMBRES*/\"\"", json.dumps(cifrado)) \
+        .replace("/*EDITOR*/\"\"", json.dumps(cfg.get("url_editor", "")))
     destino.parent.mkdir(exist_ok=True)
     destino.write_text(html)

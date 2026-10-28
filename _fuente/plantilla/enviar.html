@@ -78,6 +78,36 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .barra b{width:100%;font-size:16px}
 .barra a{flex:1;text-align:center;padding:14px 8px;border-radius:12px;background:var(--crema);color:var(--azul-profundo);font-weight:700;text-decoration:none;font-size:16px}
 .barra button{background:none;border:0;color:var(--crema);font:inherit;font-size:14px;text-decoration:underline;padding:4px}
+.lapiz{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:#fff;font-size:18px}
+.card{position:relative}
+.lapiz~.fila{padding-right:56px}
+.modal{position:fixed;inset:0;background:var(--crema);z-index:10;overflow-y:auto;padding:0 0 120px}
+.modal[hidden]{display:none}
+.modal .top{position:sticky;top:0;background:var(--azul);color:var(--crema);padding:14px 16px;display:flex;align-items:center;gap:12px;z-index:2}
+.modal .top b{flex:1;font-size:17px}
+.modal .top button{background:none;border:0;color:var(--crema);font:inherit;font-size:16px;text-decoration:underline}
+.modal section{margin:14px 16px 0;background:#fff;border:1px solid var(--linea);border-radius:14px;padding:14px}
+.modal h4{margin:0 0 10px;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500}
+.modal .ayuda{margin:0 0 10px;font-size:14px;color:var(--tinta-suave)}
+.fotos{display:grid;gap:10px}
+.foto{display:flex;gap:10px;align-items:center}
+.foto img{width:110px;height:74px;object-fit:cover;border-radius:8px;flex:none;background:var(--crema-tarjeta)}
+.foto .n{font-family:var(--mono);font-size:13px;color:var(--azul);width:52px}
+.foto .bt{display:flex;gap:6px;flex-wrap:wrap}
+.foto button{font:inherit;font-size:16px;min-width:42px;height:42px;border:1px solid var(--linea);border-radius:10px;background:var(--crema)}
+.foto button:disabled{opacity:.3}
+.foto.fuera img{opacity:.35}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.campos label,.modal .txt{display:grid;gap:2px;font-size:13px;color:var(--tinta-suave)}
+.campos label.ancho{grid-column:1/-1}
+.campos input,.campos select,.modal textarea{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:var(--crema);color:var(--tinta)}
+.modal textarea{min-height:110px;resize:vertical}
+.modal .txt+.txt{margin-top:10px}
+.modal .pie{position:fixed;left:0;right:0;bottom:0;background:var(--azul-profundo);padding:12px 16px calc(12px + env(safe-area-inset-bottom));z-index:3}
+.modal .pie button{width:100%;font:inherit;font-weight:700;font-size:17px;padding:14px;border:0;border-radius:12px;background:var(--crema);color:var(--azul-profundo)}
+.modal .estado{margin:14px 16px 0;font-size:15px}
+.modal .estado.mal{color:#B3261E}
+.modal .estado.bien{color:var(--verde)}
 </style>
 </head>
 <body>
@@ -121,9 +151,21 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
   <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
   <button id="limpiar" type="button">Quitar selección</button>
 </div>
+<div class="modal" id="ed" hidden>
+  <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
+  <p class="estado" id="edEstado"></p>
+  <div id="edCuerpo" hidden>
+    <section><h4>FOTOS</h4><p class="ayuda">La primera es la portada de la web y de WhatsApp. Ordénalas con las flechas.</p><div class="fotos" id="edFotos"></div></section>
+    <section><h4>DATOS</h4><div class="campos" id="edCampos"></div></section>
+    <section><h4>TEXTOS DE LA WEB</h4><p class="ayuda">Sin nombre del edificio, número de apto, piso ni dirección.</p><div id="edTextos"></div></section>
+  </div>
+  <div class="pie" id="edPie" hidden><button type="button" id="edGuardar">Guardar cambios</button></div>
+</div>
 <script>
 const P = /*DATOS*/[];
 const CIFRADO = /*NOMBRES*/"";
+const EDITOR = /*EDITOR*/"";
+let CLAVE = "";
 let NOMBRES = {};
 
 // ---------- Nombres cifrados (mismo algoritmo que enviar.py) ----------
@@ -156,14 +198,18 @@ async function iniciarNombres() {
   if (!CIFRADO) return;
   if (!llave) { $("sinLlave").hidden = false; return; }
   const n = leer("duo-pin") && await descifrar(llave, leer("duo-pin"));
-  if (n) { NOMBRES = n; pintar(); return; }
+  if (n) { NOMBRES = n; await claveEditor(llave, leer("duo-pin")); pintar(); return; }
   $("pin").hidden = false;
   $("pinForm").onsubmit = async e => {
     e.preventDefault();
     const pin = $("pinIn").value.trim(), r = await descifrar(llave, pin);
     if (!r) { $("pinErr").hidden = false; return; }
-    guardar("duo-pin", pin); NOMBRES = r; $("pin").hidden = true; pintar();
+    guardar("duo-pin", pin); NOMBRES = r; $("pin").hidden = true; await claveEditor(llave, pin); pintar();
   };
+}
+
+async function claveEditor(llave, pin) {
+  CLAVE = [...await sha(te.encode(llave + ":" + pin))].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 // ---------- Mensajes ----------
@@ -258,7 +304,7 @@ function pintar() {
   $("resumenF").textContent = nF ? `Filtros (${nF})` : "Filtros";
   $("conteo").textContent = vis.length + (vis.length === 1 ? " propiedad" : " propiedades");
   $("verF").textContent = vis.length === 1 ? "Ver 1 propiedad" : `Ver ${vis.length} propiedades`;
-  $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">
+  $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">${EDITOR && CLAVE ? `<button class="lapiz" type="button" data-editar="${esc(p.cod)}" aria-label="Editar ${esc(p.cod)}">✏️</button>` : ""}
     <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
       <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
       <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div></div></div>
@@ -269,7 +315,8 @@ function pintar() {
       <a href="${esc(wa(msgCol([p])))}" target="_blank" rel="noopener">🤝 A colega</a></div></div>`).join("")
     : `<p class="vacio">No encontré nada con eso. Prueba con el código (D012) o el sector.</p>`;
 }
-$("lista").onclick = e => { const b = e.target.closest("[data-abrir]"); if (!b) return; const c = b.dataset.abrir;
+$("lista").onclick = e => { const ed = e.target.closest("[data-editar]"); if (ed) return editar(ed.dataset.editar);
+  const b = e.target.closest("[data-abrir]"); if (!b) return; const c = b.dataset.abrir;
   abiertas.has(c) ? abiertas.delete(c) : abiertas.add(c); pintar(); };
 $("lista").onchange = e => { const c = e.target.dataset.cod; if (!c) return;
   e.target.checked ? sel.add(c) : sel.delete(c); e.target.closest(".card").classList.toggle("sel", e.target.checked); barra(); };
@@ -280,6 +327,71 @@ function barra() {
   $("nsel").textContent = `${ps.length} marcada${ps.length === 1 ? "" : "s"}: mandarlas juntas`;
   $("varCli").href = wa(msgCli(ps)); $("varCol").href = wa(msgCol(ps));
 }
+// ---------- Editor (✏️): guarda en Notion a través del Worker "editor-duo" ----------
+const NUM = [["Precio venta COP", "Precio venta"], ["Canon arriendo COP", "Canon arriendo / mes"], ["Administración mensual COP", "Administración / mes"],
+  ["Área construida m²", "Área m²"], ["Área lote m²", "Lote m²"], ["Área exterior m²", "Exteriores m²"], ["Alcobas", "Alcobas"], ["Baños", "Baños"], ["Parqueaderos", "Parqueaderos"]];
+const TXT = [["Título web", 1], ["Descripción pública", 6], ["Lo que tiene", 5]];
+const ESTADOS = ["Activa", "Oferta recibida", "Por completar", "Por verificar", "Pausada", "Vendida DUO", "Vendida", "Arrendada", "Retirada"];
+let ED = null;
+async function api(cuerpo) {
+  const r = await fetch(EDITOR, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) });
+  const d = await r.json().catch(() => ({ error: "El editor no respondió" }));
+  if (!r.ok || d.error) throw new Error(d.error || "Error " + r.status);
+  return d;
+}
+const estadoEd = (t, c = "") => { $("edEstado").textContent = t; $("edEstado").className = "estado " + c; };
+async function editar(cod) {
+  ED = null; $("ed").hidden = false; document.body.style.overflow = "hidden";
+  $("edTit").textContent = `Editar ${cod}` + (nombre(P.find(p => p.cod === cod) || {}) ? " · " + nombre(P.find(p => p.cod === cod)) : "");
+  $("edCuerpo").hidden = $("edPie").hidden = true; estadoEd("Cargando desde Notion…");
+  try {
+    const d = await api({ accion: "leer", cod });
+    ED = { cod, orig: d, fotos: d.fotos.map(f => ({ ...f, fuera: false })) };
+    $("edCampos").innerHTML = NUM.map(([k, t]) => `<label>${esc(t)}<input data-k="${esc(k)}" type="number" inputmode="decimal" min="0" value="${d[k] ?? ""}"></label>`).join("")
+      + `<label class="ancho">Estado<select data-k="Estado comercial">${ESTADOS.map(s => `<option${s === d["Estado comercial"] ? " selected" : ""}>${s}</option>`).join("")}</select></label>`;
+    $("edTextos").innerHTML = TXT.map(([k, n]) => `<label class="txt">${esc(k)}<textarea data-k="${esc(k)}" rows="${n}">${esc(d[k] || "")}</textarea></label>`).join("");
+    pintarFotos(); estadoEd(""); $("edCuerpo").hidden = $("edPie").hidden = false;
+  } catch (e) { estadoEd(e.message, "mal"); }
+}
+function pintarFotos() {
+  const fs = ED.fotos, n = fs.length;
+  $("edFotos").innerHTML = fs.map((f, i) => `<div class="foto${f.fuera ? " fuera" : ""}"><img src="${esc(f.url)}" alt="">
+    <span class="n">${f.fuera ? "QUITADA" : i === 0 ? "PORTADA" : "#" + (i + 1)}</span><div class="bt">
+    <button type="button" data-f="sub" data-i="${i}" ${i === 0 ? "disabled" : ""} aria-label="Subir">↑</button>
+    <button type="button" data-f="baj" data-i="${i}" ${i === n - 1 ? "disabled" : ""} aria-label="Bajar">↓</button>
+    <button type="button" data-f="por" data-i="${i}" ${i === 0 ? "disabled" : ""} aria-label="Poner de portada">★</button>
+    <button type="button" data-f="qui" data-i="${i}" aria-label="${f.fuera ? "Volver a poner" : "Quitar"}">${f.fuera ? "↺" : "✕"}</button></div></div>`).join("");
+}
+$("edFotos").onclick = e => {
+  const b = e.target.closest("[data-f]"); if (!b) return; const i = +b.dataset.i, fs = ED.fotos;
+  if (b.dataset.f === "sub") [fs[i - 1], fs[i]] = [fs[i], fs[i - 1]];
+  if (b.dataset.f === "baj") [fs[i + 1], fs[i]] = [fs[i], fs[i + 1]];
+  if (b.dataset.f === "por") fs.unshift(fs.splice(i, 1)[0]);
+  if (b.dataset.f === "qui") fs[i].fuera = !fs[i].fuera;
+  pintarFotos();
+};
+const cerrarEd = () => { $("ed").hidden = true; document.body.style.overflow = ""; };
+$("edCerrar").onclick = cerrarEd;
+$("edGuardar").onclick = async () => {
+  if (!ED) return;
+  const campos = {};
+  document.querySelectorAll("#ed [data-k]").forEach(el => {
+    const k = el.dataset.k, o = ED.orig[k];
+    if (NUM.some(([n]) => n === k)) { const v = el.value.trim() === "" ? null : Number(el.value); if (v !== o) campos[k] = v; }
+    else if (el.value.trim() !== String(o || "").trim()) campos[k] = el.value.trim();
+  });
+  const orden = ED.fotos.filter(f => !f.fuera).map(f => f.id);
+  const fotosCambian = orden.join() !== ED.orig.fotos.map(f => f.id).join();
+  if (!orden.length) return estadoEd("Deja al menos una foto.", "mal");
+  if (!Object.keys(campos).length && !fotosCambian) return estadoEd("No hay cambios para guardar.");
+  $("edGuardar").disabled = true; estadoEd("Guardando en Notion…");
+  try {
+    await api({ accion: "guardar", cod: ED.cod, campos, fotos: fotosCambian ? orden : undefined });
+    estadoEd("✅ Guardado en Notion. En unos 2 minutos se ve en Enviar, la web y la página para colegas.", "bien");
+    $("edCuerpo").hidden = $("edPie").hidden = true;
+  } catch (e) { estadoEd(e.message, "mal"); }
+  $("edGuardar").disabled = false;
+};
 pintar();
 iniciarNombres();
 </script>

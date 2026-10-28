@@ -279,6 +279,7 @@ def numero(v):
 def fmt_num(f):
     if f is None:
         return ""
+    f = round(f, 1)  # 248,96 → 249 (y no "249,0")
     if f == int(f):
         return f"{int(f):,}".replace(",", ".")
     return f"{f:,.1f}".replace(",", "X").replace(".", ",").replace("X", ".")
@@ -387,6 +388,14 @@ def preparar_fotos(codigo, urls):
             descargar(url, orig)
             reducir(orig, grande, 1600, 72)
             reducir(orig, chica, 800, 70)
+    # Versión grande de la primera foto para la portada de la web (pantallas grandes y de alta densidad).
+    if claves:
+        hd = carpeta / f"{claves[0]}-2400.jpg"
+        if not hd.exists():
+            with tempfile.TemporaryDirectory() as tmp:
+                orig = Path(tmp) / "orig"
+                descargar(urls[0][1] if isinstance(urls[0], tuple) else urls[0], orig)
+                reducir(orig, hd, 2400, 82)
     # Imagen para WhatsApp (1200×630) a partir de la primera foto.
     if claves:
         og = carpeta / f"og-{claves[0]}.jpg"
@@ -396,7 +405,8 @@ def preparar_fotos(codigo, urls):
             base = carpeta / f"{claves[0]}.jpg"
             imagen_og(base, og)
     # Borrar fotos que ya no están en la ficha.
-    vigentes = {f"{c}.jpg" for c in claves} | {f"{c}-800.jpg" for c in claves} | ({f"og-{claves[0]}.jpg"} if claves else set())
+    vigentes = {f"{c}.jpg" for c in claves} | {f"{c}-800.jpg" for c in claves} | (
+        {f"og-{claves[0]}.jpg", f"{claves[0]}-2400.jpg"} if claves else set())
     for f in carpeta.iterdir():
         if f.name not in vigentes:
             f.unlink()
@@ -724,7 +734,7 @@ def tarjeta_html(t):
              f'data-venta="{int(t["venta"])}" data-canon="{int(t["canon"])}" data-alc="{int(t["alc"])}" '
              f'data-area="{int(t["area"])}" data-cod="{esc(t["codigo"])}"')
     return f"""<a class="card" href="/{esc(t['codigo'])}" {attrs}>
-  <div class="card-foto"><img src="{esc(t['foto'])}" alt="{esc(t['titulo'])}" loading="lazy" decoding="async"><div class="card-etqs">{etq}</div></div>
+  <div class="card-foto"><img src="{esc(t['foto'])}" srcset="{esc(t['foto'])} 800w, {esc(t['foto'].replace('-800.jpg', '.jpg'))} 1600w" sizes="(min-width:760px) 33vw, 50vw" alt="{esc(t['titulo'])}" loading="lazy" decoding="async"><div class="card-etqs">{etq}</div></div>
   <div class="card-in">
     <p class="card-eye">{esc((t['tipo'] + ' · ' + t['sector']).upper())}</p>
     <h3>{esc(t['titulo'])}</h3>
@@ -770,7 +780,8 @@ def inicio(tarjetas):
     if not destacadas:
         destacadas = sorted((t for t in tarjetas if t["tipo"] in ("Casa", "Apartamento") and t["venta"]),
                             key=lambda t: t["venta"], reverse=True)[:6]
-    fondos = "".join(f'<img src="{esc(t["foto"].replace("-800.jpg", ".jpg"))}" alt="" {"fetchpriority=high" if i == 0 else "loading=lazy"} '
+    fondos = "".join(f'<img src="{esc(t["foto"].replace("-800.jpg", ".jpg"))}" srcset="{esc(t["foto"].replace("-800.jpg", ".jpg"))} 1600w, '
+                     f'{esc(t["foto"].replace("-800.jpg", "-2400.jpg"))} 2400w" sizes="max(100vw, 134vh)" alt="" {"fetchpriority=high" if i == 0 else "loading=lazy"} '
                      f'style="animation-delay:{i * 6 - 1.5}s">' for i, t in enumerate(destacadas))
     opciones_tipo = "".join(f'<option value="{esc(tp)}">{esc(nom)}</option>' for tp, _, nom in SECCIONES
                             if any(x["tipo"] == tp for x in tarjetas))
