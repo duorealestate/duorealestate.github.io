@@ -18,7 +18,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 
 /* ---------- Encabezado ---------- */
 .top{background:var(--azul); display:flex; flex-wrap:wrap; align-items:center; gap:0 16px;
-  padding:10px max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); position:relative; z-index:5}
+  padding:10px max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); position:sticky; top:0; z-index:8}
 .logo img{width:84px; height:auto; display:block}
 .top-wa{margin-left:auto; font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.18em; color:var(--crema);
   text-decoration:none; border:1px solid rgba(244,238,223,.5); padding:7px 11px; border-radius:2px}
@@ -28,7 +28,9 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .menu a{color:var(--crema); text-decoration:none; font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; white-space:nowrap; padding:3px 0; border-bottom:1px solid transparent}
 .menu a:hover, .menu a[aria-current]{border-bottom-color:var(--crema)}
-.top.sobre{position:absolute; inset:0 0 auto 0; background:linear-gradient(rgba(20,26,40,.55), rgba(20,26,40,0))}
+.top.sobre{position:fixed; inset:0 0 auto 0; background:linear-gradient(rgba(20,26,40,.55), rgba(20,26,40,0)); transition:background-color .3s, box-shadow .3s}
+.top.sobre.solido{background:var(--azul); box-shadow:0 2px 14px rgba(20,26,40,.18)}
+[id]{scroll-margin-top:110px}
 @media (min-width:960px){
   .top{flex-wrap:nowrap; padding:14px 44px}
   .logo img{width:104px}

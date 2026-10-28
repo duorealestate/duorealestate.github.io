@@ -504,7 +504,9 @@ def encabezado(wa, activo="", sobre_foto=False):
     <a href="/#propiedades"{" aria-current=page" if activo == "inicio" else ""}>Propiedades</a>{enlaces}<a href="/#nosotras">Nosotras</a>
   </nav>
   <a class="top-wa" href="{esc(wa)}" rel="noopener">WHATSAPP</a>
-</header>"""
+</header>""" + ("""
+<script>(function(){var t=document.currentScript.previousElementSibling;function f(){t.classList.toggle('solido',scrollY>40)}
+addEventListener('scroll',f,{passive:true});f()})()</script>""" if sobre_foto else "")
 
 
 def pie(wa):
