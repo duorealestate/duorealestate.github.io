@@ -83,6 +83,13 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .confianza div:first-child{border-left:0}
 .confianza b{display:block; font-family:var(--serif); font-weight:400; font-size:clamp(19px, 3.2vw, 32px); line-height:1.1}
 .confianza span{display:block; font-family:var(--mono); font-weight:500; font-size:clamp(9.5px, 1.6vw, 12px); letter-spacing:.18em; color:var(--crema-suave); margin-top:10px}
+@media (max-width:699px){  /* celular: una debajo de la otra */
+  .confianza{grid-template-columns:1fr; gap:0; padding:10px var(--lado)}
+  .confianza div{border-left:0; border-top:1px solid rgba(244,238,223,.18); padding:20px 0}
+  .confianza div:first-child{border-top:0}
+  .confianza b{font-size:24px}
+  .confianza span{font-size:11px; margin-top:8px}
+}
 
 .frase{max-width:900px; margin:0 auto; padding:88px var(--lado) 40px; text-align:center}
 .frase blockquote{font-family:var(--serif); font-weight:400; font-size:clamp(24px, 3.6vw, 38px); line-height:1.3;

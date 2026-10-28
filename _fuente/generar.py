@@ -837,7 +837,7 @@ def inicio(tarjetas):
   <div class="hero-velo"></div>
   <div class="hero-txt">
     <h1>Encuentra el hogar que encaja con tu momento de vida</h1>
-    <p class="bajada">Te acompañamos a encontrar el lugar donde quieres vivir.</p>
+    <p class="bajada">Te acompañamos a encontrar lo que estás buscando.</p>
     <form class="buscador" action="/#propiedades" method="get" aria-label="Buscar propiedades">
       <label><span>Tipo</span><select name="tipo"><option value="">Todos</option>{opciones_tipo}</select></label>
       <label><span>Sector</span><select name="sector"><option value="">Todos</option>{opciones_sector}</select></label>
@@ -848,9 +848,9 @@ def inicio(tarjetas):
   <a class="hero-baja" href="#confianza" aria-label="Seguir bajando">&#8964;</a>
 </section>
 <section class="confianza" id="confianza">
-  <div><b>Experiencia</b><span>MÁS DE 25 AÑOS<br>EN FINCA RAÍZ</span></div>
+  <div><b>Experiencia</b><span>MÁS DE 25 AÑOS<br>DE TRAYECTORIA</span></div>
   <div><b>Asesoría</b><span>PENSADA PARA TU<br>MOMENTO DE VIDA</span></div>
-  <div><b>Acompañamiento</b><span>CONTIGO HASTA EL MOMENTO<br>EN QUE ENCUENTRAS TU LUGAR</span></div>
+  <div><b>Acompañamiento</b><span>CONTIGO HASTA<br>ENCONTRAR TU LUGAR</span></div>
 </section>
 <section class="frase">
   <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
