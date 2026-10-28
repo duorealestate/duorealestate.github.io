@@ -780,7 +780,7 @@ def portafolio(tarjetas, tipo_fijo=""):
 
 
 def inicio(tarjetas):
-    wa = wa_link("Hola, vi la página de dûo real estate y quiero más información.")
+    wa = wa_link("Hola, vi la página de Dûo Real Estate y quiero más información.")
     url = CFG["url_sitio"] + "/"
     n = len(tarjetas)
     # Portada: la primera foto de las propiedades de mayor valor (casas y apartamentos en venta).
@@ -859,7 +859,7 @@ def inicio(tarjetas):
 
 
 def seccion(tipo, slug, nombre, tarjetas):
-    wa = wa_link(f"Hola, vi los {nombre.lower()} de dûo real estate y quiero más información.")
+    wa = wa_link(f"Hola, vi los {nombre.lower()} de Dûo Real Estate y quiero más información.")
     url = f"{CFG['url_sitio']}/{slug}/"
     propias = [t for t in tarjetas if t["tipo"] == tipo]
     portada = next((t["foto"] for t in sorted(propias, key=lambda t: t["codigo"], reverse=True)), "")
@@ -887,7 +887,7 @@ def seccion(tipo, slug, nombre, tarjetas):
 
 
 def no_encontrada():
-    wa = wa_link("Hola, abrí un link de dûo real estate que ya no funciona. ¿Me ayudan?")
+    wa = wa_link("Hola, abrí un link de Dûo Real Estate que ya no funciona. ¿Me ayudan?")
     return cabeza("dûo real estate", "Esta propiedad ya no está disponible.", CFG["url_sitio"] + "/") + f"""
 <body>
 {encabezado(wa)}
