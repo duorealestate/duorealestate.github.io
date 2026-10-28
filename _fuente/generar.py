@@ -957,6 +957,8 @@ def main():
     (SITIO / "visor.js").write_text(visor_js)
     (SITIO / "catalogo.js").write_text(catalogo_js)
     (SITIO / ".nojekyll").write_text("")
+    if CFG.get("dominio"):  # dominio propio de GitHub Pages (duorealestate.com.co)
+        (SITIO / "CNAME").write_text(CFG["dominio"] + "\n")
     shutil.copytree(MARCA, SITIO / "marca", dirs_exist_ok=True)
 
     previas = SITIO / "propiedades.json"
