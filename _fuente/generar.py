@@ -322,26 +322,55 @@ def sips(*args):
 HAY_SIPS = shutil.which("sips") is not None
 
 
-def reducir(orig, destino, lado_max, calidad):
-    """JPEG con el lado mayor en lado_max px (sin agrandar)."""
-    if HAY_SIPS:
-        sips("-s", "format", "jpeg", "-s", "formatOptions", str(calidad), "-Z", str(lado_max), str(orig), "--out", str(destino))
-        return
-    from PIL import Image, ImageOps
+def _pil():
+    """Pillow (y pillow-heif para las HEIC del iPhone) si está instalado; si no, None y se usa sips."""
+    try:
+        from PIL import Image, ImageOps, ImageChops
+    except ImportError:
+        return None
     try:
         import pillow_heif
         pillow_heif.register_heif_opener()
     except ImportError:
         pass
+    return Image, ImageOps, ImageChops
+
+
+def sin_borde(im, ImageChops):
+    """Quita franjas blancas parejas (arriba y abajo, o a los lados) si la foto sigue siendo horizontal.
+    Las fotos verticales con franjas a los lados se dejan como están."""
+    w, h = im.size
+    blanco = im.copy()
+    blanco.paste((255, 255, 255), (0, 0, w, h))
+    caja = ImageChops.difference(im, blanco).convert("L").point(lambda p: 255 if p > 18 else 0).getbbox()
+    if not caja:
+        return im
+    l, t, r, b = caja
+    arriba, abajo, izq, der = t, h - b, l, w - r
+    minimo = max(6, 0.012 * max(w, h))
+    franjas_h = arriba >= minimo and abajo >= minimo and abs(arriba - abajo) <= 0.02 * h and max(izq, der) <= 4
+    franjas_v = izq >= minimo and der >= minimo and abs(izq - der) <= 0.02 * w and max(arriba, abajo) <= 4
+    if not (franjas_h or franjas_v) or (r - l) < (b - t):
+        return im
+    return im.crop(caja)
+
+
+def reducir(orig, destino, lado_max, calidad):
+    """JPEG con el lado mayor en lado_max px (sin agrandar), sin franjas blancas."""
+    pil = _pil()
+    if pil is None:
+        sips("-s", "format", "jpeg", "-s", "formatOptions", str(calidad), "-Z", str(lado_max), str(orig), "--out", str(destino))
+        return
+    Image, ImageOps, ImageChops = pil
     with Image.open(orig) as im:
-        im = ImageOps.exif_transpose(im).convert("RGB")
+        im = sin_borde(ImageOps.exif_transpose(im).convert("RGB"), ImageChops)
         im.thumbnail((lado_max, lado_max), Image.LANCZOS)
         im.save(destino, "JPEG", quality=calidad, optimize=True, progressive=True)
 
 
 def imagen_og(base, og):
     """Imagen 1200×630 para la vista previa de WhatsApp, recortada al centro."""
-    if HAY_SIPS:
+    if _pil() is None:
         sips("-s", "format", "jpeg", "-s", "formatOptions", "70", "--resampleWidth", "1200", str(base), "--out", str(og))
         alto = int(re.search(r"pixelHeight: (\d+)", subprocess.run(
             ["sips", "-g", "pixelHeight", str(og)], capture_output=True, text=True).stdout).group(1))
@@ -349,7 +378,7 @@ def imagen_og(base, og):
             sips("--resampleHeight", "630", str(og))
         sips("-c", "630", "1200", str(og))
         return
-    from PIL import Image, ImageOps
+    Image, ImageOps, _ = _pil()
     with Image.open(base) as im:
         ImageOps.fit(im.convert("RGB"), (1200, 630), Image.LANCZOS).save(og, "JPEG", quality=70, optimize=True)
 
