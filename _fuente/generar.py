@@ -796,7 +796,7 @@ def inicio(tarjetas):
   <div class="hero-velo"></div>
   <div class="hero-txt">
     <h1>Encuentra el hogar que encaja con tu momento de vida</h1>
-    <p class="bajada">Más de 25 años asesorando a familias en finca raíz.</p>
+    <p class="bajada">Te acompañamos a encontrar el lugar donde quieres vivir.</p>
     <form class="buscador" action="/#propiedades" method="get" aria-label="Buscar propiedades">
       <label><span>Tipo</span><select name="tipo"><option value="">Todos</option>{opciones_tipo}</select></label>
       <label><span>Sector</span><select name="sector"><option value="">Todos</option>{opciones_sector}</select></label>
