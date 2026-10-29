@@ -4330,5 +4330,68 @@
    "venta": 3250000000.0
   },
   "url": "https://duorealestate.github.io/D084"
+ },
+ "D085": {
+  "fotos": 8,
+  "notion_id": "40822d40-016d-81bb-818d-c712d28004db",
+  "tarjeta": {
+   "alc": 4.0,
+   "area": 271.0,
+   "ban": 5.0,
+   "canon": 0,
+   "codigo": "D085",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Zonas verdes",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.700.000"
+     ],
+     [
+      "Predial",
+      "$2.500.000 (trimestral)"
+     ]
+    ],
+    "lista": [
+     "Estudio · espacio de biblioteca · vista panorámica",
+     "Salón y comedor independientes · habitación de servicio",
+     "Piscina · zonas verdes · salón social · portería 24 horas"
+    ]
+   },
+   "ext": 0,
+   "foto": "/fotos/D085/c9e2374f6a-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 4.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.990 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Amplio, con vista y espacio de biblioteca",
+   "venta": 1990000000.0
+  },
+  "url": "https://duorealestate.github.io/D085"
  }
 }
