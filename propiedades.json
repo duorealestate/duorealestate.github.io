@@ -4393,5 +4393,57 @@
    "venta": 1990000000.0
   },
   "url": "https://duorealestate.github.io/D085"
+ },
+ "D086": {
+  "fotos": 6,
+  "notion_id": "40922d40-016d-813e-a45e-e0f3a12dfb37",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 130.0,
+   "ban": 3.0,
+   "canon": 8500999.0,
+   "codigo": "D086",
+   "det": {
+    "amen": [
+     "Salón social",
+     "Portería 24 h",
+     "Gimnasio",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón",
+     "Estudio",
+     "Vista panorámica"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D086/7420dd849e-800.jpg",
+   "ops": [
+    "Alquiler"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "ARRIENDO",
+     "$8.500.999 / mes"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 0
+  },
+  "url": "https://duorealestate.github.io/D086"
  }
 }
