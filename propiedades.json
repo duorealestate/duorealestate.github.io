@@ -4121,7 +4121,7 @@
    "precios": [
     [
      "VENTA",
-     "$2.400 millones"
+     "$2.500 millones"
     ],
     [
      "ARRIENDO",
@@ -4131,7 +4131,7 @@
    "sector": "El Poblado",
    "tipo": "Apartamento",
    "titulo": "Remodelado y con luz por todos lados",
-   "venta": 2400000000.0
+   "venta": 2500000000.0
   },
   "url": "https://duorealestate.github.io/D080"
  },
