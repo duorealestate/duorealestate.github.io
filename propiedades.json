@@ -4401,7 +4401,7 @@
    "alc": 2.0,
    "area": 130.0,
    "ban": 3.0,
-   "canon": 8500999.0,
+   "canon": 8500000.0,
    "codigo": "D086",
    "det": {
     "amen": [
@@ -4436,7 +4436,7 @@
    "precios": [
     [
      "ARRIENDO",
-     "$8.500.999 / mes"
+     "$8.500.000 / mes"
     ]
    ],
    "sector": "El Poblado",
