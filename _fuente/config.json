@@ -1,5 +1,5 @@
 {
-  "url_sitio": "https://duorealestate.github.io",
+  "url_sitio": "https://duorealestate.com.co",
   "whatsapp": "+57 310 514 0640",
   "instagram": "duorealestate.mde",
   "notion_sitio": "https://canary-lodge-57e.notion.site",
@@ -15,5 +15,6 @@
   ],
   "url_fichas": "https://fichas-dre.github.io",
   "fuente": "interno",
-  "url_editor": "https://editor-duo.camila-duorealestate.workers.dev"
+  "url_editor": "https://editor-duo.camila-duorealestate.workers.dev",
+  "dominio": "duorealestate.com.co"
 }
