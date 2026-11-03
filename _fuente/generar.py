@@ -456,8 +456,9 @@ def wa_link(mensaje):
     return f"https://wa.me/{numero_wa}?text={q}" if numero_wa else f"https://wa.me/?text={q}"
 
 
-def cabeza(titulo, descripcion, url, imagen=None):
+def cabeza(titulo, descripcion, url, imagen=None, ld=None):
     og_img = ""
+    ld_html = (f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n') if ld else ""
     if imagen:
         og_img = (f'<meta property="og:image" content="{esc(imagen)}">'
                   f'<meta property="og:image:secure_url" content="{esc(imagen)}">'
@@ -473,7 +474,7 @@ def cabeza(titulo, descripcion, url, imagen=None):
 <meta name="description" content="{esc(descripcion)}">
 <link rel="canonical" href="{esc(url)}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="dûo real estate">
+<meta property="og:site_name" content="Dûo Real Estate">
 <meta property="og:locale" content="es_CO">
 <meta property="og:title" content="{esc(titulo)}">
 <meta property="og:description" content="{esc(descripcion)}">
@@ -485,7 +486,7 @@ def cabeza(titulo, descripcion, url, imagen=None):
 <link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">
 {FUENTES}
 <link rel="stylesheet" href="/estilos.css?v={VERSION_CSS}">
-</head>"""
+{ld_html}</head>"""
 
 
 # Secciones del menú por tipo de propiedad (solo se muestran las que tienen inventario).
@@ -499,7 +500,7 @@ def encabezado(wa, activo="", sobre_foto=False):
         f'<a href="/{slug}/"{" aria-current=page" if slug == activo else ""}>{nombre}</a>'
         for tipo, slug, nombre in SECCIONES if tipo in TIPOS_CON_INVENTARIO)
     return f"""<header class="top{' sobre' if sobre_foto else ''}">
-  <a href="/" class="logo"><img src="/marca/logo-crema-transparente.png" alt="dûo real estate" width="680" height="475"></a>
+  <a href="/" class="logo"><img src="/marca/logo-crema-transparente.png" alt="Dûo Real Estate" width="680" height="475"></a>
   <nav class="menu" aria-label="Menú">
     <a href="/#propiedades"{" aria-current=page" if activo == "inicio" else ""}>Propiedades</a>{enlaces}<a href="/#nosotras">Nosotras</a>
   </nav>
@@ -608,7 +609,7 @@ def ficha(p, cuerpo, claves):
         f"{fmt_num(ban)} {singular(ban, 'baño', 'baños')}" if ban else "",
     ] if x)
     precio_txt = " · ".join(f"{n.capitalize()} {v}" for n, v in precios)
-    descripcion = " · ".join(x for x in [precio_txt, datos_cortos] if x) + " | dûo real estate"
+    descripcion = " · ".join(x for x in [precio_txt, datos_cortos] if x) + " | Dûo Real Estate"
 
     wa = wa_link(f"Hola, me interesa la propiedad {codigo} ({gancho}, {sector}). {url}")
 
@@ -640,7 +641,17 @@ def ficha(p, cuerpo, claves):
         for i, f in enumerate(fotos))
     flechas = ('<button class="car-ant" aria-label="Foto anterior">&#8249;</button>'
                '<button class="car-sig" aria-label="Foto siguiente">&#8250;</button>') if len(fotos) > 1 else ""
-    html_out = cabeza(titulo, descripcion, url, og_img) + f"""
+    ld = {"@context": "https://schema.org", "@type": "RealEstateListing", "name": titulo, "url": url,
+          "description": descripcion.replace(" | Dûo Real Estate", ""),
+          "image": [f"{CFG['url_sitio']}{f}.jpg" for f in fotos[:5]],
+          "about": {"@type": {"Casa": "SingleFamilyResidence", "Apartamento": "Apartment"}.get(tipo, "Place"),
+                    "address": {"@type": "PostalAddress", "addressLocality": sector, "addressRegion": "Antioquia", "addressCountry": "CO"},
+                    **({"floorSize": {"@type": "QuantitativeValue", "value": area, "unitCode": "MTK"}} if area else {}),
+                    **({"numberOfRooms": alc} if alc else {})},
+          "offers": [o for o in [
+              {"@type": "Offer", "price": int(venta), "priceCurrency": "COP", "businessFunction": "http://purl.org/goodrelations/v1#Sell"} if "Venta" in ops and venta else None,
+              {"@type": "Offer", "price": int(canon), "priceCurrency": "COP", "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut"} if "Alquiler" in ops and canon else None] if o]}
+    html_out = cabeza(titulo, descripcion, url, og_img, ld) + f"""
 <body class="pg-ficha">
 {encabezado(wa, slug_tipo(tipo))}
 <section class="carrusel" aria-label="Fotos de la propiedad">
@@ -697,18 +708,18 @@ def ficha(p, cuerpo, claves):
 def neutra(html_out, codigo, wa, activo, og_img, descripcion):
     """Ficha para colegas: la misma página sin logo, menú, WhatsApp, contacto ni nada que diga dûo."""
     url_d, url_f = f"{CFG['url_sitio']}/{codigo}", f"{CFG['url_fichas']}/{codigo}"
-    h = html_out
+    h = re.sub(r'<script type="application/ld\+json">.*?</script>\n', '', html_out, flags=re.S)
     for bloque in (encabezado(wa, activo) + "\n", contacto(wa) + "\n", pie(wa) + "\n",
                    f'<a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>\n',
                    f'      <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Agenda tu visita por WhatsApp</a>\n',
                    '      <p class="resumen-nota">Coordinamos la visita contigo, sin compromiso.</p>\n',
-                   '<meta property="og:site_name" content="dûo real estate">\n',
+                   '<meta property="og:site_name" content="Dûo Real Estate">\n',
                    '<link rel="icon" type="image/png" href="/marca/favicon.png">\n',
                    '<link rel="apple-touch-icon" href="/marca/apple-touch-icon.png">\n'):
         assert bloque in h, bloque[:40]
         h = h.replace(bloque, "")
     h = h.replace(" Confírmalos con nosotras antes de visitar.", "")
-    h = h.replace(esc(descripcion), esc(descripcion.replace(" | dûo real estate", "")))
+    h = h.replace(esc(descripcion), esc(descripcion.replace(" | Dûo Real Estate", "")))
     h = h.replace(f'"{esc(url_d)}"', f'"{esc(url_f)}"')
     if og_img:
         h = h.replace(esc(og_img), esc(og_img.replace(CFG["url_sitio"], CFG["url_fichas"])))
@@ -827,9 +838,15 @@ def inicio(tarjetas):
     opciones_tipo = "".join(f'<option value="{esc(tp)}">{esc(nom)}</option>' for tp, _, nom in SECCIONES
                             if any(x["tipo"] == tp for x in tarjetas))
     opciones_sector = "".join(f'<option>{esc(s)}</option>' for s in sorted({x["sector"] for x in tarjetas if x["sector"]}))
-    return cabeza("dûo real estate · Propiedades en Medellín y el Oriente",
+    ld_inicio = {"@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Dûo Real Estate", "url": url,
+                 "logo": CFG["url_sitio"] + "/marca/duo-logo-cuadrado-azul.png", "image": CFG["url_sitio"] + "/marca/og-duo.jpg",
+                 "telephone": CFG.get("whatsapp", ""), "slogan": "Dos generaciones, un criterio.",
+                 "areaServed": ["El Poblado", "Alto de las Palmas", "Llanogrande", "Envigado", "El Retiro"],
+                 "address": {"@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO"},
+                 "sameAs": [f"https://instagram.com/{CFG['instagram']}"] if CFG.get("instagram") else []}
+    return cabeza("Dûo Real Estate · Propiedades en Medellín y el Oriente",
                   f"Inmobiliaria madre e hija. Propiedades en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
-                  url, CFG["url_sitio"] + "/marca/og-duo.jpg") + f"""
+                  url, CFG["url_sitio"] + "/marca/og-duo.jpg", ld_inicio) + f"""
 <body class="pg-inicio">
 {encabezado(wa, "inicio", sobre_foto=True)}
 <section class="hero-inicio">
@@ -900,7 +917,7 @@ def seccion(tipo, slug, nombre, tarjetas):
         cod = portada.split("/")[2]
         ogs = sorted((SITIO / "fotos" / cod).glob("og-*.jpg"))
         og_img = f"{CFG['url_sitio']}/fotos/{cod}/{ogs[0].name}" if ogs else ""
-    return cabeza(f"{nombre} · dûo real estate", f"{nombre} en venta y arriendo en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
+    return cabeza(f"{nombre} · Dûo Real Estate", f"{nombre} en venta y arriendo en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
                   url, og_img or None) + f"""
 <body>
 {encabezado(wa, slug)}
@@ -919,7 +936,7 @@ def seccion(tipo, slug, nombre, tarjetas):
 
 def no_encontrada():
     wa = wa_link("Hola, abrí un link de Dûo Real Estate que ya no funciona. ¿Me ayudan?")
-    return cabeza("dûo real estate", "Esta propiedad ya no está disponible.", CFG["url_sitio"] + "/") + f"""
+    return cabeza("Dûo Real Estate", "Esta propiedad ya no está disponible.", CFG["url_sitio"] + "/") + f"""
 <body>
 {encabezado(wa)}
 <main class="ficha"><div class="in vacia">
@@ -1030,6 +1047,15 @@ def main():
         elif carpeta.exists():
             shutil.rmtree(carpeta)
     (SITIO / "404.html").write_text(no_encontrada())
+    # Para Google: mapa del sitio, instrucciones y el ícono estándar de la pestaña.
+    if not solo:
+        base = CFG["url_sitio"]
+        urls = [base + "/"] + [f"{base}/{slug}/" for tipo, slug, _ in SECCIONES if (SITIO / slug).exists()] + \
+               [f"{base}/{c}" for c in sorted(todas)]
+        (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                                           + "".join(f"  <url><loc>{esc(u)}</loc></url>\n" for u in urls) + "</urlset>\n")
+        (SITIO / "robots.txt").write_text(f"User-agent: *\nDisallow: /_fuente/\n\nSitemap: {base}/sitemap.xml\n")
+        shutil.copy2(MARCA / "favicon.png", SITIO / "favicon.ico")
     # Sitio neutro para colegas (solo si existe su carpeta: el clon de fichas-dre.github.io).
     if not solo and FICHAS.exists():
         try:
