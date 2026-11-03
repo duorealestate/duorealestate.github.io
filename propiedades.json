@@ -4425,7 +4425,11 @@
       "Sí"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Balcón amplio con vista panorámica · estudio",
+     "Habitación de servicio",
+     "Gimnasio · zona infantil · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D086/7420dd849e-800.jpg",
@@ -4441,7 +4445,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Balcón amplio con una vista hermosa",
    "venta": 0
   },
   "url": "https://duorealestate.github.io/D086"
