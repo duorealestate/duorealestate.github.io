@@ -2876,68 +2876,6 @@
   },
   "url": "https://duorealestate.com.co/D057"
  },
- "D058": {
-  "fotos": 10,
-  "notion_id": "3f022d40-016d-8130-93e1-d9d2120bdd38",
-  "tarjeta": {
-   "alc": 3.0,
-   "area": 296.0,
-   "ban": 4.0,
-   "canon": 0,
-   "codigo": "D058",
-   "det": {
-    "amen": [
-     "Salón social"
-    ],
-    "carac": [
-     "Balcón",
-     "Estudio",
-     "Terraza"
-    ],
-    "detalles": [
-     [
-      "Estrato",
-      "6"
-     ],
-     [
-      "Alcoba de servicio",
-      "Sí"
-     ],
-     [
-      "Administración",
-      "$2.180.000"
-     ],
-     [
-      "Predial",
-      "$3.684.885 (trimestral)"
-     ]
-    ],
-    "lista": [
-     "Biblioteca · sala y comedor independientes",
-     "Terraza y balcón",
-     "Alcoba de servicio",
-     "Salón social"
-    ]
-   },
-   "ext": 0,
-   "foto": "/fotos/D058/46efed6d5f-800.jpg",
-   "ops": [
-    "Venta"
-   ],
-   "parq": 3.0,
-   "precios": [
-    [
-     "VENTA",
-     "$1.750 millones"
-    ]
-   ],
-   "sector": "El Poblado",
-   "tipo": "Apartamento",
-   "titulo": "Luz por todas partes y terraza espectacular",
-   "venta": 1750000000.0
-  },
-  "url": "https://duorealestate.com.co/D058"
- },
  "D059": {
   "fotos": 10,
   "notion_id": "3f022d40-016d-8136-b74c-d26986d4f590",
