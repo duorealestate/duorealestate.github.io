@@ -504,19 +504,17 @@ SECCIONES = [("Apartamento", "apartamentos", "Apartamentos"), ("Casa", "casas", 
 TIPOS_CON_INVENTARIO = set()
 
 
-def encabezado(wa, activo="", sobre_foto=False):
+def encabezado(wa, activo=""):
     enlaces = "".join(
         f'<a href="/{slug}/"{" aria-current=page" if slug == activo else ""}>{nombre}</a>'
         for tipo, slug, nombre in SECCIONES if tipo in TIPOS_CON_INVENTARIO)
-    return f"""<header class="top{' sobre' if sobre_foto else ''}">
+    return f"""<header class="top">
   <a href="/" class="logo"><img src="/marca/logo-crema-transparente.png" alt="Dûo Real Estate" width="680" height="475"></a>
   <nav class="menu" aria-label="Menú">
-    <a href="/#propiedades"{" aria-current=page" if activo == "inicio" else ""}>Propiedades</a><a href="/vender/"{" aria-current=page" if activo == "vender" else ""}>Vender</a>{enlaces}<a href="/#nosotras">Nosotras</a>
+    <a href="/propiedades/"{" aria-current=page" if activo == "propiedades" else ""}>Propiedades</a><a href="/vender/"{" aria-current=page" if activo == "vender" else ""}>Vender</a>{enlaces}<a href="/#nosotras">Nosotras</a>
   </nav>
   <a class="top-wa" href="{esc(wa)}" rel="noopener">WHATSAPP</a>
-</header>""" + ("""
-<script>(function(){var t=document.currentScript.previousElementSibling;function f(){t.classList.toggle('solido',scrollY>40)}
-addEventListener('scroll',f,{passive:true});f()})()</script>""" if sobre_foto else "")
+</header>"""
 
 
 def pie(wa):
@@ -901,6 +899,8 @@ def inicio(tarjetas):
   <div class="grid-3">{"".join(tarjeta_html(t) for t in nuevas)}</div>
 </section>
 """ if nuevas else "")
+    codigos_nuevas = {t["codigo"] for t in nuevas}
+    seleccion = [t for t in sorted(tarjetas, key=lambda t: t["codigo"], reverse=True) if t["codigo"] not in codigos_nuevas][:6]
     ld_inicio = {"@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Dûo Real Estate", "url": url,
                  "logo": CFG["url_sitio"] + "/marca/duo-logo-cuadrado-azul.png", "image": CFG["url_sitio"] + "/marca/og-duo.jpg",
                  "telephone": CFG.get("whatsapp", ""), "slogan": "Dos generaciones, un criterio.",
@@ -911,21 +911,20 @@ def inicio(tarjetas):
                   f"Inmobiliaria madre e hija. Propiedades en El Poblado, Alto de las Palmas, Llanogrande y alrededores. Dos generaciones, un criterio.",
                   url, CFG["url_sitio"] + "/marca/og-duo.jpg", ld_inicio) + f"""
 <body class="pg-inicio">
-{encabezado(wa, "inicio", sobre_foto=True)}
+{encabezado(wa)}
 <section class="hero-inicio">
   <div class="hero-fondos" style="--n:{max(len(destacadas), 1)}">{fondos}</div>
   <div class="hero-velo"></div>
   <div class="hero-txt">
     <h1>Encuentra el hogar que encaja con tu momento de vida</h1>
     <p class="bajada">Te acompañamos a encontrar lo que estás buscando.</p>
-    <form class="buscador" action="/#propiedades" method="get" aria-label="Buscar propiedades">
+    <form class="buscador" action="/propiedades/" method="get" aria-label="Buscar propiedades">
       <label><span>Tipo</span><select name="tipo"><option value="">Todos</option>{opciones_tipo}</select></label>
       <label><span>Sector</span><select name="sector"><option value="">Todos</option>{opciones_sector}</select></label>
       <button class="btn" type="submit">Ver propiedades</button>
     </form>
     <a class="hero-link" href="{esc(wa)}" rel="noopener">o escríbenos por WhatsApp</a>
   </div>
-  <a class="hero-baja" href="#confianza" aria-label="Seguir bajando">&#8964;</a>
 </section>
 <section class="confianza" id="confianza">
   <div><b>Experiencia</b><span>MÁS DE 25 AÑOS<br>DE TRAYECTORIA</span></div>
@@ -939,7 +938,8 @@ def inicio(tarjetas):
 {bloque_nuevas}<main class="listado" id="propiedades">
   <p class="eyebrow">PORTAFOLIO</p>
   <h2>Nuestras propiedades</h2>
-  {portafolio(tarjetas)}
+  <div class="grid">{"".join(tarjeta_html(t) for t in seleccion)}</div>
+  <a class="ver-todas" href="/propiedades/">Ver las {n} propiedades</a>
 </main>
 <section class="proceso" id="como-te-acompanamos">
   <p class="eyebrow">CÓMO TE ACOMPAÑAMOS</p>
@@ -965,6 +965,26 @@ def inicio(tarjetas):
   <h2>¿Quieres vender tu propiedad?</h2>
   <a class="btn" href="/vender/">Registra aquí tu propiedad</a>
 </section>
+{pie(wa)}
+<a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
+</body>
+</html>
+"""
+
+
+def propiedades(tarjetas):
+    """Catálogo completo con buscador y filtros."""
+    wa = wa_link("Hola, vi las propiedades de Dûo Real Estate y quiero más información.")
+    return cabeza("Propiedades · Dûo Real Estate",
+                  "Apartamentos, casas y lotes en venta y arriendo en El Poblado, Alto de las Palmas, Llanogrande y alrededores.",
+                  f"{CFG['url_sitio']}/propiedades/", CFG["url_sitio"] + "/marca/og-duo.jpg") + f"""
+<body>
+{encabezado(wa, "propiedades")}
+<main class="listado">
+  <p class="eyebrow">PORTAFOLIO</p>
+  <h1>Nuestras propiedades</h1>
+  {portafolio(tarjetas)}
+</main>
 {pie(wa)}
 <a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
 <script src="/catalogo.js?v={VERSION_CSS}" defer></script>
@@ -1017,7 +1037,7 @@ def vender(tarjetas):
                   "Vende o arrienda tu propiedad con Dûo Real Estate. Regístrala aquí y te acompañamos hasta la entrega. Dos generaciones, un criterio.",
                   url, CFG["url_sitio"] + "/marca/og-duo.jpg") + f"""
 <body>
-{encabezado(wa, "vender", sobre_foto=True)}
+{encabezado(wa, "vender")}
 <section class="hero-vender">
   {foto}
   <div class="hero-velo"></div>
@@ -1082,7 +1102,7 @@ def no_encontrada():
 <main class="ficha"><div class="in vacia">
   <p class="eyebrow">PÁGINA NO DISPONIBLE</p>
   <h1>Esta propiedad ya no está disponible</h1>
-  <p>Puede que se haya vendido o que el link haya cambiado. Mira <a href="/#propiedades">todas nuestras propiedades</a> o escríbenos y te mostramos opciones parecidas.</p>
+  <p>Puede que se haya vendido o que el link haya cambiado. Mira <a href="/propiedades/">todas nuestras propiedades</a> o escríbenos y te mostramos opciones parecidas.</p>
 </div>
 {contacto(wa, "Te ayudamos a encontrar otra")}
 </main>
@@ -1194,13 +1214,15 @@ def main():
             (carpeta / "index.html").write_text(seccion(tipo, slug, nombre, tarjetas))
         elif carpeta.exists():
             shutil.rmtree(carpeta)
+    (SITIO / "propiedades").mkdir(exist_ok=True)
+    (SITIO / "propiedades" / "index.html").write_text(propiedades(tarjetas))
     (SITIO / "vender").mkdir(exist_ok=True)
     (SITIO / "vender" / "index.html").write_text(vender(tarjetas))
     (SITIO / "404.html").write_text(no_encontrada())
     # Para Google: mapa del sitio, instrucciones y el ícono estándar de la pestaña.
     if not solo:
         base = CFG["url_sitio"]
-        urls = [base + "/", f"{base}/vender/"] + [f"{base}/{slug}/" for tipo, slug, _ in SECCIONES if (SITIO / slug).exists()] + \
+        urls = [base + "/", f"{base}/propiedades/", f"{base}/vender/"] + [f"{base}/{slug}/" for tipo, slug, _ in SECCIONES if (SITIO / slug).exists()] + \
                [f"{base}/{c}" for c in sorted(todas)]
         (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                            + "".join(f"  <url><loc>{esc(u)}</loc></url>\n" for u in urls) + "</urlset>\n")

@@ -19,7 +19,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 /* ---------- Encabezado ---------- */
 .top{background:var(--azul); display:flex; flex-wrap:wrap; align-items:center; gap:0 16px;
   padding:10px max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); position:sticky; top:0; z-index:8}
-.logo img{width:84px; height:auto; display:block}
+.logo img{width:64px; height:auto; display:block}
 .top-wa{margin-left:auto; font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.18em; color:var(--crema);
   text-decoration:none; border:1px solid rgba(244,238,223,.5); padding:7px 11px; border-radius:2px}
 .top-wa:hover{background:var(--crema); color:var(--azul)}
@@ -28,12 +28,10 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .menu a{color:var(--crema); text-decoration:none; font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; white-space:nowrap; padding:3px 0; border-bottom:1px solid transparent}
 .menu a:hover, .menu a[aria-current]{border-bottom-color:var(--crema)}
-.top.sobre{position:fixed; inset:0 0 auto 0; background:linear-gradient(rgba(20,26,40,.55), rgba(20,26,40,0)); transition:background-color .3s, box-shadow .3s}
-.top.sobre.solido{background:var(--azul); box-shadow:0 2px 14px rgba(20,26,40,.18)}
-[id]{scroll-margin-top:110px}
+[id]{scroll-margin-top:96px}
 @media (min-width:960px){
-  .top{flex-wrap:nowrap; padding:14px 44px}
-  .logo img{width:104px}
+  .top{flex-wrap:nowrap; padding:8px 44px}
+  .logo img{width:72px}
   .menu{order:0; width:auto; margin-left:auto; padding:0; gap:34px; overflow:visible}
   .top-wa{margin-left:18px}
 }
@@ -202,7 +200,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .ficha-lat{order:-1}
 .ficha-cab{order:-2}
 @media (min-width:960px){ .ficha-cab{order:0; margin-bottom:-40px} }
-@media (min-width:960px){ .ficha-lat{order:0} .resumen{position:sticky; top:124px} }
+@media (min-width:960px){ .ficha-lat{order:0} .resumen{position:sticky; top:92px} }
 .resumen{background:var(--crema-tarjeta); padding:26px 24px; border-top:3px solid var(--azul)}
 .precios{display:grid; gap:12px; padding-bottom:18px; border-bottom:1px solid var(--linea)}
 .precio{font-family:var(--serif); font-weight:400; font-size:32px; line-height:1.1; color:var(--tinta)}
@@ -314,3 +312,26 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .f-buscar{grid-column:1 / -1}
 .f-buscar input{font:inherit; font-size:16px; color:var(--tinta); background:transparent; border:0; border-bottom:1px solid var(--tinta-suave); border-radius:0; padding:7px 0; width:100%; -webkit-appearance:none; appearance:none}
 .f-buscar input:focus{outline:none; border-bottom-color:var(--azul); box-shadow:0 1px 0 var(--azul)}
+
+/* ---------- Diseño sobrio (5 nov. 2026): menos azul, títulos más pequeños ---------- */
+.hero-inicio{min-height:min(76svh, 640px)}
+.hero-txt{padding-top:60px; padding-bottom:48px}
+.hero-inicio h1{font-size:clamp(30px, 4vw, 46px); line-height:1.12; max-width:20ch}
+.hero-inicio .hero-velo{background:linear-gradient(90deg, rgba(20,26,40,.72) 0%, rgba(20,26,40,.38) 50%, rgba(20,26,40,.1) 100%)}
+@media (max-width:699px){ .hero-inicio .hero-velo{background:linear-gradient(180deg, rgba(20,26,40,.25) 0%, rgba(20,26,40,.72) 100%)} }
+.hero-vender{min-height:min(70svh, 600px)}
+.hero-vender h1{font-size:clamp(30px, 4vw, 46px); line-height:1.12}
+.confianza{background:var(--crema); color:var(--tinta); border-bottom:1px solid var(--linea)}
+.confianza div{border-color:var(--linea)}
+.confianza b{font-size:clamp(18px, 2vw, 22px)}
+.confianza span{color:var(--tinta-suave)}
+.frase{padding-top:48px; padding-bottom:24px}
+.frase blockquote{font-size:clamp(20px, 2.4vw, 27px); line-height:1.35; max-width:36em; margin-left:auto; margin-right:auto}
+.listado h1, .listado h2, .similares h2, .proceso h2, .nosotras h2, .registro h2{font-size:clamp(26px, 3vw, 34px)}
+.ver-todas{display:block; width:max-content; max-width:100%; margin:36px auto 0; border:1px solid var(--azul-profundo); color:var(--azul-profundo); padding:13px 26px; text-decoration:none; font-weight:700; font-size:15px}
+.ver-todas:hover{background:var(--azul-profundo); color:var(--crema)}
+.nosotras{background:transparent; border-top:1px solid var(--linea)}
+.franja-vender{background:var(--crema-tarjeta); color:var(--tinta)}
+.franja-vender h2{font-size:clamp(24px, 3vw, 32px)}
+.franja-vender .btn{background:var(--azul); color:var(--crema)}
+.franja-vender .btn:hover{background:var(--azul-profundo)}
