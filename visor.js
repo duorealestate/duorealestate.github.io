@@ -59,3 +59,24 @@
     if (e.key === 'ArrowLeft') tira.scrollBy({ left: -tira.clientWidth });
   });
 })();
+
+// Barra fija de la propiedad y botón de copiar el link.
+(function () {
+  var barra = document.querySelector('.barra-ficha'), res = document.querySelector('.resumen'), top = document.querySelector('.top');
+  if (barra && res && top) {
+    var revisar = function () {
+      var alto = top.offsetHeight, ver = res.getBoundingClientRect().bottom < alto;
+      barra.style.setProperty('--alto', alto + 'px');
+      barra.hidden = !ver;
+      document.body.classList.toggle('con-barra', ver);
+    };
+    addEventListener('scroll', revisar, { passive: true });
+    addEventListener('resize', revisar);
+    revisar();
+  }
+  var copiar = document.querySelector('.copiar');
+  if (copiar) copiar.addEventListener('click', function () {
+    var listo = function () { copiar.textContent = 'Copiado'; setTimeout(function () { copiar.textContent = 'Copiar link'; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(copiar.dataset.url).then(listo); else prompt('Copia este link:', copiar.dataset.url);
+  });
+})();

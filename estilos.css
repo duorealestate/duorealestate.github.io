@@ -202,7 +202,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
 .ficha-lat{order:-1}
 .ficha-cab{order:-2}
 @media (min-width:960px){ .ficha-cab{order:0; margin-bottom:-40px} }
-@media (min-width:960px){ .ficha-lat{order:0} .resumen{position:sticky; top:24px} }
+@media (min-width:960px){ .ficha-lat{order:0} .resumen{position:sticky; top:124px} }
 .resumen{background:var(--crema-tarjeta); padding:26px 24px; border-top:3px solid var(--azul)}
 .precios{display:grid; gap:12px; padding-bottom:18px; border-bottom:1px solid var(--linea)}
 .precio{font-family:var(--serif); font-weight:400; font-size:32px; line-height:1.1; color:var(--tinta)}
@@ -251,3 +251,66 @@ h1,h2,h3{font-family:var(--serif); font-weight:400; text-wrap:balance}
   *{transition:none!important; animation:none!important; scroll-behavior:auto!important}
   .hero-fondos img{opacity:0} .hero-fondos img:first-child{opacity:1; transform:none}
 }
+
+/* ---------- Vender: página para propietarios ---------- */
+.hero-vender{position:relative; min-height:min(82svh, 720px); display:flex; align-items:flex-end; color:var(--crema); overflow:hidden; background:var(--azul-profundo)}
+.hero-vender > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.hero-vender h1{font-size:clamp(36px, 6vw, 64px); line-height:1.06; margin:12px 0 14px; max-width:17ch; text-shadow:0 1px 16px rgba(20,26,40,.55)}
+.hero-vender .eyebrow{text-shadow:0 1px 16px rgba(20,26,40,.55)}
+@media (min-width:860px){ .pasos-4{grid-template-columns:repeat(4, 1fr); gap:32px} }
+.registro{background:var(--crema-tarjeta); margin-top:56px}
+.registro-in{max-width:1080px; margin:0 auto; padding:72px var(--lado); display:grid; gap:36px}
+@media (min-width:860px){ .registro-in{grid-template-columns:1fr 1.3fr; gap:64px; align-items:start} }
+.registro h2{font-size:clamp(30px, 4.5vw, 44px); line-height:1.08; margin:12px 0 16px}
+.registro p{margin:0 0 14px}
+.registro-firma{color:var(--tinta-suave); border-top:1px solid var(--crema-suave); padding-top:16px; margin-top:22px !important}
+.registro-firma b{font-family:var(--serif); font-weight:400; font-size:20px; color:var(--azul-profundo)}
+.form-vender{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px 18px; background:var(--crema); padding:24px; border-radius:2px}
+.form-vender label{display:grid; gap:6px; min-width:0}
+.form-vender .ancho{grid-column:1 / -1}
+.form-vender label > span{font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta-suave)}
+.form-vender input:not([type=checkbox]), .form-vender select, .form-vender textarea{font:inherit; font-size:16px; color:var(--tinta); width:100%; background:transparent;
+  border:0; border-bottom:1px solid var(--tinta-suave); border-radius:0; padding:7px 0}
+.form-vender textarea{resize:vertical}
+.form-vender input:focus, .form-vender select:focus, .form-vender textarea:focus{outline:none; border-bottom-color:var(--azul); box-shadow:0 1px 0 var(--azul)}
+.form-vender .autoriza{display:flex; gap:10px; align-items:flex-start}
+.form-vender .autoriza input{width:20px; height:20px; margin:2px 0 0; flex:none; accent-color:var(--azul)}
+.form-vender .autoriza span{font-family:var(--sans); font-size:14px; letter-spacing:0; text-transform:none; line-height:1.4}
+.form-vender .btn{border:0; cursor:pointer; font:inherit; font-weight:700; padding:16px 26px}
+.form-vender .nota{font-size:13.5px; color:var(--tinta-suave); text-align:center; margin:0}
+@media (max-width:519px){ .form-vender{grid-template-columns:1fr; padding:20px} }
+.franja-vender{background:var(--azul); color:var(--crema); text-align:center; padding:52px var(--lado)}
+.franja-vender h2{font-size:clamp(28px, 4.5vw, 40px); line-height:1.1; margin:0 0 22px}
+.hero-vender .hero-velo{background:linear-gradient(180deg, rgba(20,26,40,.5) 0%, rgba(20,26,40,.35) 35%, rgba(20,26,40,.78) 100%)}
+@media (min-width:860px){ .hero-vender .hero-velo{background:linear-gradient(90deg, rgba(20,26,40,.78) 0%, rgba(20,26,40,.45) 50%, rgba(20,26,40,.12) 100%), linear-gradient(180deg, rgba(20,26,40,.45) 0%, rgba(20,26,40,0) 28%)} }
+.pie a{white-space:nowrap}
+
+/* ---------- Similares, nuevos, compartir, barra fija y buscador ---------- */
+.similares{max-width:var(--ancho); margin:0 auto; padding:56px var(--lado) 8px}
+.similares h2{font-size:clamp(28px, 4vw, 40px); line-height:1.1; margin:10px 0 26px}
+.grid-3{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:26px 12px}
+@media (min-width:760px){
+  .grid-3{grid-template-columns:repeat(3, minmax(0,1fr)); gap:40px 22px}
+  .grid-3 .card:nth-child(n+4){display:none}
+}
+.etq-s.nuevo{background:var(--crema); color:var(--azul-profundo); border-color:var(--crema); backdrop-filter:none; -webkit-backdrop-filter:none}
+.compartir{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 14px; margin:16px 0 0; padding-top:14px; border-top:1px solid var(--crema-suave); font-size:14px}
+.compartir span{font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta-suave)}
+.compartir a, .compartir button{font:inherit; color:var(--azul); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
+.barra-ficha{position:fixed; left:0; right:0; bottom:0; z-index:7; display:flex; align-items:center; gap:14px; background:var(--crema); border-top:1px solid var(--crema-suave);
+  padding:10px max(16px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left))}
+.barra-ficha[hidden]{display:none}
+.bf-txt{min-width:0; flex:1; line-height:1.25}
+.bf-txt b{display:block; font-family:var(--serif); font-weight:400; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bf-txt span{font-size:13.5px; color:var(--tinta-suave); white-space:nowrap}
+.barra-ficha .btn{padding:11px 16px; font-size:14.5px; white-space:nowrap; flex:none}
+.con-barra .flota{display:none}
+@media (min-width:960px){
+  .barra-ficha{bottom:auto; top:var(--alto, 100px); border-top:0; border-bottom:1px solid var(--crema-suave); padding:10px 44px}
+  .bf-txt{display:flex; align-items:baseline; gap:18px}
+  .bf-txt b{font-size:20px}
+  .bf-txt span{font-size:15px}
+}
+.f-buscar{grid-column:1 / -1}
+.f-buscar input{font:inherit; font-size:16px; color:var(--tinta); background:transparent; border:0; border-bottom:1px solid var(--tinta-suave); border-radius:0; padding:7px 0; width:100%; -webkit-appearance:none; appearance:none}
+.f-buscar input:focus{outline:none; border-bottom-color:var(--azul); box-shadow:0 1px 0 var(--azul)}

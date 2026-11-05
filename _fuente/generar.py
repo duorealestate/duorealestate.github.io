@@ -10,9 +10,11 @@ Fuente: el Catálogo DÚO publicado en notion.site (solo lo que está en el cat�
 las propiedades que salen del catálogo se borran del sitio). No necesita claves de Notion.
 Fotos: en macOS usa `sips`; en otros sistemas (GitHub Actions en Linux) usa Pillow + pillow-heif.
 """
+import datetime
 import hashlib
 import html
 import json
+import math
 import os
 import re
 import shutil
@@ -20,6 +22,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -161,7 +164,7 @@ def leer_interno():
              "Periodicidad predial": per if per and per != "Por confirmar" else "",
              "Lote m²": texto(v(pr, "Área lote m²")) if tipo == "Casa" else "",
              "Características": v(pr, "Características") or [], "Amenidades": v(pr, "Amenidades unidad") or [],
-             "_id": fila["id"]}
+             "_id": fila["id"], "_creada": fila["created_time"][:10]}
         # Cuerpo con la misma forma que las fichas del catálogo: viñetas, y la descripción con la primera frase en negrita.
         cuerpo = [("texto", [["\n".join("• " + l.strip() for l in (v(pr, "Lo que tiene") or "").split("\n") if l.strip())]])]
         for i, parrafo in enumerate(x.strip() for x in re.split(r"\n\s*\n", v(pr, "Descripción pública") or "") if x.strip()):
@@ -508,7 +511,7 @@ def encabezado(wa, activo="", sobre_foto=False):
     return f"""<header class="top{' sobre' if sobre_foto else ''}">
   <a href="/" class="logo"><img src="/marca/logo-crema-transparente.png" alt="Dûo Real Estate" width="680" height="475"></a>
   <nav class="menu" aria-label="Menú">
-    <a href="/#propiedades"{" aria-current=page" if activo == "inicio" else ""}>Propiedades</a>{enlaces}<a href="/#nosotras">Nosotras</a>
+    <a href="/#propiedades"{" aria-current=page" if activo == "inicio" else ""}>Propiedades</a><a href="/vender/"{" aria-current=page" if activo == "vender" else ""}>Vender</a>{enlaces}<a href="/#nosotras">Nosotras</a>
   </nav>
   <a class="top-wa" href="{esc(wa)}" rel="noopener">WHATSAPP</a>
 </header>""" + ("""
@@ -522,7 +525,7 @@ def pie(wa):
   <img src="/marca/isotipo-crema.png" alt="" width="56" height="56">
   <p class="tag">Dos generaciones, un criterio.</p>
   <p class="dato">EL POBLADO · ALTO DE LAS PALMAS · LLANOGRANDE</p>
-  <p><a href="{esc(wa)}" rel="noopener">WhatsApp</a> · <a href="https://instagram.com/{esc(ig)}" rel="noopener">@{esc(ig)}</a></p>
+  <p><a href="/vender/">Registra tu propiedad</a> · <a href="{esc(wa)}" rel="noopener">WhatsApp</a> · <a href="https://instagram.com/{esc(ig)}" rel="noopener">@{esc(ig)}</a></p>
 </footer>"""
 
 
@@ -618,6 +621,10 @@ def ficha(p, cuerpo, claves):
     descripcion = " · ".join(x for x in [precio_txt, datos_cortos] if x) + " | Dûo Real Estate"
 
     wa = wa_link(f"Hola, me interesa la propiedad {codigo} ({gancho}, {sector}). {url}")
+    compartir_txt = f"Mira esta propiedad: {gancho} · {sector}"
+    compartir_wa = "https://wa.me/?text=" + urllib.parse.quote(f"{compartir_txt} {url}")
+    compartir_correo = ("mailto:?subject=" + urllib.parse.quote(f"{gancho} · {sector}")
+                        + "&body=" + urllib.parse.quote(f"{compartir_txt}\n{url}"))
 
     fotos = [f"/fotos/{codigo}/{c}" for c in claves]
     hero = (f'<img src="{fotos[0]}.jpg" srcset="{fotos[0]}-800.jpg 800w, {fotos[0]}.jpg 1600w" '
@@ -685,12 +692,15 @@ def ficha(p, cuerpo, claves):
       {'<div class="tarjetas">' + ''.join(f'<div><b>{esc(v)}</b><span>{esc(l)}</span></div>' for v, l in tarjetas) + '</div>' if tarjetas else ''}
       <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Agenda tu visita por WhatsApp</a>
       <p class="resumen-nota">Coordinamos la visita contigo, sin compromiso.</p>
+      <!--solo-web--><p class="compartir"><span>Compartir</span><a href="{esc(compartir_wa)}" rel="noopener">WhatsApp</a><a href="{esc(compartir_correo)}">Correo</a><button type="button" class="copiar" data-url="{esc(url)}">Copiar link</button></p><!--/solo-web-->
     </div>
   </aside>
 </main>
+<!--solo-web--><!--similares--><!--/similares--><!--/solo-web-->
 {contacto(wa)}
 {pie(wa)}
 <a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
+<!--solo-web--><div class="barra-ficha" hidden><div class="bf-txt"><b>{esc(gancho)}</b><span>{esc(" · ".join(v for _, v in precios))}</span></div><a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Agendar visita</a></div><!--/solo-web-->
 <div class="visor" hidden role="dialog" aria-label="Fotos">
   <div class="tira">{visor}</div>
   <button class="cerrar" aria-label="Cerrar">✕</button>
@@ -704,7 +714,7 @@ def ficha(p, cuerpo, claves):
     tarjeta = {"codigo": codigo, "tipo": tipo, "sector": sector, "titulo": gancho, "ops": ops,
                "venta": venta or 0, "canon": canon or 0, "area": area or 0, "ext": ext or 0,
                "alc": alc or 0, "ban": ban or 0, "parq": parq or 0,
-               "foto": f"{fotos[0]}-800.jpg" if fotos else "", "precios": precios,
+               "foto": f"{fotos[0]}-800.jpg" if fotos else "", "precios": precios, "creada": p.get("_creada", ""),
                # Para desplegar en Enviar: lo mismo que ya muestra la ficha pública, nada privado.
                "det": {"lista": vinetas, "carac": p.get("Características") or [], "amen": p.get("Amenidades") or [],
                        "detalles": [[k, v] for k, v in detalles if v and k not in ("Código", "Tipo", "Sector")]}}
@@ -715,6 +725,7 @@ def neutra(html_out, codigo, wa, activo, og_img, descripcion):
     """Ficha para colegas: la misma página sin logo, menú, WhatsApp, contacto ni nada que diga dûo."""
     url_d, url_f = f"{CFG['url_sitio']}/{codigo}", f"{CFG['url_fichas']}/{codigo}"
     h = re.sub(r'<script type="application/ld\+json">.*?</script>\n', '', html_out, flags=re.S)
+    h = re.sub(r'<!--solo-web-->.*?<!--/solo-web-->\n?', '', h, flags=re.S)
     for bloque in (encabezado(wa, activo) + "\n", contacto(wa) + "\n", pie(wa) + "\n",
                    f'<a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>\n',
                    f'      <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Agenda tu visita por WhatsApp</a>\n',
@@ -769,6 +780,41 @@ def slug_tipo(tipo):
     return next((slug for t, slug, _ in SECCIONES if t == tipo), "")
 
 
+DIAS_NUEVO = 21  # cuánto dura la etiqueta "Nuevo ingreso"
+
+
+def es_nueva(t):
+    try:
+        return (datetime.date.today() - datetime.date.fromisoformat(t.get("creada", ""))).days <= DIAS_NUEVO
+    except ValueError:
+        return False
+
+
+def sin_tildes(texto):
+    return "".join(c for c in unicodedata.normalize("NFD", texto.lower()) if unicodedata.category(c) != "Mn")
+
+
+def similares(t, tarjetas):
+    """Hasta 4 propiedades del mismo tipo y operación, primero las de sector y precio parecidos."""
+    def distancia(o):
+        a, b = (t["venta"], o["venta"]) if t["venta"] and o["venta"] else (t["canon"], o["canon"])
+        precio = abs(math.log(a / b)) if a and b else 2
+        return precio + (0 if o["sector"] == t["sector"] else .35)
+    candidatas = [o for o in tarjetas if o["codigo"] != t["codigo"] and o["tipo"] == t["tipo"] and set(o["ops"]) & set(t["ops"])]
+    return sorted(candidatas, key=distancia)[:4]
+
+
+def bloque_similares(t, tarjetas):
+    parecidas = similares(t, tarjetas)
+    if not parecidas:
+        return ""
+    return f"""<section class="similares">
+  <p class="eyebrow">TAMBIÉN TE PUEDE GUSTAR</p>
+  <h2>Propiedades similares</h2>
+  <div class="grid-3">{"".join(tarjeta_html(o) for o in parecidas)}</div>
+</section>"""
+
+
 def tarjeta_html(t):
     datos = " · ".join(x for x in [
         f"{fmt_num(t['area'])} m²" if t["area"] else "",
@@ -777,8 +823,11 @@ def tarjeta_html(t):
     ] if x)
     etq = "".join(f'<span class="etq-s {"venta" if o == "Venta" else "arriendo"}">{"EN VENTA" if o == "Venta" else "EN ARRIENDO"}</span>'
                   for o in t["ops"])
+    if es_nueva(t):
+        etq = '<span class="etq-s nuevo">NUEVO</span>' + etq
     precio = " · ".join(v for _, v in t["precios"])
-    attrs = (f'data-tipo="{esc(t["tipo"])}" data-sector="{esc(t["sector"])}" data-ops="{esc(",".join(t["ops"]))}" '
+    busca = sin_tildes(f'{t["codigo"]} {t["tipo"]} {t["sector"]} {t["titulo"]}')
+    attrs = (f'data-q="{esc(busca)}" data-tipo="{esc(t["tipo"])}" data-sector="{esc(t["sector"])}" data-ops="{esc(",".join(t["ops"]))}" '
              f'data-venta="{int(t["venta"])}" data-canon="{int(t["canon"])}" data-alc="{int(t["alc"])}" '
              f'data-area="{int(t["area"])}" data-cod="{esc(t["codigo"])}"')
     return f"""<a class="card" href="/{esc(t['codigo'])}" {attrs}>
@@ -804,6 +853,7 @@ def filtros(tarjetas, tipo_fijo=""):
     precios = [(500, "$500 millones"), (1000, "$1.000 millones"), (1500, "$1.500 millones"), (2000, "$2.000 millones"),
                (3000, "$3.000 millones"), (5000, "$5.000 millones")]
     return f"""<form class="filtros" onsubmit="return false" aria-label="Filtrar propiedades">
+  <label class="f-buscar"><span>Buscar</span><input type="search" data-f="q" placeholder="Sector, palabra o código" autocomplete="off"></label>
   {op_tipo}
   <label><span>Sector</span><select data-f="sector"><option value="">Todos</option>{"".join(f'<option>{esc(x)}</option>' for x in sectores)}</select></label>
   <label><span>Operación</span><select data-f="ops"><option value="">Venta y arriendo</option><option value="Venta">Venta</option><option value="Alquiler">Arriendo</option></select></label>
@@ -844,6 +894,13 @@ def inicio(tarjetas):
     opciones_tipo = "".join(f'<option value="{esc(tp)}">{esc(nom)}</option>' for tp, _, nom in SECCIONES
                             if any(x["tipo"] == tp for x in tarjetas))
     opciones_sector = "".join(f'<option>{esc(s)}</option>' for s in sorted({x["sector"] for x in tarjetas if x["sector"]}))
+    nuevas = sorted((t for t in tarjetas if es_nueva(t)), key=lambda t: t["codigo"], reverse=True)[:4]
+    bloque_nuevas = (f"""<section class="similares nuevos">
+  <p class="eyebrow">RECIÉN LLEGADAS</p>
+  <h2>Nuevos ingresos</h2>
+  <div class="grid-3">{"".join(tarjeta_html(t) for t in nuevas)}</div>
+</section>
+""" if nuevas else "")
     ld_inicio = {"@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Dûo Real Estate", "url": url,
                  "logo": CFG["url_sitio"] + "/marca/duo-logo-cuadrado-azul.png", "image": CFG["url_sitio"] + "/marca/og-duo.jpg",
                  "telephone": CFG.get("whatsapp", ""), "slogan": "Dos generaciones, un criterio.",
@@ -879,7 +936,7 @@ def inicio(tarjetas):
   <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
   <blockquote>“Comprar o vender tu casa es una decisión grande. Por eso la tomamos contigo: con más de 25 años de experiencia y la tranquilidad de saber que siempre buscamos lo mejor para ti.”</blockquote>
 </section>
-<main class="listado" id="propiedades">
+{bloque_nuevas}<main class="listado" id="propiedades">
   <p class="eyebrow">PORTAFOLIO</p>
   <h2>Nuestras propiedades</h2>
   {portafolio(tarjetas)}
@@ -899,10 +956,14 @@ def inicio(tarjetas):
     <div>
       <p class="eyebrow">QUIÉNES SOMOS · LUZ STELLA ORTIZ Y CAMILA CALLE</p>
       <h2>Dos generaciones, un criterio.</h2>
-      <p>En dûo se juntan dos miradas. La de Luz Stella, con 25 años de experiencia, relaciones de confianza y clientes que vuelven. Y la de Camila, que llegó para hacer equipo y traer nuevas ideas. Lo que nos une es lo mismo: que tomes una buena decisión y te sientas acompañado en cada paso.</p>
+      <p>En Dûo se juntan dos miradas. La de Luz Stella, con 25 años de experiencia, relaciones de confianza y clientes que vuelven. Y la de Camila, que llegó para hacer equipo y traer nuevas ideas. Lo que nos une es lo mismo: que tomes una buena decisión y te sientas acompañado en cada paso.</p>
       <a class="btn btn-azul" href="{esc(wa)}" rel="noopener">Hablemos por WhatsApp</a>
     </div>
   </div>
+</section>
+<section class="franja-vender">
+  <h2>¿Quieres vender tu propiedad?</h2>
+  <a class="btn" href="/vender/">Registra aquí tu propiedad</a>
 </section>
 {pie(wa)}
 <a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
@@ -935,6 +996,79 @@ def seccion(tipo, slug, nombre, tarjetas):
 {pie(wa)}
 <a class="flota" href="{esc(wa)}" rel="noopener" aria-label="Escríbenos por WhatsApp">WhatsApp</a>
 <script src="/catalogo.js?v={VERSION_CSS}" defer></script>
+</body>
+</html>
+"""
+
+
+def vender(tarjetas):
+    """Página para propietarios: el formulario no guarda nada, arma el mensaje y abre WhatsApp."""
+    wa = wa_link("Hola, quiero registrar mi propiedad con Dûo Real Estate.")
+    numero = re.sub(r"\D", "", CFG.get("whatsapp", ""))
+    url = f"{CFG['url_sitio']}/vender/"
+    por_codigo = {t["codigo"]: t for t in tarjetas}
+    portada = next((por_codigo[c] for c in CFG.get("portada", []) if c in por_codigo), None)
+    foto = ""
+    if portada:
+        grande = portada["foto"].replace("-800.jpg", ".jpg")
+        foto = (f'<img src="{esc(grande)}" srcset="{esc(grande)} 1600w, {esc(portada["foto"].replace("-800.jpg", "-2400.jpg"))} 2400w" '
+                'sizes="max(100vw, 134vh)" alt="" fetchpriority="high">')
+    return cabeza("Registra tu propiedad · Dûo Real Estate",
+                  "Vende o arrienda tu propiedad con Dûo Real Estate. Regístrala aquí y te acompañamos hasta la entrega. Dos generaciones, un criterio.",
+                  url, CFG["url_sitio"] + "/marca/og-duo.jpg") + f"""
+<body>
+{encabezado(wa, "vender", sobre_foto=True)}
+<section class="hero-vender">
+  {foto}
+  <div class="hero-velo"></div>
+  <div class="hero-txt">
+    <p class="eyebrow">PARA PROPIETARIOS</p>
+    <h1>¿Quieres vender o arrendar tu propiedad?</h1>
+    <p class="bajada">Te asesoramos en el precio, la mostramos bien y te acompañamos hasta la entrega.</p>
+    <a class="btn" href="#registro">Registra aquí tu propiedad</a>
+  </div>
+</section>
+<section class="proceso">
+  <p class="eyebrow">CÓMO TRABAJAMOS</p>
+  <h2>Tu propiedad, de principio a fin</h2>
+  <ol class="pasos pasos-4">
+    <li><span class="paso-n">01</span><h3>La conocemos</h3><p>Nos cuentas de tu propiedad y te asesoramos en el precio.</p></li>
+    <li><span class="paso-n">02</span><h3>La mostramos bien</h3><p>Vamos a verla y le hacemos fotos y video, sin costo adicional.</p></li>
+    <li><span class="paso-n">03</span><h3>La movemos</h3><p>Se la ofrecemos a nuestros clientes y aliados, y la publicamos en esta web.</p></li>
+    <li><span class="paso-n">04</span><h3>Te acompañamos</h3><p>En las visitas, la negociación, la promesa, la notaría y la entrega.</p></li>
+  </ol>
+</section>
+<section class="registro" id="registro">
+  <div class="registro-in">
+    <div>
+      <p class="eyebrow">REGISTRO</p>
+      <h2>Registra aquí tu propiedad</h2>
+      <p>Llena estos datos y nos llegan por WhatsApp. Por ahora no necesitamos la dirección: con el barrio o el sector es suficiente.</p>
+    </div>
+    <form class="form-vender" id="form-vender" data-numero="{esc(numero)}">
+      <label><span>Nombre *</span><input name="nombre" required autocomplete="name"></label>
+      <label><span>Celular *</span><input name="celular" type="tel" required autocomplete="tel" inputmode="tel"></label>
+      <label><span>Quiero</span><select name="quiero"><option>Vender</option><option>Arrendar</option><option>Vender o arrendar</option></select></label>
+      <label><span>Tipo de propiedad</span><select name="tipo"><option>Apartamento</option><option>Casa</option><option>Finca</option><option>Lote</option><option>Oficina o local</option></select></label>
+      <label class="ancho"><span>Barrio o sector *</span><input name="sector" required></label>
+      <label class="ancho"><span>Algo más que quieras contarnos</span><textarea name="comentario" rows="3"></textarea></label>
+      <label class="ancho autoriza"><input type="checkbox" name="autoriza" required><span>Autorizo a Dûo Real Estate a usar estos datos para contactarme sobre mi propiedad.</span></label>
+      <button class="btn btn-azul ancho" type="submit">Enviar por WhatsApp</button>
+      <p class="ancho nota">Se abre WhatsApp con el mensaje listo. Solo tienes que darle enviar.</p>
+    </form>
+  </div>
+</section>
+{pie(wa)}
+<script>(function(){{
+var f=document.getElementById('form-vender');
+f.addEventListener('submit',function(e){{
+  e.preventDefault();
+  var v=function(n){{return (f.elements[n].value||'').trim()}};
+  var l=['Hola, quiero registrar mi propiedad con Dûo Real Estate.','','Nombre: '+v('nombre'),'Celular: '+v('celular'),'Quiero: '+v('quiero'),'Tipo: '+v('tipo'),'Barrio o sector: '+v('sector')];
+  if(v('comentario'))l.push('','Comentario: '+v('comentario'));
+  location.href='https://wa.me/'+f.dataset.numero+'?text='+encodeURIComponent(l.join('\\n'));
+}});
+}})()</script>
 </body>
 </html>
 """
@@ -1044,6 +1178,14 @@ def main():
     # Portafolio: inicio con todas las propiedades y una página por tipo.
     todas = {**anteriores, **publicadas} if solo else publicadas
     tarjetas = [v["tarjeta"] for v in todas.values() if v.get("tarjeta")]
+    for t in tarjetas:
+        pagina_t = SITIO / t["codigo"] / "index.html"
+        if pagina_t.exists():
+            actual = pagina_t.read_text()
+            nueva = re.sub(r"<!--similares-->.*?<!--/similares-->",
+                           lambda _: "<!--similares-->" + bloque_similares(t, tarjetas) + "<!--/similares-->", actual, flags=re.S)
+            if nueva != actual:
+                pagina_t.write_text(nueva)
     (SITIO / "index.html").write_text(inicio(tarjetas))
     for tipo, slug, nombre in SECCIONES:
         carpeta = SITIO / slug
@@ -1052,11 +1194,13 @@ def main():
             (carpeta / "index.html").write_text(seccion(tipo, slug, nombre, tarjetas))
         elif carpeta.exists():
             shutil.rmtree(carpeta)
+    (SITIO / "vender").mkdir(exist_ok=True)
+    (SITIO / "vender" / "index.html").write_text(vender(tarjetas))
     (SITIO / "404.html").write_text(no_encontrada())
     # Para Google: mapa del sitio, instrucciones y el ícono estándar de la pestaña.
     if not solo:
         base = CFG["url_sitio"]
-        urls = [base + "/"] + [f"{base}/{slug}/" for tipo, slug, _ in SECCIONES if (SITIO / slug).exists()] + \
+        urls = [base + "/", f"{base}/vender/"] + [f"{base}/{slug}/" for tipo, slug, _ in SECCIONES if (SITIO / slug).exists()] + \
                [f"{base}/{c}" for c in sorted(todas)]
         (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                            + "".join(f"  <url><loc>{esc(u)}</loc></url>\n" for u in urls) + "</urlset>\n")

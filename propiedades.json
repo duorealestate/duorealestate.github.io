@@ -8,6 +8,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D001",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -75,6 +76,7 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D002",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes",
@@ -140,6 +142,7 @@
    "ban": 7.0,
    "canon": 0,
    "codigo": "D004",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Cancha",
@@ -209,6 +212,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D005",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil",
@@ -274,6 +278,7 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D006",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -338,6 +343,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D007",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -398,6 +404,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D008",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -465,6 +472,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D009",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil",
@@ -526,6 +534,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D010",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -581,6 +590,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D011",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -645,6 +655,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D012",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -710,6 +721,7 @@
    "ban": 4.0,
    "canon": 35000000.0,
    "codigo": "D013",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Cancha",
@@ -777,6 +789,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D014",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -842,6 +855,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D015",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Portería 24 h",
@@ -898,6 +912,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D016",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -957,6 +972,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D018",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -1017,6 +1033,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D019",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil",
@@ -1080,6 +1097,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D020",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil"
@@ -1142,6 +1160,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D021",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil"
@@ -1201,6 +1220,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D024",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil",
@@ -1258,6 +1278,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D025",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -1322,6 +1343,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D026",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zona infantil",
@@ -1384,6 +1406,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D027",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -1449,6 +1472,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D028",
+   "creada": "2026-09-01",
    "det": {
     "amen": [],
     "carac": [],
@@ -1487,6 +1511,7 @@
    "ban": 2.0,
    "canon": 8000000.0,
    "codigo": "D029",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio"
@@ -1548,6 +1573,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D030",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -1614,6 +1640,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D031",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Salón social",
@@ -1679,6 +1706,7 @@
    "ban": 1.0,
    "canon": 10000000.0,
    "codigo": "D033",
+   "creada": "2026-09-01",
    "det": {
     "amen": [],
     "carac": [],
@@ -1725,6 +1753,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D034",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -1784,6 +1813,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D036",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -1843,6 +1873,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D040",
+   "creada": "2026-09-01",
    "det": {
     "amen": [],
     "carac": [],
@@ -1895,6 +1926,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D041",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -1961,6 +1993,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D042",
+   "creada": "2026-09-01",
    "det": {
     "amen": [],
     "carac": [],
@@ -2007,6 +2040,7 @@
    "ban": 3.0,
    "canon": 8500000.0,
    "codigo": "D044",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2065,6 +2099,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D045",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Salón social",
@@ -2129,6 +2164,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D046",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2193,6 +2229,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D047",
+   "creada": "2026-09-01",
    "det": {
     "amen": [],
     "carac": [],
@@ -2241,6 +2278,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D048",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Cancha",
@@ -2311,6 +2349,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D049",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -2370,6 +2409,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D050",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2438,6 +2478,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D051",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Salón social",
@@ -2502,6 +2543,7 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D052",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2570,6 +2612,7 @@
    "ban": 6.0,
    "canon": 0,
    "codigo": "D053",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2632,6 +2675,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D054",
+   "creada": "2026-09-01",
    "det": {
     "amen": [
      "Cancha",
@@ -2698,6 +2742,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D055",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2761,6 +2806,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D056",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Gimnasio",
@@ -2823,6 +2869,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D057",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Piscina",
@@ -2885,6 +2932,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D059",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Cancha",
@@ -2945,6 +2993,7 @@
    "ban": 3.0,
    "canon": 0,
    "codigo": "D060",
+   "creada": "2026-10-05",
    "det": {
     "amen": [],
     "carac": [
@@ -2997,6 +3046,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D061",
+   "creada": "2026-10-05",
    "det": {
     "amen": [],
     "carac": [
@@ -3058,6 +3108,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D062",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Cancha",
@@ -3121,6 +3172,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D063",
+   "creada": "2026-10-05",
    "det": {
     "amen": [],
     "carac": [
@@ -3181,6 +3233,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D064",
+   "creada": "2026-10-05",
    "det": {
     "amen": [],
     "carac": [],
@@ -3219,6 +3272,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D065",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Cancha",
@@ -3281,6 +3335,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D066",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Zonas verdes"
@@ -3335,6 +3390,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D067",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Gimnasio",
@@ -3383,6 +3439,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D068",
+   "creada": "2026-10-05",
    "det": {
     "amen": [
      "Gimnasio",
@@ -3440,6 +3497,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D069",
+   "creada": "2026-10-14",
    "det": {
     "amen": [
      "Piscina",
@@ -3505,6 +3563,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D070",
+   "creada": "2026-10-14",
    "det": {
     "amen": [],
     "carac": [],
@@ -3543,6 +3602,7 @@
    "ban": 0,
    "canon": 0,
    "codigo": "D071",
+   "creada": "2026-10-14",
    "det": {
     "amen": [],
     "carac": [],
@@ -3581,6 +3641,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D072",
+   "creada": "2026-10-14",
    "det": {
     "amen": [
      "Piscina",
@@ -3646,6 +3707,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D073",
+   "creada": "2026-10-14",
    "det": {
     "amen": [],
     "carac": [
@@ -3704,6 +3766,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D074",
+   "creada": "2026-10-14",
    "det": {
     "amen": [
      "Portería 24 h",
@@ -3769,6 +3832,7 @@
    "ban": 2.0,
    "canon": 0,
    "codigo": "D075",
+   "creada": "2026-10-16",
    "det": {
     "amen": [
      "Piscina",
@@ -3831,6 +3895,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D076",
+   "creada": "2026-10-18",
    "det": {
     "amen": [
      "Piscina",
@@ -3891,6 +3956,7 @@
    "ban": 4.0,
    "canon": 9000000.0,
    "codigo": "D078",
+   "creada": "2026-10-19",
    "det": {
     "amen": [
      "Piscina",
@@ -3948,6 +4014,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D079",
+   "creada": "2026-10-19",
    "det": {
     "amen": [
      "Piscina",
@@ -4014,6 +4081,7 @@
    "ban": 4.0,
    "canon": 17000000.0,
    "codigo": "D080",
+   "creada": "2026-10-20",
    "det": {
     "amen": [
      "Piscina",
@@ -4082,6 +4150,7 @@
    "ban": 4.0,
    "canon": 9200000.0,
    "codigo": "D082",
+   "creada": "2026-10-23",
    "det": {
     "amen": [
      "Portería 24 h"
@@ -4146,6 +4215,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D083",
+   "creada": "2026-10-26",
    "det": {
     "amen": [
      "Piscina",
@@ -4212,6 +4282,7 @@
    "ban": 4.0,
    "canon": 0,
    "codigo": "D084",
+   "creada": "2026-10-27",
    "det": {
     "amen": [
      "Piscina",
@@ -4278,6 +4349,7 @@
    "ban": 5.0,
    "canon": 0,
    "codigo": "D085",
+   "creada": "2026-10-29",
    "det": {
     "amen": [
      "Piscina",
@@ -4341,6 +4413,7 @@
    "ban": 3.0,
    "canon": 8000000.0,
    "codigo": "D086",
+   "creada": "2026-10-30",
    "det": {
     "amen": [
      "Salón social",

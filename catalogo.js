@@ -12,6 +12,7 @@
   var params = new URLSearchParams(location.search);
   campos.forEach(function (c) { if (params.get(c.dataset.f)) c.value = params.get(c.dataset.f); });
 
+  function norma(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
   function valor(f) { var c = form.querySelector('[data-f="' + f + '"]'); return c ? c.value : ''; }
 
   // Barra de precio con dos puntos (pasos en millones; el último es "sin límite").
@@ -42,6 +43,7 @@
     var tipo = valor('tipo'), sector = valor('sector'), ops = valor('ops');
     var r = rango.call(this), alc = +valor('alc') || 0, orden = valor('orden');
     var filtraPrecio = r[0] > 0 || r[1] < Infinity;
+    var palabras = norma(valor('q')).split(/\s+/).filter(Boolean);
     var visibles = 0;
     cards.forEach(function (c) {
       var d = c.dataset, ok = true;
@@ -50,6 +52,7 @@
       if (ops && d.ops.split(',').indexOf(ops) < 0) ok = false;
       if (filtraPrecio && !(+d.venta > 0 && +d.venta >= r[0] && +d.venta <= r[1])) ok = false;
       if (alc && +d.alc < alc) ok = false;
+      if (palabras.some(function (p) { return d.q.indexOf(p) < 0; })) ok = false;
       c.hidden = !ok;
       if (ok) visibles++;
     });
@@ -72,6 +75,6 @@
     history.replaceState(null, '', nueva);
   }
 
-  campos.forEach(function (c) { c.addEventListener(c.type === 'range' ? 'input' : 'change', aplicar); });
+  campos.forEach(function (c) { c.addEventListener(c.type === 'range' || c.type === 'search' ? 'input' : 'change', aplicar); });
   aplicar();
 })();
