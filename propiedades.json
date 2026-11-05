@@ -4460,5 +4460,56 @@
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D086"
+ },
+ "D087": {
+  "fotos": 4,
+  "notion_id": "40f22d40-016d-815b-9b12-fd922a49872b",
+  "tarjeta": {
+   "alc": 4.0,
+   "area": 670.0,
+   "ban": 5.0,
+   "canon": 0,
+   "codigo": "D087",
+   "creada": "2026-11-05",
+   "det": {
+    "amen": [
+     "Zonas verdes",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Terraza",
+     "Estudio",
+     "Chimenea",
+     "Jardín privado",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D087/83b17798a1-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 5.0,
+   "precios": [
+    [
+     "VENTA",
+     "$5.850 millones"
+    ]
+   ],
+   "sector": "Llanogrande",
+   "tipo": "Casa",
+   "titulo": "Casa en Llanogrande",
+   "venta": 5850000000.0
+  },
+  "url": "https://duorealestate.com.co/D087"
  }
 }
