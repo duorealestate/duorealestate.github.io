@@ -4487,11 +4487,29 @@
     ],
     "detalles": [
      [
+      "Estrato",
+      "5"
+     ],
+     [
       "Alcoba de servicio",
       "Sí"
+     ],
+     [
+      "Administración",
+      "$1.800.000"
+     ],
+     [
+      "Predial",
+      "$2.500.000 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Techos de unos 4 a 5 metros",
+     "Estudio · chimenea · jacuzzi · BBQ",
+     "Terraza, balcón y jardín privado",
+     "Alcoba de servicio · cuarto útil",
+     "Unidad cerrada con portería 24 h, salón social y zonas verdes"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D087/83b17798a1-800.jpg",
@@ -4507,7 +4525,7 @@
    ],
    "sector": "Llanogrande",
    "tipo": "Casa",
-   "titulo": "Casa en Llanogrande",
+   "titulo": "Techos altísimos y un lote lleno de verde",
    "venta": 5850000000.0
   },
   "url": "https://duorealestate.com.co/D087"
