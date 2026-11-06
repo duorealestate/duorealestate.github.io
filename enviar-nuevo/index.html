@@ -475,7 +475,7 @@ const tarjetaCli = c => { const v = c.fecha ? dias(c.fecha, HOY) : 0;
     <span>${esc(c.paso || "Sin próximo paso")}</span>
     <span class="${v > 0 ? "tarde" : ""}">${c.fecha ? (v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(c.fecha)) : "Sin fecha"}${c.ultimo ? ` · último contacto ${fCorta(c.ultimo)}` : ""}</span></button>`; };
 function pintarHoy() {
-  if (!CLAVE) return $("vHoy").innerHTML = `<p class="vacio">Escribe el PIN para ver tus clientes.</p>`;
+  if (!CLAVE) return $("vHoy").innerHTML = `<p class="vacio">${leer("duo-llave") ? "Escribe el PIN arriba para ver tus clientes." : "Falta la llave: abre esta página con tu link de instalación y ahí te pide el PIN."}</p>`;
   const xs = C, sinPaso = xs.filter(c => activo(c) && !c.fecha);
   const toca = xs.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
@@ -489,7 +489,7 @@ function pintarHoy() {
     ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : `<p class="vacio">Todo al día. 💙</p>`}`;
 }
 function pintarClientes() {
-  if (!CLAVE) return $("vCli").innerHTML = `<p class="vacio">Escribe el PIN para ver tus clientes.</p>`;
+  if (!CLAVE) return $("vCli").innerHTML = `<p class="vacio">${leer("duo-llave") ? "Escribe el PIN arriba para ver tus clientes." : "Falta la llave: abre esta página con tu link de instalación y ahí te pide el PIN."}</p>`;
   const xs = C, n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
   $("vCli").innerHTML = `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>
     <div class="lista">${xs.filter(c => (c.etapa || "Nuevo") === etapaVe).sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(tarjetaCli).join("") || `<p class="vacio">Nadie en esta etapa.</p>`}</div>`;
