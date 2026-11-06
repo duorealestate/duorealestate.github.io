@@ -153,7 +153,7 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 </header>
 <div class="pin" id="pin" hidden>
   <p>Escribe el PIN para buscar también por nombre del edificio.</p>
-  <form id="pinForm"><input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="PIN"><button>Entrar</button></form>
+  <form id="pinForm"><input id="pinIn" type="password" inputmode="numeric" maxlength="12" autocomplete="off" aria-label="PIN"><button>Entrar</button></form>
   <p class="err" id="pinErr" hidden>Ese no es el PIN. Intenta otra vez.</p>
 </div>
 <p class="nota" id="sinLlave" hidden>Puedes buscar por código o sector. Para buscar por nombre del edificio, abre el link de instalación que te mandó Camila.</p>
@@ -614,6 +614,8 @@ async function arrancar() {
   pintar(); pintarCRM(); iniciarNombres();
 }
 arrancar();
+// Si pegan el link con la llave sobre la página ya abierta, el navegador no recarga: se hace aquí.
+addEventListener("hashchange", () => { if (/k=[0-9a-f]{64}/.test(location.hash)) location.reload(); });
 </script>
 </body>
 </html>
