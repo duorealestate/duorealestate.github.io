@@ -449,7 +449,8 @@ const ETAPAS_ACT = ["Nuevo", "Opciones enviadas", "Visita agendada", "Visitó", 
 const ETAPAS_TODAS = [...ETAPAS_ACT, "En pausa", "Ya compró", "Negocio cerrado"];
 let C = [], HOY = "", vista = "hoy", etapaVe = "Nuevo", FICHA = null, MANDAR = null, PEND = null;
 async function crm(cuerpo) {
-  const r = await fetch(CRM, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) });
+  const r = await fetch(CRM, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) })
+    .catch(() => { throw new Error("No hay conexión con el CRM. Si es la primera vez, falta crear el Worker crm-duo en Cloudflare."); });
   const d = await r.json().catch(() => ({ error: "El CRM no respondió" }));
   if (!r.ok || d.error) throw new Error(d.error || "Error " + r.status);
   return d;
