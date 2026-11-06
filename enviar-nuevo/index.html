@@ -121,7 +121,6 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .mandar #mandarNo{background:none;color:var(--crema);text-decoration:underline;font-weight:400}
 .tope{display:inline-block;margin-top:4px;font-size:13px;font-weight:700;color:#8A5A00}
 .resumen{padding:14px 16px 0;font-size:17px}
-.quien{padding:10px 16px 0}
 .etapas{padding:10px 16px 0}
 #vHoy h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500;text-transform:uppercase}
 .nuevo{margin:12px 16px 0;width:calc(100% - 32px);font:inherit;font-weight:700;padding:12px;border:1px dashed var(--azul);border-radius:12px;background:none;color:var(--azul)}
@@ -161,7 +160,7 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 <main id="vHoy"></main>
 <main id="vCli" hidden></main>
 <main id="vProp" hidden>
-<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Ya lo mandé</button><button type="button" id="mandarNo">Cancelar</button></div>
+<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Lo mandó Camila</button><button type="button" id="mandarLuz" hidden>✅ Lo mandó Luz Stella</button><button type="button" id="mandarNo">Cancelar</button></div>
 <div class="buscar">
   <input id="q" type="search" placeholder="Buscar: nombre, código, sector…" autocomplete="off">
 </div>
@@ -448,7 +447,7 @@ $("edGuardar").onclick = async () => {
 const CRM = "https://crm-duo.camila-duorealestate.workers.dev";
 const ETAPAS_ACT = ["Nuevo", "Opciones enviadas", "Visita agendada", "Visitó", "Oferta"];
 const ETAPAS_TODAS = [...ETAPAS_ACT, "En pausa", "Ya compró", "Negocio cerrado"];
-let C = [], HOY = "", vista = "hoy", quienVe = "", etapaVe = "Nuevo", FICHA = null, MANDAR = null, PEND = null;
+let C = [], HOY = "", vista = "hoy", etapaVe = "Nuevo", FICHA = null, MANDAR = null, PEND = null;
 async function crm(cuerpo) {
   const r = await fetch(CRM, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) });
   const d = await r.json().catch(() => ({ error: "El CRM no respondió" }));
@@ -459,7 +458,6 @@ const dias = (a, b) => Math.round((new Date(b) - new Date(a)) / 864e5);
 const fCorta = f => { if (!f) return "sin fecha"; const [, m, d] = f.split("-"); return `${+d} ${["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"][+m - 1]}`; };
 const pila = c => (c.nombre.split(/[ ·]/)[0] || c.nombre);
 const activo = c => ETAPAS_ACT.includes(c.etapa);
-const deQuien = c => !quienVe || c.responsable === quienVe;
 function mensaje(c) {
   const n = pila(c);
   if (c.etapa === "En pausa") return `¡Hola, ${n}! 💙 ¿Cómo vas? Nos acordamos de ti porque salió algo nuevo que te puede servir: `;
@@ -473,28 +471,27 @@ function mensaje(c) {
 }
 const tarjetaCli = c => { const v = c.fecha ? dias(c.fecha, HOY) : 0;
   return `<button class="cli-card" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
-    <span class="cli-et">${esc(c.etapa || "Sin etapa")}${c.responsable ? " · " + esc(c.responsable) : ""}</span>
+    <span class="cli-et">${esc(c.etapa || "Sin etapa")}</span>
     <span>${esc(c.paso || "Sin próximo paso")}</span>
     <span class="${v > 0 ? "tarde" : ""}">${c.fecha ? (v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(c.fecha)) : "Sin fecha"}${c.ultimo ? ` · último contacto ${fCorta(c.ultimo)}` : ""}</span></button>`; };
-const filtroQuien = `<div class="chips quien">${["", "Camila", "Luz Stella"].map(q => `<button class="chip" type="button" data-q="${q}" aria-pressed="${quienVe === q}">${q || "Las dos"}</button>`).join("")}</div>`;
 function pintarHoy() {
   if (!CLAVE) return $("vHoy").innerHTML = `<p class="vacio">Escribe el PIN para ver tus clientes.</p>`;
-  const xs = C.filter(deQuien), sinPaso = xs.filter(c => activo(c) && !c.fecha);
+  const xs = C, sinPaso = xs.filter(c => activo(c) && !c.fecha);
   const toca = xs.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
   const hoyVis = toca.map(c => `<div class="hoy-card">${tarjetaCli(c)}<p class="msg">${esc(mensaje(c))}</p><div class="hoy-bt">
       <a href="${esc(wa(mensaje(c)))}" target="_blank" rel="noopener">💬 Escribir</a>
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button>
       <button type="button" data-ev="no_responde" data-id="${c.id}">No responde</button></div></div>`).join("");
-  $("vHoy").innerHTML = `<div class="resumen"><b>${toca.length}</b> para hoy · <b>${xs.filter(activo).length}</b> activos</div>${filtroQuien}
+  $("vHoy").innerHTML = `<div class="resumen"><b>${toca.length}</b> para hoy · <b>${xs.filter(activo).length}</b> activos</div>
     <button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button>
     ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(tarjetaCli).join("")}</div>` : ""}
     ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : `<p class="vacio">Todo al día. 💙</p>`}`;
 }
 function pintarClientes() {
   if (!CLAVE) return $("vCli").innerHTML = `<p class="vacio">Escribe el PIN para ver tus clientes.</p>`;
-  const xs = C.filter(deQuien), n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
-  $("vCli").innerHTML = `${filtroQuien}<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>
+  const xs = C, n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
+  $("vCli").innerHTML = `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>
     <div class="lista">${xs.filter(c => (c.etapa || "Nuevo") === etapaVe).sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(tarjetaCli).join("") || `<p class="vacio">Nadie en esta etapa.</p>`}</div>`;
 }
 const pintarCRM = () => { pintarHoy(); pintarClientes(); };
@@ -527,7 +524,7 @@ function abrirFicha(id) {
       <label class="txt">Ya compró con otra persona<select id="fiMot"><option value="">Elige el motivo…</option>${["Con otra asesora", "Directo con el propietario", "Por precio", "Por zona", "Otro"].map(x => `<option>${x}</option>`).join("")}</select></label>
       <p class="ayuda">Si la compra fue con ustedes, díselo al asistente: él registra la venta.</p></section>
     <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="fiPaso" type="text" value="${esc(c.paso)}"></label>
-      <label>Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label><label>Responsable<select id="fiResp">${["Camila", "Luz Stella"].map(x => `<option${x === c.responsable ? " selected" : ""}>${x}</option>`).join("")}</select></label>
+      <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label>
       <label class="ancho">Etapa<select id="fiEtapa" ${c.etapa === "Negocio cerrado" ? "disabled" : ""}>${ETAPAS_TODAS.filter(x => x !== "Negocio cerrado" || c.etapa === x).map(x => `<option${x === c.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label></div>
       <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button></section>
     <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><b>${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</b><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
@@ -542,7 +539,6 @@ async function hacer(cuerpo, ok) {
 }
 const OK_EV = { respondio: "✅ Quedó que respondió.", no_responde: "✅ Quedó el intento y la próxima fecha.", pausa: "✅ En pausa 30 días." };
 document.addEventListener("click", e => {
-  const q = e.target.closest("[data-q]"); if (q) { quienVe = q.dataset.q; return pintarCRM(); }
   const et = e.target.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
   const ev = e.target.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
   const cl = e.target.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
@@ -551,7 +547,7 @@ document.addEventListener("click", e => {
     if (t === "visita" && !$("fiVisita").value) return avisoFi("Pon la fecha de la visita.", true);
     return hacer({ accion: "evento", id: FICHA, tipo: t, datos: { pres: $("fiPres").value, fecha: $("fiVisita").value, reaccion: $("fiReac").value, comentario: $("fiCom").value.trim(), oferta: $("fiOf").value } },
       t === "oferta" ? "✅ Oferta registrada. Cambia la propiedad a Oferta recibida con el lápiz ✏️." : "✅ Guardado."); }
-  if (e.target.id === "fiGuardar") return hacer({ accion: "editar", id: FICHA, campos: { paso: $("fiPaso").value.trim(), fecha: $("fiFecha").value, responsable: $("fiResp").value,
+  if (e.target.id === "fiGuardar") return hacer({ accion: "editar", id: FICHA, campos: { paso: $("fiPaso").value.trim(), fecha: $("fiFecha").value,
     ...($("fiEtapa").disabled ? {} : { etapa: $("fiEtapa").value }) } }, "✅ Seguimiento guardado.");
   const md = e.target.closest("[data-mandar]"); if (md) return mandar(FICHA, md.dataset.mandar);
 });
@@ -582,7 +578,6 @@ $("nvGuardar").onclick = async () => {
   } catch (e) { mal(e.message); }
   $("nvGuardar").disabled = false;
 };
-function yo() { let y = leer("duo-yo"); if (!y) { y = (prompt("¿Quién eres? Escribe C para Camila o L para Luz Stella") || "").trim().toLowerCase() === "l" ? "Luz Stella" : "Camila"; guardar("duo-yo", y); } return y; }
 // Mandar opciones: filtra lo que encaja con la búsqueda y quita lo que ya se le mandó.
 function mandar(id, reqId) {
   const c = C.find(x => x.id === id), r = c.reqs.find(x => x.id === reqId);
@@ -597,13 +592,15 @@ function mandar(id, reqId) {
 }
 function bandaMandar() { const b = $("mandar"); b.hidden = !MANDAR; if (!MANDAR) return;
   $("mandarTxt").textContent = PEND ? `¿Ya le mandaste ${PEND.length === 1 ? "la propiedad" : PEND.length + " propiedades"} a ${MANDAR.nombre}?` : `Mandando a ${MANDAR.nombre}. Ya quité lo que le mandaron antes.`;
-  $("mandarSi").hidden = !PEND; }
+  $("mandarSi").hidden = $("mandarLuz").hidden = !PEND; }
 $("mandarNo").onclick = () => { if (PEND) { PEND = null; return bandaMandar(); } MANDAR = null; $("limpiarF").click(); bandaMandar(); pintar(); };
-$("mandarSi").onclick = async () => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = true;
-  try { const d = await crm({ accion: "presentar", id: m.id, cods, quien: yo(), requerimiento: m.reqId || undefined });
+const registrar = async quien => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = $("mandarLuz").disabled = true;
+  try { const d = await crm({ accion: "presentar", id: m.id, cods, quien, requerimiento: m.reqId || undefined });
     MANDAR = null; PEND = null; sel.clear(); barra(); $("limpiarF").click(); bandaMandar(); await cargarCRM(); ir("cli"); abrirFicha(m.id);
     avisoFi(`✅ Registrado: ${d.creadas} nueva${d.creadas === 1 ? "" : "s"}. Mañana toca preguntarle qué le parecieron.`);
-  } catch (e) { alert(e.message); } $("mandarSi").disabled = false; };
+  } catch (e) { alert(e.message); } $("mandarSi").disabled = $("mandarLuz").disabled = false; };
+$("mandarSi").onclick = () => registrar("Camila");
+$("mandarLuz").onclick = () => registrar("Luz Stella");
 document.addEventListener("click", e => { if (!MANDAR) return; const a = e.target.closest("a.cli, #varCli"); if (!a) return;
   PEND = a.id === "varCli" ? [...sel] : [a.dataset.c]; bandaMandar(); });
 // Las propiedades salen de la página Enviar actual: así esta copia no necesita tocar el generador.
