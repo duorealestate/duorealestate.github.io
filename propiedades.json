@@ -334,67 +334,6 @@
   },
   "url": "https://duorealestate.com.co/D006"
  },
- "D007": {
-  "fotos": 10,
-  "notion_id": "3ce22d40-016d-80fc-902e-ef7983ca5723",
-  "tarjeta": {
-   "alc": 4.0,
-   "area": 670.0,
-   "ban": 5.0,
-   "canon": 0,
-   "codigo": "D007",
-   "creada": "2026-09-01",
-   "det": {
-    "amen": [
-     "Zonas verdes"
-    ],
-    "carac": [
-     "Balcón",
-     "Cuarto útil",
-     "Estudio"
-    ],
-    "detalles": [
-     [
-      "Estrato",
-      "5"
-     ],
-     [
-      "Alcoba de servicio",
-      "Sí"
-     ],
-     [
-      "Administración",
-      "$1.800.000"
-     ],
-     [
-      "Predial",
-      "$2.500.000 (trimestral)"
-     ]
-    ],
-    "lista": [
-     "Biblioteca · alcoba de servicio · cuarto útil",
-     "Remodelada y muy iluminada"
-    ]
-   },
-   "ext": 0,
-   "foto": "/fotos/D007/643ce36f43-800.jpg",
-   "ops": [
-    "Venta"
-   ],
-   "parq": 6.0,
-   "precios": [
-    [
-     "VENTA",
-     "$6.000 millones"
-    ]
-   ],
-   "sector": "Llanogrande",
-   "tipo": "Casa",
-   "titulo": "Lote plano junto al club",
-   "venta": 6000000000.0
-  },
-  "url": "https://duorealestate.com.co/D007"
- },
  "D008": {
   "fotos": 9,
   "notion_id": "3ce22d40-016d-808d-8e81-e85e534253ae",
