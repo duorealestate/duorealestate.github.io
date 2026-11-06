@@ -141,6 +141,7 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .acc{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .acc button{flex:1 1 40%;font:inherit;font-size:15px;font-weight:700;padding:11px 6px;border:1px solid var(--azul);border-radius:10px;background:none;color:var(--azul)}
 .fi-p{margin-top:10px}
+.nv-z{margin-top:12px}
 .pres{display:grid;gap:1px;padding:8px 0;font-size:15px;border-top:1px solid var(--linea)}
 .pres:first-of-type{border-top:0}.pres span{color:var(--tinta-suave)}
 </style>
@@ -192,6 +193,14 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
   <button id="limpiar" type="button">Quitar selección</button>
 </div>
 <nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
+<div class="modal" id="nv" hidden><div class="top"><b>Cliente nuevo</b><button type="button" id="nvCerrar">Cerrar</button></div>
+  <section><div class="campos"><label class="ancho">Nombre y apellido<input id="nvNombre" type="text" autocomplete="off"></label></div></section>
+  <section><h4>DE DÓNDE LLEGÓ</h4><div class="sectores" id="nvOrigen"></div></section>
+  <section><h4>QUÉ BUSCA</h4><p class="ayuda">Llena lo que sepas. Con operación, zona y tope ya se puede buscar.</p>
+    <div class="sectores" id="nvOp"></div><div class="sectores nv-z" id="nvZonas"></div>
+    <div class="campos nv-z"><label>Tope (millones)<input id="nvMax" type="number" inputmode="numeric" min="0"></label><label>Alcobas mínimas<input id="nvAlc" type="number" inputmode="numeric" min="0"></label></div>
+    <label class="txt nv-z">Lo que dijo<textarea id="nvBusca" rows="1"></textarea></label></section>
+  <p class="estado" id="nvEstado"></p><div class="pie"><button type="button" id="nvGuardar">Guardar cliente</button></div></div>
 <div class="modal" id="fi" hidden><div class="top"><b id="fiTit">Cliente</b><button type="button" id="fiCerrar">Cerrar</button></div><p class="estado" id="fiEstado"></p><div id="fiCuerpo"></div></div>
 <div class="modal" id="ed" hidden>
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
@@ -547,11 +556,32 @@ document.addEventListener("click", e => {
   const md = e.target.closest("[data-mandar]"); if (md) return mandar(FICHA, md.dataset.mandar);
 });
 document.addEventListener("change", e => { if (e.target.id === "fiMot" && e.target.value) hacer({ accion: "evento", id: FICHA, tipo: "ya_compro", datos: { motivo: e.target.value } }, "✅ Quedó como Ya compró."); });
-function abrirNuevo() { const n = prompt("Nombre y apellido del cliente"); if (!n || !n.trim()) return;
-  const r = (prompt("¿Quién lo atiende? Escribe C para Camila o L para Luz Stella", yo() === "Luz Stella" ? "L" : "C") || "").trim().toLowerCase();
-  if (r !== "c" && r !== "l") return alert("Escribe C o L.");
-  const busca = prompt("¿Qué busca? (como te lo dijo)") || "";
-  hacer({ accion: "nuevo", datos: { nombre: n.trim(), responsable: r === "l" ? "Luz Stella" : "Camila", busca: busca.trim() } }, ""); }
+const ORIGENES = ["Instagram", "Pauta", "Referido", "Voz a voz", "Colega", "Portal", "Otro"];
+const ZONAS = ["El Poblado", "Alto de las Palmas", "Llanogrande", "Envigado", "Laureles", "Rionegro", "Castropol", "La Ceja", "El Retiro", "El Escobero"];
+let NV = null;
+const chipsNv = (xs, k) => xs.map(x => `<button class="chip" type="button" data-nv="${k}" aria-pressed="false">${esc(x)}</button>`).join("");
+function abrirNuevo() {
+  NV = { origen: "", operacion: "", sectores: new Set() };
+  $("nvOrigen").innerHTML = chipsNv(ORIGENES, "origen"); $("nvOp").innerHTML = chipsNv(["Compra", "Arriendo"], "operacion"); $("nvZonas").innerHTML = chipsNv(ZONAS, "sectores");
+  ["nvNombre", "nvMax", "nvAlc", "nvBusca"].forEach(id => $(id).value = ""); $("nvEstado").textContent = ""; $("nvEstado").className = "estado";
+  $("nv").hidden = false; document.body.style.overflow = "hidden"; $("nvNombre").focus();
+}
+const cerrarNv = () => { $("nv").hidden = true; document.body.style.overflow = ""; };
+$("nvCerrar").onclick = cerrarNv;
+$("nv").onclick = e => { const b = e.target.closest("[data-nv]"); if (!b) return; const k = b.dataset.nv, v = b.textContent;
+  if (k === "sectores") { NV.sectores.has(v) ? NV.sectores.delete(v) : NV.sectores.add(v); b.setAttribute("aria-pressed", NV.sectores.has(v)); return; }
+  NV[k] = NV[k] === v ? "" : v; [...b.parentNode.children].forEach(x => x.setAttribute("aria-pressed", x.textContent === NV[k])); };
+$("nvGuardar").onclick = async () => {
+  const mal = t => { $("nvEstado").textContent = t; $("nvEstado").className = "estado mal"; };
+  const nombre = $("nvNombre").value.trim();
+  if (nombre.length < 2) return mal("Falta el nombre.");
+  if (!NV.origen) return mal("Elige de dónde llegó.");
+  $("nvGuardar").disabled = true; $("nvEstado").textContent = "Guardando en Notion…"; $("nvEstado").className = "estado";
+  try { const d = await crm({ accion: "nuevo", datos: { nombre, origen: NV.origen, operacion: NV.operacion, sectores: [...NV.sectores], max: $("nvMax").value, alcobas: $("nvAlc").value, busca: $("nvBusca").value.trim() } });
+    cerrarNv(); FICHA = d.id; await cargarCRM();
+  } catch (e) { mal(e.message); }
+  $("nvGuardar").disabled = false;
+};
 function yo() { let y = leer("duo-yo"); if (!y) { y = (prompt("¿Quién eres? Escribe C para Camila o L para Luz Stella") || "").trim().toLowerCase() === "l" ? "Luz Stella" : "Camila"; guardar("duo-yo", y); } return y; }
 // Mandar opciones: filtra lo que encaja con la búsqueda y quita lo que ya se le mandó.
 function mandar(id, reqId) {
