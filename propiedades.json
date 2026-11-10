@@ -4502,7 +4502,11 @@
       "$899.557"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Dúplex muy iluminado · vista verde",
+     "Balcón · alcoba principal muy amplia",
+     "Zonas verdes · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D088/50d8c26d3b-800.jpg",
@@ -4518,7 +4522,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Dúplex luminoso rodeado de verde",
    "venta": 1400000000.0
   },
   "url": "https://duorealestate.com.co/D088"
