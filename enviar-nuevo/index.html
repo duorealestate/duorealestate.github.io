@@ -15,6 +15,7 @@
 :root{--azul:#435E86;--azul-profundo:#2E4160;--crema:#F4EEDF;--crema-tarjeta:#EAE1CB;--linea:#E3D7BC;--tinta:#1C2333;--tinta-suave:#565F78;--verde:#1F7A4D;
   --serif:"Gilda Display",Georgia,serif;--mono:"IBM Plex Mono",monospace;--sans:"Red Hat Display",Helvetica,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--sans);font-size:18px;line-height:1.45;padding-bottom:130px}
 header{background:var(--azul);color:var(--crema);padding:16px 16px 14px}
 header img{width:110px;display:block}
@@ -110,8 +111,8 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .modal .estado{margin:14px 16px 0;font-size:15px}
 .modal .estado.mal{color:#B3261E}
 .modal .estado.bien{color:var(--verde)}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
-.nav button{font:inherit;font-size:15px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
+.nav button{font:inherit;font-size:13.5px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
 .nav button[aria-current=true]{color:var(--azul-profundo);box-shadow:inset 0 3px 0 var(--azul)}
 .barra{bottom:calc(52px + env(safe-area-inset-bottom))}
 .mandar{position:sticky;top:0;z-index:5;background:var(--azul-profundo);color:var(--crema);padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:15px}
@@ -119,13 +120,41 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .mandar span{flex:1 1 100%}
 .mandar button{font:inherit;font-size:15px;font-weight:700;padding:9px 14px;border:0;border-radius:10px;background:var(--crema);color:var(--azul-profundo)}
 .mandar #mandarNo{background:none;color:var(--crema);text-decoration:underline;font-weight:400}
-.tope{display:inline-block;margin-top:4px;font-size:13px;font-weight:700;color:#8A5A00}
-.resumen{padding:14px 16px 0;font-size:17px}
 .etapas{padding:10px 16px 0}
-#vHoy h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500;text-transform:uppercase}
 .nuevo{margin:12px 16px 0;width:calc(100% - 32px);font:inherit;font-weight:700;padding:12px;border:1px dashed var(--azul);border-radius:12px;background:none;color:var(--azul)}
-.cli-card{display:grid;gap:2px;width:100%;text-align:left;font:inherit;font-size:15px;color:var(--tinta-suave);background:#fff;border:0;border-radius:14px;padding:12px}
-.cli-card b{font-size:18px;color:var(--azul-profundo)}
+.cli-card,.op-card{background:#fff;border-radius:14px;overflow:hidden}
+.op-card{padding-bottom:12px}
+.cli-b{display:grid;gap:2px;width:100%;text-align:left;font:inherit;font-size:15px;color:var(--tinta-suave);background:none;border:0;padding:12px}
+.cli-b b{font-size:18px;color:var(--azul-profundo)}
+.idea{display:block;width:100%;text-align:left;font:inherit;font-size:15px;font-weight:700;color:var(--verde);background:#F0F7F2;border:0;border-top:1px solid var(--linea);padding:10px 12px}
+.mv{display:flex;align-items:center;gap:10px;padding:8px 12px 12px;font-size:13px;color:var(--tinta-suave);border-top:1px solid var(--linea)}
+.mv select{flex:1;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--linea);border-radius:10px;background:var(--crema);color:var(--tinta)}
+section>.mv{border:0;padding:12px 0 0}
+.chapa{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;justify-self:start}
+.chapa.n0{background:#DDEFE3;color:#14573A}.chapa.n1{background:#FBEFC9;color:#6B4E00}.chapa.n2{background:#F6DDD0;color:#7A3515}
+.chapa.nueva{background:var(--azul);color:var(--crema)}.chapa.frio{background:#F6DDD0;color:#7A3515;margin-top:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 0}
+.stats button{font:inherit;font-size:14px;text-align:left;color:var(--tinta-suave);background:#fff;border:0;border-radius:14px;padding:12px}
+.stats b{display:block;font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--azul-profundo)}
+main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing:.12em;color:var(--azul);font-weight:500;text-transform:uppercase}
+.seg3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 16px 0}.seg3.dos{grid-template-columns:1fr 1fr}
+.seg3 .chip{text-align:center;padding:9px 4px;font-size:14px}
+.nota.arriba{margin-top:14px}
+.op-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;border-top:1px solid var(--linea);font-size:15px;color:var(--tinta-suave)}
+.op-fila b{color:var(--azul-profundo)}
+.op-card .primario{width:calc(100% - 24px);margin:8px 12px 0}
+.op-card .nota{margin:0;padding:6px 12px}
+.op-cli{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font:inherit;font-size:16px;font-weight:700;color:var(--azul-profundo);background:none;border:0;border-top:1px solid var(--linea);padding:10px 12px;text-align:left}
+.secundario{width:100%;margin-top:8px;font:inherit;font-weight:700;padding:11px;border:1px solid var(--azul);border-radius:12px;background:none;color:var(--azul)}
+.falta{margin:0 0 6px;font-size:14px;font-weight:700;color:#8A5A00}
+.nivs{display:grid;gap:2px;margin-top:4px}.nivs .ayuda,.sirve{font-size:13px;color:var(--tinta-suave)}
+.sirve{margin-top:4px;font-weight:700;color:var(--verde)}
+.toast{position:fixed;left:16px;right:16px;bottom:calc(64px + env(safe-area-inset-bottom));z-index:30;background:var(--tinta);color:#fff;padding:12px 14px;border-radius:12px;font-size:15px}
+.toast.mal{background:#B3261E}.toast[hidden],.mvd[hidden]{display:none}
+.mvd{position:fixed;inset:0;z-index:25;background:rgba(28,35,51,.55);display:flex;align-items:flex-end}
+.mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
+.mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
+.modal.sobre{z-index:12}
 .cli-et{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--azul)}
 .tarde{color:#B3261E;font-weight:700}
 .hoy-card{background:#fff;border-radius:14px;overflow:hidden}
@@ -148,7 +177,7 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 <body>
 <header>
   <img src="/marca/logo-header.png" alt="dûo real estate">
-  <p>Copia de prueba: Hoy, Clientes y Propiedades.</p>
+  <p>Copia de prueba: clientes, oportunidades y propiedades.</p>
   <a class="subir" href="https://canary-lodge-57e.notion.site/847b8be871f24104896286794da995f6" target="_blank" rel="noopener">➕ Subir propiedad</a>
 </header>
 <div class="pin" id="pin" hidden>
@@ -158,9 +187,11 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 </div>
 <p class="nota" id="sinLlave" hidden>Puedes buscar por código o sector. Para buscar por nombre del edificio, abre el link de instalación que te mandó Camila.</p>
 <main id="vHoy"></main>
-<main id="vCli" hidden></main>
+<main id="vCli" hidden><div class="seg3" id="subs"><button class="chip" type="button" data-sub="pipe" aria-pressed="true">Pipeline</button><button class="chip" type="button" data-sub="vis" aria-pressed="false">Visitas y ofertas</button><button class="chip" type="button" data-sub="col" aria-pressed="false">Colegas</button></div>
+<div class="buscar"><input id="cliQ" type="search" placeholder="Buscar cliente por nombre…" autocomplete="off"></div><div id="cliCuerpo"></div></main>
+<main id="vOp" hidden></main>
 <main id="vProp" hidden>
-<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Lo mandó Camila</button><button type="button" id="mandarLuz" hidden>✅ Lo mandó Luz Stella</button><button type="button" id="mandarNo">Cancelar</button></div>
+<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Lo mandó Camila</button><button type="button" id="mandarLuz" hidden>✅ Lo mandó Luz Stella</button><button type="button" id="mandarTodo" hidden>Ver todo el inventario</button><button type="button" id="mandarNo">Cancelar</button></div>
 <div class="buscar">
   <input id="q" type="search" placeholder="Buscar: nombre, código, sector…" autocomplete="off">
 </div>
@@ -191,7 +222,7 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
   <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
   <button id="limpiar" type="button">Quitar selección</button>
 </div>
-<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
+<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="op" aria-current="false">Oportunidades</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
 <div class="modal" id="nv" hidden><div class="top"><b>Cliente nuevo</b><button type="button" id="nvCerrar">Cerrar</button></div>
   <section><div class="campos"><label class="ancho">Nombre y apellido<input id="nvNombre" type="text" autocomplete="off"></label></div></section>
   <section><h4>DE DÓNDE LLEGÓ</h4><div class="sectores" id="nvOrigen"></div></section>
@@ -200,6 +231,23 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
     <div class="campos nv-z"><label>Tope (millones)<input id="nvMax" type="number" inputmode="numeric" min="0"></label><label>Alcobas mínimas<input id="nvAlc" type="number" inputmode="numeric" min="0"></label></div>
     <label class="txt nv-z">Lo que dijo<textarea id="nvBusca" rows="1"></textarea></label></section>
   <p class="estado" id="nvEstado"></p><div class="pie"><button type="button" id="nvGuardar">Guardar cliente</button></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+<div class="mvd" id="mvd" hidden><div class="mv-caja"><b id="mvTit"></b><div id="mvCampo"></div><div class="acc"><button type="button" id="mvSi">Guardar</button><button type="button" id="mvNo">Cancelar</button></div></div></div>
+<div class="modal sobre" id="rq" hidden><div class="top"><b id="rqTit">Búsqueda</b><button type="button" id="rqCerrar">Cerrar</button></div>
+  <section><h4>OPERACIÓN</h4><div class="sectores" id="rqOp"></div><h4 class="nv-z">TIPO</h4><div class="sectores" id="rqTipo"></div></section>
+  <section><h4>ZONA</h4><div class="sectores" id="rqZonas"></div><label class="txt nv-z">Zona específica (opcional)<input id="rqZonaTxt" type="text" class="inp"></label></section>
+  <section><h4>NÚMEROS</h4><div class="campos"><label class="ancho">Tope (millones; en arriendo, canon en millones)<input id="rqMax" type="number" inputmode="decimal" min="0" step="any"></label>
+    <label>Alcobas mínimas<input id="rqAlc" type="number" inputmode="numeric" min="0"></label><label>Área mínima m²<input id="rqArea" type="number" inputmode="numeric" min="0"></label></div></section>
+  <section><h4>LO QUE DIJO</h4><label class="txt">Indispensable (separado por comas)<textarea id="rqInd" rows="1"></textarea></label>
+    <label class="txt">Deseable<textarea id="rqDes" rows="1"></textarea></label><label class="txt">Evitar (por ejemplo, un edificio)<textarea id="rqEv" rows="1"></textarea></label></section>
+  <p class="estado" id="rqEstado"></p><div class="pie"><button type="button" id="rqGuardar">Guardar búsqueda</button></div></div>
+<div class="modal" id="co" hidden><div class="top"><b id="coTit">Negocio con colega</b><button type="button" id="coCerrar">Cerrar</button></div>
+  <p class="estado" id="coEstado"></p>
+  <section><div class="campos"><label class="ancho">Propiedad (código, por ejemplo D012)<input id="coProp" type="text" list="coProps" autocomplete="off"><datalist id="coProps"></datalist></label>
+    <label class="ancho">Colega<input id="coColega" type="text" autocomplete="off"></label><label class="ancho">Etapa<select id="coEtapa"></select></label>
+    <label class="ancho">Próximo paso<input id="coPaso" type="text"></label><label>Fecha del próximo paso<input id="coFecha" type="date"></label><label>Fecha de visita<input id="coVisita" type="date"></label>
+    <label class="ancho">Propuesta en pesos<input id="coProp$" type="number" inputmode="numeric" min="0"></label><label class="ancho">Notas<input id="coNotas" type="text"></label></div></section>
+  <div class="pie"><button type="button" id="coGuardar">Guardar</button></div></div>
 <div class="modal" id="fi" hidden><div class="top"><b id="fiTit">Cliente</b><button type="button" id="fiCerrar">Cerrar</button></div><p class="estado" id="fiEstado"></p><div id="fiCuerpo"></div></div>
 <div class="modal" id="ed" hidden>
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
@@ -337,7 +385,7 @@ const enRango = (v, d, h) => (d === null || v >= d) && (h === null || v <= h);
 function pintar() {
   const q = norm($("q").value.trim());
   const vis = P.filter(p => {
-    if (MANDAR && (MANDAR.excl.has(p.cod) || (MANDAR.alc && p.alc && p.alc < MANDAR.alc))) return false;
+    if (MANDAR && (MANDAR.excl.has(p.cod) || (!MANDAR.todo && !MANDAR.niv[p.cod]))) return false;
     if (op && !p.ops.includes(op)) return false;
     if (secSel.size && !secSel.has(p.sector)) return false;
     const pd = num("pDesde"), ph = num("pHasta");
@@ -351,6 +399,7 @@ function pintar() {
     if ((ad !== null || ah !== null) && !(p.area && enRango(p.area, ad, ah))) return false;
     return !q || coincide(q, [nombre(p), p.cod, p.tipo, p.sector, p.titulo, datos(p)].join(" "));
   });
+  if (MANDAR && !MANDAR.todo) vis.sort((a, b) => MANDAR.niv[a.cod].n - MANDAR.niv[b.cod].n);
   const nF = (op ? 1 : 0) + (secSel.size ? 1 : 0) + (num("pDesde") !== null || num("pHasta") !== null ? 1 : 0) + (num("aDesde") !== null || num("aHasta") !== null ? 1 : 0);
   $("resumenF").textContent = nF ? `Filtros (${nF})` : "Filtros";
   $("conteo").textContent = vis.length + (vis.length === 1 ? " propiedad" : " propiedades");
@@ -358,7 +407,7 @@ function pintar() {
   $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">${EDITOR && CLAVE ? `<button class="lapiz" type="button" data-editar="${esc(p.cod)}" aria-label="Editar ${esc(p.cod)}">✏️</button>` : ""}
     <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
       <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
-      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div>${MANDAR && MANDAR.max && p.venta > MANDAR.max ? `<div class="tope">Por encima del tope</div>` : ""}</div></div>
+      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div>${etiqueta(p)}</div></div>
     <button class="abrir" type="button" data-abrir="${esc(p.cod)}" aria-expanded="${abiertas.has(p.cod)}">${abiertas.has(p.cod) ? "Ocultar características ▴" : "Ver características ▾"}</button>
     ${abiertas.has(p.cod) ? `<div class="det">${detalle(p)}</div>` : ""}
     <label class="marcar"><input type="checkbox" data-cod="${esc(p.cod)}" ${sel.has(p.cod) ? "checked" : ""}> Marcar para mandar varias juntas</label>
@@ -443,11 +492,15 @@ $("edGuardar").onclick = async () => {
   } catch (e) { estadoEd(e.message, "mal"); }
   $("edGuardar").disabled = false;
 };
-// ---------- CRM: Hoy y Clientes (Worker aparte "crm-duo"; sin PIN no se ve ningún cliente) ----------
+// ---------- CRM: Hoy, Clientes y Oportunidades (Worker aparte "crm-duo"; sin PIN no se ve ningún cliente) ----------
 const CRM = "https://crm-duo.camila-duorealestate.workers.dev";
 const ETAPAS_ACT = ["Nuevo", "Opciones enviadas", "Visita agendada", "Visitó", "Oferta"];
 const ETAPAS_TODAS = [...ETAPAS_ACT, "En pausa", "Ya compró", "Negocio cerrado"];
-let C = [], HOY = "", vista = "hoy", etapaVe = "Nuevo", FICHA = null, MANDAR = null, PEND = null;
+const ETAPAS_COLE = ["Visita agendada", "Visitó", "Propuesta esperada", "Propuesta recibida", "Negociación", "Ganada", "Perdida"];
+const MOTIVOS = ["Con otra asesora", "Directo con el propietario", "Por precio", "Por zona", "Otro"];
+const NIV = ["Compatible", "Revisar", "Por encima del tope"];
+let C = [], COLE = [], PROPS = {}, AVISOS = [], HOY = "", vista = "hoy", etapaVe = "Nuevo", sub = "pipe", opVe = "cli", FICHA = null, MANDAR = null, PEND = null, cargado = 0;
+let M = { porCli: {}, porProp: {}, faltan: [] };
 async function crm(cuerpo) {
   const r = await fetch(CRM, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) })
     .catch(() => { throw new Error("No hay conexión con el CRM. Si es la primera vez, falta crear el Worker crm-duo en Cloudflare."); });
@@ -456,9 +509,63 @@ async function crm(cuerpo) {
   return d;
 }
 const dias = (a, b) => Math.round((new Date(b) - new Date(a)) / 864e5);
+const masDias = n => new Date(Date.parse(HOY) + n * 864e5).toISOString().slice(0, 10);
 const fCorta = f => { if (!f) return "sin fecha"; const [, m, d] = f.split("-"); return `${+d} ${["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"][+m - 1]}`; };
 const pila = c => (c.nombre.split(/[ ·]/)[0] || c.nombre);
 const activo = c => ETAPAS_ACT.includes(c.etapa);
+const COP = v => v ? "$" + Math.round(v / 1e6).toLocaleString("es-CO") + " M" : "";
+const aviso = (t, mal) => { const a = $("toast"); a.textContent = t; a.className = "toast" + (mal ? " mal" : ""); a.hidden = false; clearTimeout(aviso.t); aviso.t = setTimeout(() => a.hidden = true, mal ? 6000 : 3000); };
+
+// ---------- Cruce de clientes con propiedades: reglas fijas, sin IA ----------
+const OPMAP = { Compra: "Venta", Arriendo: "Alquiler" };
+const reqAbierto = r => !["Cerrada", "En pausa"].includes(r.estado);
+const faltaReq = r => [!r.operacion.length && "si compra o arrienda", !r.max && "el tope", !(r.sectores.length || r.zonas) && "la zona"].filter(Boolean);
+const textoProp = p => { const d = p.det || {}; return norm([p.titulo, ...(d.carac || []), ...(d.amen || []), ...(d.lista || []), ...(d.detalles || []).map(x => x.join(" "))].join(" ")); };
+const soloLetras = s => norm(s).replace(/[^a-z0-9]/g, "");
+function nivel(p, r) {
+  const ops = r.operacion.map(o => OPMAP[o]).filter(o => p.ops.includes(o));
+  if (!ops.length) return null;
+  if (r.tipo.length && !r.tipo.includes(p.tipo)) return null;
+  if (r.sectores.length && !r.sectores.some(s => norm(s) === norm(p.sector))) return null;
+  let precio = null; // 0 dentro del tope · 2 hasta 100 millones por encima (solo compra)
+  for (const o of ops) { const v = o === "Venta" ? p.venta : p.canon; if (!v) continue;
+    if (v <= r.max) precio = 0; else if (o === "Venta" && v <= r.max + 1e8 && precio === null) precio = 2; }
+  if (precio === null) return null;
+  const dudas = [];
+  const minimo = (pide, tiene, n) => { if (!pide) return true; if (!tiene) { dudas.push(n); return true; } return tiene >= pide; };
+  if (p.tipo !== "Lote" && !minimo(r.alcobas, p.alc, "alcobas")) return null;
+  if (!minimo(r.area, p.area, "área") || !minimo(r.banos, p.ban, "baños") || !minimo(r.parq, p.parq, "parqueaderos")) return null;
+  if ((r.alcMax && p.alc > r.alcMax) || (r.areaMax && p.area > r.areaMax)) return null;
+  const edificio = NOMBRES[p.cod] ? soloLetras(NOMBRES[p.cod][0]) : "";
+  if (edificio.length >= 4 && soloLetras(r.evitar).includes(edificio)) return null;
+  if (!r.sectores.length) dudas.push("zona");
+  if (PROPS[p.cod] && PROPS[p.cod].e && PROPS[p.cod].e !== "Activa") dudas.push("disponibilidad");
+  const t = textoProp(p);
+  const conf = r.indispensables.split(/[,;\n.]| y /).map(x => x.trim()).filter(x => x.length > 2).filter(x => {
+    const ws = norm(x).split(/[^a-z0-9]+/).filter(w => w.length > 3); return !(ws.length && ws.every(w => t.includes(w))); });
+  return { n: precio === 2 ? 2 : dudas.length ? 1 : 0, dudas, conf };
+}
+const esNueva = cod => PROPS[cod] && PROPS[cod].f && dias(PROPS[cod].f, HOY) <= 14;
+function cruzar() {
+  M = { porCli: {}, porProp: {}, faltan: [] };
+  for (const c of C) {
+    if (!(activo(c) || c.etapa === "En pausa")) continue;
+    const ya = new Set(c.pres.map(x => x.cod).filter(Boolean)), abiertos = c.reqs.filter(reqAbierto);
+    if (!abiertos.length && activo(c)) M.faltan.push({ c, r: null, f: ["la búsqueda completa"] });
+    for (const r of abiertos) {
+      const f = faltaReq(r); if (f.length) { if (activo(c)) M.faltan.push({ c, r, f }); continue; }
+      for (const p of P) { if (ya.has(p.cod)) continue; const n = nivel(p, r); if (!n) continue;
+        const a = (M.porCli[c.id] = M.porCli[c.id] || {}); if (!a[p.cod] || n.n < a[p.cod].n) a[p.cod] = { ...n, req: r.id }; }
+    }
+  }
+  for (const [id, a] of Object.entries(M.porCli)) for (const [cod, n] of Object.entries(a)) (M.porProp[cod] = M.porProp[cod] || []).push({ id, ...n });
+}
+const opciones = id => Object.entries(M.porCli[id] || {}).map(([cod, n]) => ({ cod, ...n, p: P.find(x => x.cod === cod) }))
+  .sort((a, b) => a.n - b.n || esNueva(b.cod) - esNueva(a.cod));
+const cuenta = id => { const o = opciones(id); return [0, 1, 2].map(n => o.filter(x => x.n === n).length); };
+const cuentaTxt = id => { const [a, b, t] = cuenta(id); return [a && `${a} compatible${a === 1 ? "" : "s"}`, b && `${b} por revisar`, t && `${t} por encima del tope`].filter(Boolean).join(" · "); };
+
+// ---------- Mensajes sugeridos ----------
 function mensaje(c) {
   const n = pila(c);
   if (c.etapa === "En pausa") return `¡Hola, ${n}! 💙 ¿Cómo vas? Nos acordamos de ti porque salió algo nuevo que te puede servir: `;
@@ -470,51 +577,130 @@ function mensaje(c) {
   if (c.intentos === 1) return `¡Hola, ${n}! ¿Alcanzaste a ver las opciones? 💙`;
   return `¡Hola, ${n}! 💙 ¿Qué te parecieron las opciones que te mandamos? ¿Cuál te gustaría conocer?`;
 }
-const tarjetaCli = c => { const v = c.fecha ? dias(c.fecha, HOY) : 0;
-  return `<button class="cli-card" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
-    <span class="cli-et">${esc(c.etapa || "Sin etapa")}</span>
-    <span>${esc(c.paso || "Sin próximo paso")}</span>
-    <span class="${v > 0 ? "tarde" : ""}">${c.fecha ? (v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(c.fecha)) : "Sin fecha"}${c.ultimo ? ` · último contacto ${fCorta(c.ultimo)}` : ""}</span></button>`; };
+
+// ---------- Tarjetas ----------
+const selEtapa = c => `<label class="mv">Etapa<select data-mv="${c.id}">${ETAPAS_TODAS.filter(x => x !== "Negocio cerrado" || c.etapa === x).map(x => `<option${x === c.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label>`;
+function tarjetaCli(c, conEtapa) {
+  const v = c.fecha ? dias(c.fecha, HOY) : 0, frio = activo(c) && c.ultimo && dias(c.ultimo, HOY) > 7, n = opciones(c.id).length;
+  return `<div class="cli-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
+    <span class="cli-et">${esc(c.etapa || "Sin etapa")}</span><span>${esc(c.paso || "Sin próximo paso")}</span>
+    <span class="${v > 0 ? "tarde" : ""}">${c.fecha ? (v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(c.fecha)) : "Sin fecha"}${c.ultimo ? ` · último contacto ${fCorta(c.ultimo)}` : ""}</span>
+    ${frio ? `<span class="chapa frio">Más de 7 días sin contacto</span>` : ""}</button>
+    ${n ? `<button class="idea" type="button" data-opc="${c.id}">💡 ${n} opci${n === 1 ? "ón nueva" : "ones nuevas"} para mandarle</button>` : ""}${conEtapa ? selEtapa(c) : ""}</div>`;
+}
+const coleAbierta = x => !["Ganada", "Perdida"].includes(x.etapa);
+const tarjetaCole = x => `<div class="cli-card"><button class="cli-b" type="button" data-cole="${x.id}"><b>${esc(x.titulo || x.nombre || "Negocio con colega")}</b>
+  <span class="cli-et">COLEGA${x.colega ? " · " + esc(x.colega.toUpperCase()) : ""} · ${esc(x.etapa || "Sin etapa")}</span><span>${esc(x.paso || "Sin próximo paso")}</span>
+  <span class="${x.fecha && x.fecha < HOY ? "tarde" : ""}">${x.fecha ? fCorta(x.fecha) : "Sin fecha"}${x.propuesta ? " · propuesta " + COP(x.propuesta) : ""}</span></button></div>`;
+
+// ---------- Hoy ----------
 function pintarHoy() {
   if (!CLAVE) return $("vHoy").innerHTML = `<p class="vacio">${leer("duo-llave") ? "Escribe el PIN arriba para ver tus clientes." : "Falta la llave: abre esta página con tu link de instalación y ahí te pide el PIN."}</p>`;
-  const xs = C, sinPaso = xs.filter(c => activo(c) && !c.fecha);
-  const toca = xs.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
+  const sinPaso = C.filter(c => activo(c) && !c.fecha);
+  const toca = C.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
+  const colegas = COLE.filter(x => coleAbierta(x) && (!x.fecha || x.fecha <= HOY));
+  const pronto = C.filter(c => c.fecha > HOY && c.fecha <= masDias(7) && (activo(c) || c.etapa === "En pausa")).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  const conOp = Object.keys(M.porCli).length;
   const hoyVis = toca.map(c => `<div class="hoy-card">${tarjetaCli(c)}<p class="msg">${esc(mensaje(c))}</p><div class="hoy-bt">
       <a href="${esc(wa(mensaje(c)))}" target="_blank" rel="noopener">💬 Escribir</a>
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button>
       <button type="button" data-ev="no_responde" data-id="${c.id}">No responde</button></div></div>`).join("");
-  $("vHoy").innerHTML = `<div class="resumen"><b>${toca.length}</b> para hoy · <b>${xs.filter(activo).length}</b> activos</div>
+  $("vHoy").innerHTML = `<div class="stats">
+      <button type="button" data-ir="hoy"><b>${toca.length + sinPaso.length + colegas.length}</b>para atender hoy</button>
+      <button type="button" data-ir="cli"><b>${C.filter(activo).length}</b>clientes activos</button>
+      <button type="button" data-ir="op"><b>${conOp}</b>con opciones nuevas</button>
+      <button type="button" data-ir="op"><b>${M.faltan.length}</b>búsquedas por completar</button></div>
+    ${AVISOS.map(a => `<p class="vacio mal">${esc(a)}</p>`).join("")}
     <button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button>
-    ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(tarjetaCli).join("")}</div>` : ""}
-    ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : `<p class="vacio">Todo al día. 💙</p>`}`;
+    ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(c => tarjetaCli(c)).join("")}</div>` : ""}
+    ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : ""}
+    ${colegas.length ? `<h3>Negocios con colegas</h3><div class="lista">${colegas.map(tarjetaCole).join("")}</div>` : ""}
+    ${!toca.length && !sinPaso.length && !colegas.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
+    ${pronto.length ? `<h3>Próximos 7 días</h3><div class="lista">${pronto.map(c => tarjetaCli(c)).join("")}</div>` : ""}`;
 }
+
+// ---------- Clientes: pipeline, visitas y ofertas, colegas ----------
 function pintarClientes() {
-  if (!CLAVE) return $("vCli").innerHTML = `<p class="vacio">${leer("duo-llave") ? "Escribe el PIN arriba para ver tus clientes." : "Falta la llave: abre esta página con tu link de instalación y ahí te pide el PIN."}</p>`;
-  const xs = C, n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
-  $("vCli").innerHTML = `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>
-    <div class="lista">${xs.filter(c => (c.etapa || "Nuevo") === etapaVe).sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(tarjetaCli).join("") || `<p class="vacio">Nadie en esta etapa.</p>`}</div>`;
+  if (!CLAVE) return $("cliCuerpo").innerHTML = `<p class="vacio">Escribe el PIN para ver tus clientes.</p>`;
+  [...$("subs").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.sub === sub));
+  const q = norm($("cliQ").value.trim()); $("cliQ").parentNode.hidden = sub !== "pipe";
+  if (sub === "pipe") {
+    const xs = C.filter(c => !q || norm(c.nombre).includes(q)), n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
+    const lista = q ? xs : xs.filter(c => (c.etapa || "Nuevo") === etapaVe);
+    $("cliCuerpo").innerHTML = `${q ? "" : `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>`}
+      <div class="lista">${lista.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(c => tarjetaCli(c, true)).join("") || `<p class="vacio">${q ? "No encontré a nadie con ese nombre." : "Nadie en esta etapa."}</p>`}</div>`;
+  } else if (sub === "vis") {
+    const xs = C.flatMap(c => c.pres.filter(p => ["Visita agendada", "Visitó", "Oferta"].includes(p.estado)).map(p => ({ c, p })))
+      .sort((a, b) => (b.p.visita || b.p.envio || "").localeCompare(a.p.visita || a.p.envio || ""));
+    const fila = ({ c, p }) => `<div class="cli-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
+      <span class="cli-et">${esc(p.estado.toUpperCase())}${p.visita ? " · " + fCorta(p.visita) : ""}</span><span>${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</span>
+      <span>${[p.reaccion, p.oferta && "oferta " + COP(p.oferta), p.comentario].filter(Boolean).map(esc).join(" · ")}</span></button></div>`;
+    const grupo = (t, e) => { const g = xs.filter(x => x.p.estado === e); return g.length ? `<h3>${t} · ${g.length}</h3><div class="lista">${g.map(fila).join("")}</div>` : ""; };
+    $("cliCuerpo").innerHTML = grupo("Ofertas", "Oferta") + grupo("Visitas agendadas", "Visita agendada") + grupo("Ya visitaron", "Visitó") || `<p class="vacio">Todavía no hay visitas ni ofertas registradas.</p>`;
+  } else {
+    const ab = COLE.filter(coleAbierta), ce = COLE.filter(x => !coleAbierta(x));
+    $("cliCuerpo").innerHTML = `<p class="nota">Negocios sobre una propiedad de dûo con comprador de una colega.</p><button class="nuevo" type="button" id="btnCole">➕ Negocio con colega</button>
+      <div class="lista">${ab.map(tarjetaCole).join("") || `<p class="vacio">No hay negocios con colegas en curso.</p>`}</div>
+      ${ce.length ? `<h3>Cerrados · ${ce.length}</h3><div class="lista">${ce.map(tarjetaCole).join("")}</div>` : ""}`;
+  }
 }
-const pintarCRM = () => { pintarHoy(); pintarClientes(); };
+
+// ---------- Oportunidades ----------
+const chapaNiv = n => `<span class="chapa n${n}">${NIV[n]}</span>`;
+const filaProp = o => `<div class="op-fila"><span><b>${esc(o.cod)}</b>${nombre(o.p) ? " · 🔒 " + esc(nombre(o.p)) : ""}${esNueva(o.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([o.p.sector, precio(o.p), datos(o.p)].filter(Boolean).join(" · "))}</span>${chapaNiv(o.n)}</div>`;
+function pintarOp() {
+  if (!CLAVE) return $("vOp").innerHTML = `<p class="vacio">Escribe el PIN para ver las oportunidades.</p>`;
+  const seg = `<div class="seg3 dos">${[["cli", "Por cliente"], ["prop", "Por propiedad"]].map(([k, t]) => `<button class="chip" type="button" data-opv="${k}" aria-pressed="${opVe === k}">${t}</button>`).join("")}</div>`;
+  let cuerpo;
+  if (opVe === "cli") {
+    const xs = C.filter(c => M.porCli[c.id]).sort((a, b) => cuenta(b.id)[0] - cuenta(a.id)[0] || opciones(b.id).length - opciones(a.id).length);
+    cuerpo = (xs.map(c => { const o = opciones(c.id); return `<div class="op-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
+        <span class="cli-et">${esc(c.etapa)}</span><span>${esc(cuentaTxt(c.id))}</span></button>
+        ${o.slice(0, 3).map(filaProp).join("")}
+        <button class="primario" type="button" data-opc="${c.id}">Ver y mandar${o.length > 3 ? ` las ${o.length}` : ""}</button></div>`; }).join("")
+      || `<p class="vacio">Ninguna búsqueda completa tiene opciones nuevas en el inventario.</p>`)
+      + (M.faltan.length ? `<h3>Búsquedas por completar · ${M.faltan.length}</h3><p class="nota">Sin estos datos no se pueden cruzar con el inventario.</p><div class="lista">${M.faltan.map(({ c, r, f }) => `<div class="cli-card">
+        <button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b><span>Falta ${esc(f.join(", "))}</span></button>
+        <button class="idea" type="button" data-rq="${c.id}" data-req="${r ? r.id : ""}">Completar búsqueda</button></div>`).join("")}</div>` : "");
+  } else {
+    const cods = Object.keys(M.porProp).sort((a, b) => esNueva(b) - esNueva(a) || M.porProp[b].length - M.porProp[a].length);
+    cuerpo = cods.map(cod => { const p = P.find(x => x.cod === cod), xs = M.porProp[cod].sort((a, b) => a.n - b.n);
+      return `<div class="op-card"><div class="op-fila"><span><b>${esc(cod)}</b>${nombre(p) ? " · 🔒 " + esc(nombre(p)) : ""}${esNueva(cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([p.sector, precio(p), datos(p)].filter(Boolean).join(" · "))}</span></div>
+        <p class="nota">Le sirve a ${xs.length} cliente${xs.length === 1 ? "" : "s"}:</p>
+        ${xs.map(x => { const c = C.find(y => y.id === x.id); return `<button class="op-cli" type="button" data-opc="${c.id}"><span>${esc(c.nombre)}</span>${chapaNiv(x.n)}</button>`; }).join("")}</div>`; }).join("")
+      || `<p class="vacio">Ninguna propiedad encaja todavía con una búsqueda completa.</p>`;
+  }
+  $("vOp").innerHTML = `<p class="nota arriba">Cruce automático del inventario con lo que busca cada cliente. No repite lo que ya le mandaron.</p>${seg}<div class="lista">${cuerpo}</div>`;
+}
+const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarOp(); };
 async function cargarCRM() {
   if (!CLAVE) return pintarCRM();
-  $("vHoy").innerHTML = `<p class="vacio">Cargando desde Notion…</p>`;
-  try { const d = await crm({ accion: "leer" }); C = d.clientes; HOY = d.hoy; pintarCRM(); if (FICHA) abrirFicha(FICHA); }
-  catch (e) { $("vHoy").innerHTML = $("vCli").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
+  if (!cargado) $("vHoy").innerHTML = `<p class="vacio">Cargando desde Notion…</p>`;
+  try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
+    cruzar(); pintarCRM(); pintar(); if (FICHA) abrirFicha(FICHA); }
+  catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
 }
-function ir(v) { vista = v; ["Hoy", "Cli", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && cargado && Date.now() - cargado > 60000 && $("fi").hidden && $("nv").hidden && $("rq").hidden && $("co").hidden && $("mvd").hidden) cargarCRM(); });
+function ir(v) { vista = v; ["Hoy", "Cli", "Op", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
   document.querySelectorAll(".nav button").forEach(b => b.setAttribute("aria-current", b.dataset.v === v)); window.scrollTo(0, 0); }
 document.querySelector(".nav").onclick = e => { const b = e.target.closest("[data-v]"); if (b) ir(b.dataset.v); };
-const COP = v => v ? "$" + Math.round(v / 1e6).toLocaleString("es-CO") + " M" : "";
+$("cliQ").oninput = pintarClientes;
+
+// ---------- Ficha del cliente ----------
 const resumenReq = r => [r.operacion.join(" o "), r.tipo.join(" o "), r.sectores.join(", "), r.zonas, r.max && "hasta " + COP(r.max), r.alcobas && r.alcobas + "+ alcobas", r.area && r.area + "+ m²"].filter(Boolean).join(" · ");
 function abrirFicha(id) {
   const c = C.find(x => x.id === id); if (!c) return cerrarFicha(); FICHA = id; $("fi").hidden = false; document.body.style.overflow = "hidden";
   $("fiTit").textContent = c.nombre; $("fiEstado").textContent = ""; $("fiEstado").className = "estado";
   const reqs = c.reqs.filter(r => r.estado !== "Cerrada");
   const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</option>`).join("");
-  $("fiCuerpo").innerHTML = `<section><h4>QUÉ BUSCA</h4>${reqs.map(r => `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
+  const nReq = r => Object.values(M.porCli[id] || {}).filter(x => x.req === r.id).length;
+  $("fiCuerpo").innerHTML = `<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
       ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
-      <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones</button></div>`).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}</section>
+      ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}
+      <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
+      <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
+      <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
     <section><h4>QUÉ PASÓ</h4><div class="acc">
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button><button type="button" data-ev="no_responde" data-id="${c.id}">No responde (${c.intentos})</button>
       <button type="button" data-ev="pausa" data-id="${c.id}">Pausar 30 días</button></div>
@@ -522,37 +708,68 @@ function abrirFicha(id) {
         <label>Fecha de visita<input id="fiVisita" type="date"></label><label>Reacción<select id="fiReac"><option value="">Sin dato</option>${["😍 Le encantó", "👍 Le interesa", "🤔 Tal vez", "👎 No le gustó"].map(x => `<option>${x}</option>`).join("")}</select></label>
         <label class="ancho">Lo que dijo<input id="fiCom" type="text"></label><label class="ancho">Oferta en pesos<input id="fiOf" type="number" inputmode="numeric" min="0"></label></div>
         <div class="acc"><button type="button" data-p="visita">Agendó visita</button><button type="button" data-p="visito">Visitó</button><button type="button" data-p="oferta">Hizo oferta</button><button type="button" data-p="descartada">Descartó</button></div>` : ""}
-      <label class="txt">Ya compró con otra persona<select id="fiMot"><option value="">Elige el motivo…</option>${["Con otra asesora", "Directo con el propietario", "Por precio", "Por zona", "Otro"].map(x => `<option>${x}</option>`).join("")}</select></label>
       <p class="ayuda">Si la compra fue con ustedes, díselo al asistente: él registra la venta.</p></section>
     <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="fiPaso" type="text" value="${esc(c.paso)}"></label>
-      <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label>
-      <label class="ancho">Etapa<select id="fiEtapa" ${c.etapa === "Negocio cerrado" ? "disabled" : ""}>${ETAPAS_TODAS.filter(x => x !== "Negocio cerrado" || c.etapa === x).map(x => `<option${x === c.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label></div>
-      <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button></section>
+      <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label></div>
+      <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button>${selEtapa(c)}
+      <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo)].filter(Boolean).join(" · ")}</p></section>
     <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><b>${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</b><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
 }
 function cerrarFicha() { FICHA = null; $("fi").hidden = true; document.body.style.overflow = ""; }
 $("fiCerrar").onclick = cerrarFicha;
-const avisoFi = (t, m) => { $("fiEstado").textContent = t; $("fiEstado").className = "estado " + (m ? "mal" : "bien"); };
+const avisoFi = (t, m) => { if ($("fi").hidden) return aviso(t, m); $("fiEstado").textContent = t; $("fiEstado").className = "estado " + (m ? "mal" : "bien"); };
 async function hacer(cuerpo, ok) {
-  const enFicha = !$("fi").hidden; if (enFicha) avisoFi("Guardando en Notion…");
-  try { await crm(cuerpo); await cargarCRM(); if (enFicha && FICHA) avisoFi(ok); return true; }
-  catch (e) { enFicha ? avisoFi(e.message, true) : alert(e.message); return false; }
+  if (!$("fi").hidden) avisoFi("Guardando en Notion…"); else aviso("Guardando en Notion…");
+  try { await crm(cuerpo); await cargarCRM(); avisoFi(ok || "✅ Guardado."); return true; }
+  catch (e) { pintarCRM(); if (FICHA) abrirFicha(FICHA); avisoFi(e.message, true); return false; }
 }
 const OK_EV = { respondio: "✅ Quedó que respondió.", no_responde: "✅ Quedó el intento y la próxima fecha.", pausa: "✅ En pausa 30 días." };
+
+// ---------- Cambiar de etapa desde la tarjeta ----------
+let MV = null;
+function mover(id, etapa) {
+  const c = C.find(x => x.id === id); if (!c || etapa === c.etapa) return;
+  const ev = (tipo, datos) => hacer({ accion: "evento", id, tipo, datos }, `✅ ${c.nombre} pasa a ${etapa}.`);
+  if (etapa === "Nuevo") return hacer({ accion: "editar", id, campos: { etapa, paso: "Mandar opciones", fecha: HOY } }, `✅ ${c.nombre} pasa a Nuevo.`);
+  if (etapa === "Opciones enviadas") return hacer({ accion: "editar", id, campos: { etapa, paso: "Preguntar qué le parecieron las opciones", fecha: masDias(1) } }, `✅ ${c.nombre} pasa a Opciones enviadas.`);
+  if (etapa === "Visitó") return ev("visito");
+  if (etapa === "Oferta") return ev("oferta");
+  MV = { id, etapa }; $("mvTit").textContent = `${c.nombre} → ${etapa}`;
+  $("mvCampo").innerHTML = etapa === "Ya compró" ? `<label class="txt">¿Dónde o por qué compró?<select id="mvVal">${MOTIVOS.map(x => `<option>${x}</option>`).join("")}</select></label>`
+    : `<label class="txt">${etapa === "En pausa" ? "¿Cuándo la retomamos?" : "¿Qué día es la visita?"}<input id="mvVal" type="date" value="${etapa === "En pausa" ? masDias(30) : ""}" min="${HOY}"></label>`;
+  $("mvd").hidden = false;
+}
+$("mvNo").onclick = () => { MV = null; $("mvd").hidden = true; pintarCRM(); if (FICHA) abrirFicha(FICHA); };
+$("mvSi").onclick = () => { const v = $("mvVal").value, { id, etapa } = MV, c = C.find(x => x.id === id);
+  if (!v) return aviso("Falta ese dato.", true);
+  MV = null; $("mvd").hidden = true;
+  hacer({ accion: "evento", id, tipo: etapa === "Ya compró" ? "ya_compro" : etapa === "En pausa" ? "pausa" : "visita", datos: etapa === "Ya compró" ? { motivo: v } : { fecha: v } }, `✅ ${c.nombre} pasa a ${etapa}.`); };
+document.addEventListener("change", e => { const s = e.target.closest("[data-mv]"); if (s) mover(s.dataset.mv, s.value);
+  const k = e.target.closest("[data-cmv]"); if (k) hacer({ accion: "cole_editar", id: k.dataset.cmv, campos: { etapa: k.value } }, "✅ Etapa del negocio guardada."); });
+
+// ---------- Clics generales ----------
 document.addEventListener("click", e => {
-  const et = e.target.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
-  const ev = e.target.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
-  const cl = e.target.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
-  if (e.target.id === "btnNuevo") return abrirNuevo();
-  const pr = e.target.closest("[data-p]"); if (pr) { const t = pr.dataset.p;
-    if (t === "visita" && !$("fiVisita").value) return avisoFi("Pon la fecha de la visita.", true);
-    return hacer({ accion: "evento", id: FICHA, tipo: t, datos: { pres: $("fiPres").value, fecha: $("fiVisita").value, reaccion: $("fiReac").value, comentario: $("fiCom").value.trim(), oferta: $("fiOf").value } },
-      t === "oferta" ? "✅ Oferta registrada. Cambia la propiedad a Oferta recibida con el lápiz ✏️." : "✅ Guardado."); }
-  if (e.target.id === "fiGuardar") return hacer({ accion: "editar", id: FICHA, campos: { paso: $("fiPaso").value.trim(), fecha: $("fiFecha").value,
-    ...($("fiEtapa").disabled ? {} : { etapa: $("fiEtapa").value }) } }, "✅ Seguimiento guardado.");
-  const md = e.target.closest("[data-mandar]"); if (md) return mandar(FICHA, md.dataset.mandar);
+  const t = e.target;
+  const st = t.closest("[data-ir]"); if (st) return ir(st.dataset.ir);
+  const sb = t.closest("[data-sub]"); if (sb) { sub = sb.dataset.sub; return pintarClientes(); }
+  const ov = t.closest("[data-opv]"); if (ov) { opVe = ov.dataset.opv; return pintarOp(); }
+  const et = t.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
+  const ev = t.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
+  const oc = t.closest("[data-opc]"); if (oc) return mandar(oc.dataset.opc, "");
+  const rq = t.closest("[data-rq]"); if (rq) return abrirReq(rq.dataset.rq, rq.dataset.req);
+  const co = t.closest("[data-cole]"); if (co) return abrirCole(co.dataset.cole);
+  const cl = t.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
+  if (t.id === "btnNuevo") return abrirNuevo();
+  if (t.id === "btnCole") return abrirCole("");
+  const pr = t.closest("[data-p]"); if (pr) { const k = pr.dataset.p;
+    if (k === "visita" && !$("fiVisita").value) return avisoFi("Pon la fecha de la visita.", true);
+    return hacer({ accion: "evento", id: FICHA, tipo: k, datos: { pres: $("fiPres").value, fecha: $("fiVisita").value, reaccion: $("fiReac").value, comentario: $("fiCom").value.trim(), oferta: $("fiOf").value } },
+      k === "oferta" ? "✅ Oferta registrada. Cambia la propiedad a Oferta recibida con el lápiz ✏️." : "✅ Guardado."); }
+  if (t.id === "fiGuardar") return hacer({ accion: "editar", id: FICHA, campos: { paso: $("fiPaso").value.trim(), fecha: $("fiFecha").value } }, "✅ Seguimiento guardado.");
+  const md = t.closest("[data-mandar]"); if (md) return mandar(FICHA, md.dataset.mandar);
 });
-document.addEventListener("change", e => { if (e.target.id === "fiMot" && e.target.value) hacer({ accion: "evento", id: FICHA, tipo: "ya_compro", datos: { motivo: e.target.value } }, "✅ Quedó como Ya compró."); });
+
+// ---------- Cliente nuevo ----------
 const ORIGENES = ["Instagram", "Pauta", "Referido", "Voz a voz", "Colega", "Portal", "Otro"];
 const ZONAS = ["El Poblado", "Alto de las Palmas", "Llanogrande", "Envigado", "Laureles", "Rionegro", "Castropol", "La Ceja", "El Retiro", "El Escobero"];
 let NV = null;
@@ -579,31 +796,91 @@ $("nvGuardar").onclick = async () => {
   } catch (e) { mal(e.message); }
   $("nvGuardar").disabled = false;
 };
-// Mandar opciones: filtra lo que encaja con la búsqueda y quita lo que ya se le mandó.
+// ---------- Editar o crear la búsqueda de un cliente ----------
+const TIPOS = ["Apartamento", "Casa", "Lote", "Oficina"];
+let RQ = null;
+const chipsRq = (xs, k, sel) => xs.map(x => `<button class="chip" type="button" data-rqc="${k}" aria-pressed="${sel.includes(x)}">${esc(x)}</button>`).join("");
+function abrirReq(id, reqId) {
+  const c = C.find(x => x.id === id), r = c.reqs.find(x => x.id === reqId) || { operacion: [], tipo: [], sectores: [], zonas: "", max: null, alcobas: null, area: null, indispensables: "", deseables: "", evitar: "" };
+  RQ = { id, reqId: reqId || "", operacion: new Set(r.operacion), tipo: new Set(r.tipo), sectores: new Set(r.sectores) };
+  $("rqTit").textContent = (reqId ? "Búsqueda de " : "Nueva búsqueda de ") + c.nombre;
+  $("rqOp").innerHTML = chipsRq(["Compra", "Arriendo"], "operacion", r.operacion); $("rqTipo").innerHTML = chipsRq(TIPOS, "tipo", r.tipo); $("rqZonas").innerHTML = chipsRq(ZONAS, "sectores", r.sectores);
+  $("rqZonaTxt").value = r.zonas || ""; $("rqMax").value = r.max ? Math.round(r.max / 1e6) : ""; $("rqAlc").value = r.alcobas || ""; $("rqArea").value = r.area || "";
+  $("rqInd").value = r.indispensables || ""; $("rqDes").value = r.deseables || ""; $("rqEv").value = r.evitar || "";
+  $("rqEstado").className = "estado"; $("rq").hidden = false; document.body.style.overflow = "hidden"; listaRq();
+}
+function listaRq() { const f = [!RQ.operacion.size && "si compra o arrienda", !+$("rqMax").value && "el tope", !(RQ.sectores.size || $("rqZonaTxt").value.trim()) && "la zona"].filter(Boolean);
+  $("rqEstado").textContent = f.length ? `Para cruzarla con el inventario falta ${f.join(", ")}.` : "✅ Lista para cruzar con el inventario."; $("rqEstado").className = "estado " + (f.length ? "" : "bien"); }
+$("rq").addEventListener("click", e => { const b = e.target.closest("[data-rqc]"); if (!b) return; const s = RQ[b.dataset.rqc], v = b.textContent;
+  s.has(v) ? s.delete(v) : s.add(v); b.setAttribute("aria-pressed", s.has(v)); listaRq(); });
+$("rq").addEventListener("input", listaRq);
+const cerrarRq = () => { $("rq").hidden = true; if ($("fi").hidden) document.body.style.overflow = ""; };
+$("rqCerrar").onclick = cerrarRq;
+$("rqGuardar").onclick = async () => {
+  $("rqGuardar").disabled = true; $("rqEstado").textContent = "Guardando en Notion…";
+  try { const id = RQ.id;
+    await crm({ accion: "requerimiento", id, requerimiento: RQ.reqId || undefined, datos: { operacion: [...RQ.operacion], tipo: [...RQ.tipo], sectores: [...RQ.sectores], zonas: $("rqZonaTxt").value.trim(),
+      max: $("rqMax").value ? +$("rqMax").value * 1e6 : "", alcobas: $("rqAlc").value, area: $("rqArea").value, indispensables: $("rqInd").value.trim(), deseables: $("rqDes").value.trim(), evitar: $("rqEv").value.trim() } });
+    cerrarRq(); FICHA = id; await cargarCRM(); const n = opciones(id).length;
+    avisoFi(n ? `✅ Búsqueda guardada. Hay ${n} opci${n === 1 ? "ón" : "ones"} que encajan.` : "✅ Búsqueda guardada.");
+  } catch (e) { $("rqEstado").textContent = e.message; $("rqEstado").className = "estado mal"; }
+  $("rqGuardar").disabled = false;
+};
+
+// ---------- Negocios con colegas ----------
+let CO = null;
+function abrirCole(id) {
+  const x = COLE.find(y => y.id === id) || { etapa: "Visita agendada", colega: "", paso: "", fecha: "", visita: "", propuesta: "", notas: "", cod: "" };
+  CO = id; $("coTit").textContent = id ? (x.titulo || "Negocio con colega") : "Nuevo negocio con colega";
+  $("coProp").parentNode.hidden = !!id; $("coProps").innerHTML = P.map(p => `<option value="${esc(p.cod)}">${esc([nombre(p), p.sector].filter(Boolean).join(" · "))}</option>`).join("");
+  $("coProp").value = ""; $("coColega").value = x.colega; $("coEtapa").innerHTML = ETAPAS_COLE.map(e => `<option${e === x.etapa ? " selected" : ""}>${e}</option>`).join("");
+  $("coPaso").value = x.paso; $("coFecha").value = x.fecha; $("coVisita").value = x.visita; $("coProp$").value = x.propuesta || ""; $("coNotas").value = x.notas;
+  $("coEstado").textContent = id && x.cod ? `Propiedad: ${x.cod}${x.nombre ? " · " + x.nombre : ""}` : ""; $("coEstado").className = "estado"; $("co").hidden = false; document.body.style.overflow = "hidden";
+}
+const cerrarCo = () => { $("co").hidden = true; document.body.style.overflow = ""; };
+$("coCerrar").onclick = cerrarCo;
+$("coGuardar").onclick = async () => {
+  const base = { colega: $("coColega").value.trim(), etapa: $("coEtapa").value, paso: $("coPaso").value.trim(), fecha: $("coFecha").value, visita: $("coVisita").value };
+  $("coGuardar").disabled = true; $("coEstado").textContent = "Guardando en Notion…"; $("coEstado").className = "estado";
+  try { await crm(CO ? { accion: "cole_editar", id: CO, campos: { ...base, propuesta: $("coProp$").value, notas: $("coNotas").value.trim() } }
+      : { accion: "cole_nueva", datos: { ...base, cod: $("coProp").value.trim().toUpperCase() } });
+    cerrarCo(); await cargarCRM(); aviso("✅ Negocio con colega guardado.");
+  } catch (e) { $("coEstado").textContent = e.message; $("coEstado").className = "estado mal"; }
+  $("coGuardar").disabled = false;
+};
+
+// ---------- Mandar opciones: muestra lo que encaja y nunca repite lo ya enviado ----------
 function mandar(id, reqId) {
-  const c = C.find(x => x.id === id), r = c.reqs.find(x => x.id === reqId);
-  MANDAR = { id, reqId, nombre: c.nombre, excl: new Set(c.pres.map(p => p.cod).filter(Boolean)), alc: r && r.alcobas, max: r && r.max };
-  $("limpiarF").click();
-  if (r) { const o = r.operacion.length === 1 ? (r.operacion[0] === "Compra" ? "Venta" : "Alquiler") : ""; op = o;
-    [...$("fOp").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.v === o));
-    r.sectores.filter(s => sectores.includes(s)).forEach(s => secSel.add(s));
-    [...$("fSec").children].forEach(x => x.setAttribute("aria-pressed", secSel.has(x.textContent)));
-    if (r.max && o === "Venta") $("pHasta").value = Math.round(r.max / 1e6) + 100; }
-  cerrarFicha(); ir("prop"); pintar(); bandaMandar();
+  const c = C.find(x => x.id === id), todas = M.porCli[id] || {};
+  const niv = Object.fromEntries(Object.entries(todas).filter(([, n]) => !reqId || n.req === reqId));
+  MANDAR = { id, reqId, nombre: c.nombre, excl: new Set(c.pres.map(p => p.cod).filter(Boolean)), niv, todo: !Object.keys(niv).length };
+  PEND = null; $("limpiarF").click(); cerrarFicha(); ir("prop"); pintar(); bandaMandar();
 }
 function bandaMandar() { const b = $("mandar"); b.hidden = !MANDAR; if (!MANDAR) return;
-  $("mandarTxt").textContent = PEND ? `¿Ya le mandaste ${PEND.length === 1 ? "la propiedad" : PEND.length + " propiedades"} a ${MANDAR.nombre}?` : `Mandando a ${MANDAR.nombre}. Ya quité lo que le mandaron antes.`;
-  $("mandarSi").hidden = $("mandarLuz").hidden = !PEND; }
+  const n = Object.keys(MANDAR.niv).length;
+  $("mandarTxt").textContent = PEND ? `¿Ya le mandaste ${PEND.length === 1 ? "la propiedad" : PEND.length + " propiedades"} a ${MANDAR.nombre}?`
+    : MANDAR.todo ? `Para ${MANDAR.nombre}: todo el inventario, sin lo que ya le mandaron.${n ? "" : " Su búsqueda no tiene opciones que encajen o le faltan datos."}`
+    : `Para ${MANDAR.nombre}: ${n} opci${n === 1 ? "ón que encaja" : "ones que encajan"}. Ya quité lo que le mandaron.`;
+  $("mandarSi").hidden = $("mandarLuz").hidden = !PEND; $("mandarTodo").hidden = !!PEND || !n;
+  $("mandarTodo").textContent = MANDAR.todo ? "Ver solo lo que encaja" : "Ver todo el inventario"; }
+$("mandarTodo").onclick = () => { MANDAR.todo = !MANDAR.todo; pintar(); bandaMandar(); };
 $("mandarNo").onclick = () => { if (PEND) { PEND = null; return bandaMandar(); } MANDAR = null; $("limpiarF").click(); bandaMandar(); pintar(); };
 const registrar = async quien => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = $("mandarLuz").disabled = true;
-  try { const d = await crm({ accion: "presentar", id: m.id, cods, quien, requerimiento: m.reqId || undefined });
+  try { const d = await crm({ accion: "presentar", id: m.id, cods, quien, requerimiento: m.reqId || (m.niv[cods[0]] || {}).req || undefined });
     MANDAR = null; PEND = null; sel.clear(); barra(); $("limpiarF").click(); bandaMandar(); await cargarCRM(); ir("cli"); abrirFicha(m.id);
     avisoFi(`✅ Registrado: ${d.creadas} nueva${d.creadas === 1 ? "" : "s"}. Mañana toca preguntarle qué le parecieron.`);
-  } catch (e) { alert(e.message); } $("mandarSi").disabled = $("mandarLuz").disabled = false; };
+  } catch (e) { aviso(e.message, true); } $("mandarSi").disabled = $("mandarLuz").disabled = false; };
 $("mandarSi").onclick = () => registrar("Camila");
 $("mandarLuz").onclick = () => registrar("Luz Stella");
 document.addEventListener("click", e => { if (!MANDAR) return; const a = e.target.closest("a.cli, #varCli"); if (!a) return;
   PEND = a.id === "varCli" ? [...sel] : [a.dataset.c]; bandaMandar(); });
+// Lo que se ve en cada tarjeta de propiedad: el nivel si se está mandando, o a quién le sirve.
+function etiqueta(p) {
+  if (MANDAR) { const n = MANDAR.niv[p.cod]; if (!n) return "";
+    return `<div class="nivs">${chapaNiv(n.n)}${esNueva(p.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}${n.dudas.length ? `<span class="ayuda">Falta confirmar: ${esc(n.dudas.join(", "))}</span>` : ""}${n.conf.length ? `<span class="ayuda">Pidió: ${esc(n.conf.join(", "))}</span>` : ""}</div>`; }
+  const xs = M.porProp[p.cod]; if (!xs) return "";
+  return `<div class="sirve">💡 Le sirve a ${esc(xs.map(x => (C.find(c => c.id === x.id) || {}).nombre).filter(Boolean).join(", "))}</div>`;
+}
 // Las propiedades salen de la página Enviar actual: así esta copia no necesita tocar el generador.
 async function arrancar() {
   try {
