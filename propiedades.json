@@ -4468,5 +4468,59 @@
    "venta": 5850000000.0
   },
   "url": "https://duorealestate.com.co/D087"
+ },
+ "D088": {
+  "fotos": 11,
+  "notion_id": "41422d40-016d-812a-875e-ed9bcb0ea359",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 140.0,
+   "ban": 3.0,
+   "canon": 0,
+   "codigo": "D088",
+   "creada": "2026-11-10",
+   "det": {
+    "amen": [
+     "Portería 24 h",
+     "Zonas verdes"
+    ],
+    "carac": [
+     "Balcón",
+     "Dúplex"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$899.557"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D088/50d8c26d3b-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.400 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 1400000000.0
+  },
+  "url": "https://duorealestate.com.co/D088"
  }
 }
