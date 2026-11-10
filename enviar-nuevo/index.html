@@ -155,6 +155,9 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+.cd{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--tinta-suave)}
+.pn b{color:var(--tinta)}
+.cal{display:block;margin:14px 16px 0;padding:13px;border-radius:12px;background:var(--azul-profundo);color:var(--crema);font-weight:700;font-size:15px;text-align:center;text-decoration:none}
 .cli-et{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--azul)}
 .tarde{color:#B3261E;font-weight:700}
 .hoy-card{background:#fff;border-radius:14px;overflow:hidden}
@@ -243,7 +246,7 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
   <p class="estado" id="rqEstado"></p><div class="pie"><button type="button" id="rqGuardar">Guardar búsqueda</button></div></div>
 <div class="modal" id="co" hidden><div class="top"><b id="coTit">Negocio con colega</b><button type="button" id="coCerrar">Cerrar</button></div>
   <p class="estado" id="coEstado"></p>
-  <section><div class="campos"><label class="ancho">Propiedad (código, por ejemplo D012)<input id="coProp" type="text" list="coProps" autocomplete="off"><datalist id="coProps"></datalist></label>
+  <section><div class="campos"><label class="ancho">Propiedad<select id="coProp"></select></label>
     <label class="ancho">Colega<input id="coColega" type="text" autocomplete="off"></label><label class="ancho">Etapa<select id="coEtapa"></select></label>
     <label class="ancho">Próximo paso<input id="coPaso" type="text"></label><label>Fecha del próximo paso<input id="coFecha" type="date"></label><label>Fecha de visita<input id="coVisita" type="date"></label>
     <label class="ancho">Propuesta en pesos<input id="coProp$" type="number" inputmode="numeric" min="0"></label><label class="ancho">Notas<input id="coNotas" type="text"></label></div></section>
@@ -629,12 +632,13 @@ function pintarClientes() {
     const xs = C.filter(c => !q || norm(c.nombre).includes(q)), n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
     const lista = q ? xs : xs.filter(c => (c.etapa || "Nuevo") === etapaVe);
     $("cliCuerpo").innerHTML = `${q ? "" : `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${e} ${n(e)}</button>`).join("")}</div>`}
+      <button class="nuevo" type="button" data-nuevo>➕ Cliente nuevo</button>
       <div class="lista">${lista.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(c => tarjetaCli(c, true)).join("") || `<p class="vacio">${q ? "No encontré a nadie con ese nombre." : "Nadie en esta etapa."}</p>`}</div>`;
   } else if (sub === "vis") {
     const xs = C.flatMap(c => c.pres.filter(p => ["Visita agendada", "Visitó", "Oferta"].includes(p.estado)).map(p => ({ c, p })))
       .sort((a, b) => (b.p.visita || b.p.envio || "").localeCompare(a.p.visita || a.p.envio || ""));
     const fila = ({ c, p }) => `<div class="cli-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
-      <span class="cli-et">${esc(p.estado.toUpperCase())}${p.visita ? " · " + fCorta(p.visita) : ""}</span><span>${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</span>
+      <span class="cli-et">${esc(p.estado.toUpperCase())}${p.visita ? " · " + fCorta(p.visita) : ""}</span><span>${esc(titTxt(p.cod, p.nombre))}</span>
       <span>${[p.reaccion, p.oferta && "oferta " + COP(p.oferta), p.comentario].filter(Boolean).map(esc).join(" · ")}</span></button></div>`;
     const grupo = (t, e) => { const g = xs.filter(x => x.p.estado === e); return g.length ? `<h3>${t} · ${g.length}</h3><div class="lista">${g.map(fila).join("")}</div>` : ""; };
     $("cliCuerpo").innerHTML = grupo("Ofertas", "Oferta") + grupo("Visitas agendadas", "Visita agendada") + grupo("Ya visitaron", "Visitó") || `<p class="vacio">Todavía no hay visitas ni ofertas registradas.</p>`;
@@ -647,8 +651,10 @@ function pintarClientes() {
 }
 
 // ---------- Oportunidades ----------
+const tit = (cod, alt) => { const p = P.find(x => x.cod === cod), n = (p && nombre(p)) || alt || ""; return n ? `<b>${esc(n)}</b>${cod ? ` <small class="cd">${esc(cod)}</small>` : ""}` : `<b>${esc(cod)}</b>`; };
+const titTxt = (cod, alt) => { const p = P.find(x => x.cod === cod); return (p && nombre(p)) || alt || cod; };
 const chapaNiv = n => `<span class="chapa n${n}">${NIV[n]}</span>`;
-const filaProp = o => `<div class="op-fila"><span><b>${esc(o.cod)}</b>${nombre(o.p) ? " · 🔒 " + esc(nombre(o.p)) : ""}${esNueva(o.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([o.p.sector, precio(o.p), datos(o.p)].filter(Boolean).join(" · "))}</span>${chapaNiv(o.n)}</div>`;
+const filaProp = o => `<div class="op-fila"><span>${tit(o.cod)}${esNueva(o.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([o.p.sector, precio(o.p), datos(o.p)].filter(Boolean).join(" · "))}</span>${chapaNiv(o.n)}</div>`;
 function pintarOp() {
   if (!CLAVE) return $("vOp").innerHTML = `<p class="vacio">Escribe el PIN para ver las oportunidades.</p>`;
   const seg = `<div class="seg3 dos">${[["cli", "Por cliente"], ["prop", "Por propiedad"]].map(([k, t]) => `<button class="chip" type="button" data-opv="${k}" aria-pressed="${opVe === k}">${t}</button>`).join("")}</div>`;
@@ -666,7 +672,7 @@ function pintarOp() {
   } else {
     const cods = Object.keys(M.porProp).sort((a, b) => esNueva(b) - esNueva(a) || M.porProp[b].length - M.porProp[a].length);
     cuerpo = cods.map(cod => { const p = P.find(x => x.cod === cod), xs = M.porProp[cod].sort((a, b) => a.n - b.n);
-      return `<div class="op-card"><div class="op-fila"><span><b>${esc(cod)}</b>${nombre(p) ? " · 🔒 " + esc(nombre(p)) : ""}${esNueva(cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([p.sector, precio(p), datos(p)].filter(Boolean).join(" · "))}</span></div>
+      return `<div class="op-card"><div class="op-fila"><span>${tit(cod)}${esNueva(cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([p.sector, precio(p), datos(p)].filter(Boolean).join(" · "))}</span></div>
         <p class="nota">Le sirve a ${xs.length} cliente${xs.length === 1 ? "" : "s"}:</p>
         ${xs.map(x => { const c = C.find(y => y.id === x.id); return `<button class="op-cli" type="button" data-opc="${c.id}"><span>${esc(c.nombre)}</span>${chapaNiv(x.n)}</button>`; }).join("")}</div>`; }).join("")
       || `<p class="vacio">Ninguna propiedad encaja todavía con una búsqueda completa.</p>`;
@@ -687,15 +693,26 @@ function ir(v) { vista = v; ["Hoy", "Cli", "Op", "Prop"].forEach(x => $("v" + x)
 document.querySelector(".nav").onclick = e => { const b = e.target.closest("[data-v]"); if (b) ir(b.dataset.v); };
 $("cliQ").oninput = pintarClientes;
 
+// ---------- Calendario DÚO 💙: abre Google Calendar con la visita lista (la hora y la ubicación las pone Camila) ----------
+const CAL = "9df8b1f378bb3fa14e5950e3fabda781b37d9e52a2c4f9f6e29258e01d990a07@group.calendar.google.com";
+const ymd = f => f.replace(/-/g, "");
+const linkCal = (titulo, f) => `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${ymd(f)}/${ymd(new Date(Date.parse(f) + 864e5).toISOString().slice(0, 10))}&src=${encodeURIComponent(CAL)}`;
+function visitaCal(c) {
+  const p = c.pres.filter(x => x.estado === "Visita agendada" && x.visita && x.visita >= HOY).sort((a, b) => a.visita.localeCompare(b.visita))[0];
+  const f = p ? p.visita : (c.etapa === "Visita agendada" && c.fecha >= HOY ? c.fecha : "");
+  if (!f) return "";
+  const edificio = p ? ((NOMBRES[p.cod] || [])[0] || p.nombre) : "";
+  return `<a class="cal" href="${esc(linkCal(`${edificio || "Visita"} - ${c.nombre}`, f))}" target="_blank" rel="noopener">📅 Poner la visita del ${fCorta(f)} en el calendario DÚO</a>`;
+}
 // ---------- Ficha del cliente ----------
 const resumenReq = r => [r.operacion.join(" o "), r.tipo.join(" o "), r.sectores.join(", "), r.zonas, r.max && "hasta " + COP(r.max), r.alcobas && r.alcobas + "+ alcobas", r.area && r.area + "+ m²"].filter(Boolean).join(" · ");
 function abrirFicha(id) {
   const c = C.find(x => x.id === id); if (!c) return cerrarFicha(); FICHA = id; $("fi").hidden = false; document.body.style.overflow = "hidden";
   $("fiTit").textContent = c.nombre; $("fiEstado").textContent = ""; $("fiEstado").className = "estado";
   const reqs = c.reqs.filter(r => r.estado !== "Cerrada");
-  const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</option>`).join("");
+  const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc(titTxt(p.cod, p.nombre))}</option>`).join("");
   const nReq = r => Object.values(M.porCli[id] || {}).filter(x => x.req === r.id).length;
-  $("fiCuerpo").innerHTML = `<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
+  $("fiCuerpo").innerHTML = `${visitaCal(c)}<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
       ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
       ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}
       <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
@@ -713,7 +730,7 @@ function abrirFicha(id) {
       <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label></div>
       <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button>${selEtapa(c)}
       <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo)].filter(Boolean).join(" · ")}</p></section>
-    <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><b>${esc((p.cod ? p.cod + " · " : "") + p.nombre)}</b><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
+    <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
 }
 function cerrarFicha() { FICHA = null; $("fi").hidden = true; document.body.style.overflow = ""; }
 $("fiCerrar").onclick = cerrarFicha;
@@ -759,7 +776,7 @@ document.addEventListener("click", e => {
   const rq = t.closest("[data-rq]"); if (rq) return abrirReq(rq.dataset.rq, rq.dataset.req);
   const co = t.closest("[data-cole]"); if (co) return abrirCole(co.dataset.cole);
   const cl = t.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
-  if (t.id === "btnNuevo") return abrirNuevo();
+  if (t.id === "btnNuevo" || t.closest("[data-nuevo]")) return abrirNuevo();
   if (t.id === "btnCole") return abrirCole("");
   const pr = t.closest("[data-p]"); if (pr) { const k = pr.dataset.p;
     if (k === "visita" && !$("fiVisita").value) return avisoFi("Pon la fecha de la visita.", true);
@@ -832,10 +849,10 @@ let CO = null;
 function abrirCole(id) {
   const x = COLE.find(y => y.id === id) || { etapa: "Visita agendada", colega: "", paso: "", fecha: "", visita: "", propuesta: "", notas: "", cod: "" };
   CO = id; $("coTit").textContent = id ? (x.titulo || "Negocio con colega") : "Nuevo negocio con colega";
-  $("coProp").parentNode.hidden = !!id; $("coProps").innerHTML = P.map(p => `<option value="${esc(p.cod)}">${esc([nombre(p), p.sector].filter(Boolean).join(" · "))}</option>`).join("");
+  $("coProp").parentNode.hidden = !!id; $("coProp").innerHTML = `<option value="">Elige la propiedad…</option>` + P.slice().sort((a, b) => titTxt(a.cod).localeCompare(titTxt(b.cod))).map(p => `<option value="${esc(p.cod)}">${esc(titTxt(p.cod) + " · " + p.sector)}</option>`).join("");
   $("coProp").value = ""; $("coColega").value = x.colega; $("coEtapa").innerHTML = ETAPAS_COLE.map(e => `<option${e === x.etapa ? " selected" : ""}>${e}</option>`).join("");
   $("coPaso").value = x.paso; $("coFecha").value = x.fecha; $("coVisita").value = x.visita; $("coProp$").value = x.propuesta || ""; $("coNotas").value = x.notas;
-  $("coEstado").textContent = id && x.cod ? `Propiedad: ${x.cod}${x.nombre ? " · " + x.nombre : ""}` : ""; $("coEstado").className = "estado"; $("co").hidden = false; document.body.style.overflow = "hidden";
+  $("coEstado").textContent = id && x.cod ? `Propiedad: ${titTxt(x.cod, x.nombre)}` : ""; $("coEstado").className = "estado"; $("co").hidden = false; document.body.style.overflow = "hidden";
 }
 const cerrarCo = () => { $("co").hidden = true; document.body.style.overflow = ""; };
 $("coCerrar").onclick = cerrarCo;
@@ -843,7 +860,7 @@ $("coGuardar").onclick = async () => {
   const base = { colega: $("coColega").value.trim(), etapa: $("coEtapa").value, paso: $("coPaso").value.trim(), fecha: $("coFecha").value, visita: $("coVisita").value };
   $("coGuardar").disabled = true; $("coEstado").textContent = "Guardando en Notion…"; $("coEstado").className = "estado";
   try { await crm(CO ? { accion: "cole_editar", id: CO, campos: { ...base, propuesta: $("coProp$").value, notas: $("coNotas").value.trim() } }
-      : { accion: "cole_nueva", datos: { ...base, cod: $("coProp").value.trim().toUpperCase() } });
+      : { accion: "cole_nueva", datos: { ...base, cod: $("coProp").value } });
     cerrarCo(); await cargarCRM(); aviso("✅ Negocio con colega guardado.");
   } catch (e) { $("coEstado").textContent = e.message; $("coEstado").className = "estado mal"; }
   $("coGuardar").disabled = false;
