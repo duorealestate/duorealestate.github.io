@@ -715,7 +715,12 @@ const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarDu(); pintarOp();
 async function cargarCRM() {
   if (!CLAVE) return pintarCRM();
   if (!cargado) $("vHoy").innerHTML = `<p class="vacio">Cargando desde Notion…</p>`;
-  try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; DU = d.duenos || []; PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
+  try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; PROPS = d.props || {};
+    // Propietario sin etapa en Notion: se deduce del estado de sus propiedades (no se escribe hasta que lo cambien).
+    DU = (d.duenos || []).map(x => { if (x.etapa) return x; const es = x.cods.map(c => (PROPS[c] || {}).e);
+      const et = es.some(e => ["Activa", "Oferta recibida", "Por completar", "Por verificar", "Pausada"].includes(e)) ? "En comercialización"
+        : es.length && es.every(e => /^Vendida|^Arrendada/.test(e || "")) ? "Cerrado" : es.length && es.every(e => e === "Retirada") ? "Retirado" : "Prospecto";
+      return { ...x, etapa: et, deducida: true }; }); PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
     cruzar(); pintarCRM(); pintar(); if (FICHA) abrirFicha(FICHA); }
   catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("duCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
 }
@@ -940,7 +945,7 @@ function pintarDu() {
 $("duQ").oninput = pintarDu;
 function abrirDu(id) {
   const d = DU.find(x => x.id === id); if (!d) return cerrarDu(); DUF = id; $("du").hidden = false; document.body.style.overflow = "hidden";
-  $("duTit").textContent = d.nombre; $("duEstado").textContent = ""; $("duEstado").className = "estado";
+  $("duTit").textContent = d.nombre; $("duEstado").textContent = d.deducida ? `Etapa deducida por sus propiedades (${d.etapa}). Se guarda en Notion cuando la cambies o toques Guardar.` : ""; $("duEstado").className = "estado";
   const c = cliDe(d), toca = d.proxAct && d.proxAct <= HOY;
   $("duCuerpo2").innerHTML = `${c ? `<button class="cal" type="button" data-cli="${c.id}">También es cliente: ver su búsqueda (${esc(c.etapa)})</button>` : ""}
     <section><h4>SUS PROPIEDADES</h4>${d.cods.map(cod => { const s = statsProp(cod), p = P.find(x => x.cod === cod);
