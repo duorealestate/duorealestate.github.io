@@ -155,6 +155,7 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+.hist{margin-top:10px;display:grid;gap:6px;max-height:260px;overflow:auto}.hist p{margin:0;font-size:14px;padding:6px 0;border-top:1px solid var(--linea)}
 .cd{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--tinta-suave)}
 .pn b{color:var(--tinta)}
 .cal{display:block;margin:14px 16px 0;padding:13px;border-radius:12px;background:var(--azul-profundo);color:var(--crema);font-weight:700;font-size:15px;text-align:center;text-decoration:none}
@@ -501,6 +502,12 @@ const ETAPAS_ACT = ["Nuevo", "Opciones enviadas", "Visita agendada", "Visitó", 
 const ETAPAS_TODAS = [...ETAPAS_ACT, "En pausa", "Ya compró", "Negocio cerrado"];
 const ETAPAS_COLE = ["Visita agendada", "Visitó", "Propuesta esperada", "Propuesta recibida", "Negociación", "Ganada", "Perdida"];
 const MOTIVOS = ["Con otra asesora", "Directo con el propietario", "Por precio", "Por zona", "Otro"];
+const PAUSAS = ["No responde", "Depende de vender", "Se enfrió", "Presupuesto", "Lo está pensando", "Otro"];
+// Días máximos en cada etapa antes de avisar que el cliente está quieto.
+const LIMITE = { "Nuevo": 1, "Opciones enviadas": 7, "Visitó": 5, "Oferta": 7 };
+let HIST = {};
+const enEtapa = c => dias(c.desde || c.ultimo || c.creado || HOY, HOY);
+const quieto = c => activo(c) && LIMITE[c.etapa] && enEtapa(c) > LIMITE[c.etapa];
 const NIV = ["Compatible", "Revisar", "Por encima del tope"];
 let C = [], COLE = [], PROPS = {}, AVISOS = [], HOY = "", vista = "hoy", etapaVe = "Nuevo", sub = "pipe", opVe = "cli", FICHA = null, MANDAR = null, PEND = null, cargado = 0;
 let M = { porCli: {}, porProp: {}, faltan: [] };
@@ -584,11 +591,12 @@ function mensaje(c) {
 // ---------- Tarjetas ----------
 const selEtapa = c => `<label class="mv">Etapa<select data-mv="${c.id}">${ETAPAS_TODAS.filter(x => x !== "Negocio cerrado" || c.etapa === x).map(x => `<option${x === c.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label>`;
 function tarjetaCli(c, conEtapa) {
-  const v = c.fecha ? dias(c.fecha, HOY) : 0, frio = activo(c) && c.ultimo && dias(c.ultimo, HOY) > 7, n = opciones(c.id).length;
+  const v = c.fecha ? dias(c.fecha, HOY) : 0, q = quieto(c), frio = !q && activo(c) && c.ultimo && dias(c.ultimo, HOY) > 7, n = opciones(c.id).length;
   return `<div class="cli-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
     <span class="cli-et">${esc(c.etapa || "Sin etapa")}</span><span>${esc(c.paso || "Sin próximo paso")}</span>
     <span class="${v > 0 ? "tarde" : ""}">${c.fecha ? (v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(c.fecha)) : "Sin fecha"}${c.ultimo ? ` · último contacto ${fCorta(c.ultimo)}` : ""}</span>
-    ${frio ? `<span class="chapa frio">Más de 7 días sin contacto</span>` : ""}</button>
+    ${q ? `<span class="chapa frio">⏳ ${enEtapa(c)} días en ${esc(c.etapa)}${c.desde ? "" : " (aprox.)"}</span>` : ""}${frio ? `<span class="chapa frio">Más de 7 días sin contacto</span>` : ""}
+    ${c.etapa === "En pausa" && c.pausa ? `<span>Pausa: ${esc(c.pausa)}</span>` : ""}</button>
     ${n ? `<button class="idea" type="button" data-opc="${c.id}">💡 ${n} opci${n === 1 ? "ón nueva" : "ones nuevas"} para mandarle</button>` : ""}${conEtapa ? selEtapa(c) : ""}</div>`;
 }
 const coleAbierta = x => !["Ganada", "Perdida"].includes(x.etapa);
@@ -604,7 +612,8 @@ function pintarHoy() {
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
   const colegas = COLE.filter(x => coleAbierta(x) && (!x.fecha || x.fecha <= HOY));
   const pronto = C.filter(c => c.fecha > HOY && c.fecha <= masDias(7) && (activo(c) || c.etapa === "En pausa")).sort((a, b) => a.fecha.localeCompare(b.fecha));
-  const conOp = Object.keys(M.porCli).length;
+  const conOp = Object.keys(M.porCli).length, enToca = new Set(toca.map(c => c.id).concat(sinPaso.map(c => c.id)));
+  const quietos = C.filter(c => quieto(c) && !enToca.has(c.id)).sort((a, b) => enEtapa(b) - enEtapa(a));
   const hoyVis = toca.map(c => `<div class="hoy-card">${tarjetaCli(c)}<p class="msg">${esc(mensaje(c))}</p><div class="hoy-bt">
       <a href="${esc(wa(mensaje(c)))}" target="_blank" rel="noopener">💬 Escribir</a>
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button>
@@ -618,8 +627,9 @@ function pintarHoy() {
     <button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button>
     ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(c => tarjetaCli(c)).join("")}</div>` : ""}
     ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : ""}
+    ${quietos.length ? `<h3>Quietos hace rato</h3><div class="lista">${quietos.map(c => tarjetaCli(c)).join("")}</div>` : ""}
     ${colegas.length ? `<h3>Negocios con colegas</h3><div class="lista">${colegas.map(tarjetaCole).join("")}</div>` : ""}
-    ${!toca.length && !sinPaso.length && !colegas.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
+    ${!toca.length && !sinPaso.length && !colegas.length && !quietos.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
     ${pronto.length ? `<h3>Próximos 7 días</h3><div class="lista">${pronto.map(c => tarjetaCli(c)).join("")}</div>` : ""}`;
 }
 
@@ -720,7 +730,7 @@ function abrirFicha(id) {
       <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
     <section><h4>QUÉ PASÓ</h4><div class="acc">
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button><button type="button" data-ev="no_responde" data-id="${c.id}">No responde (${c.intentos})</button>
-      <button type="button" data-ev="pausa" data-id="${c.id}">Pausar 30 días</button></div>
+      <button type="button" data-pausar="${c.id}">Pausar</button></div>
       ${opts ? `<div class="campos fi-p"><label class="ancho">Propiedad<select id="fiPres">${opts}</select></label>
         <label>Fecha de visita<input id="fiVisita" type="date"></label><label>Reacción<select id="fiReac"><option value="">Sin dato</option>${["😍 Le encantó", "👍 Le interesa", "🤔 Tal vez", "👎 No le gustó"].map(x => `<option>${x}</option>`).join("")}</select></label>
         <label class="ancho">Lo que dijo<input id="fiCom" type="text"></label><label class="ancho">Oferta en pesos<input id="fiOf" type="number" inputmode="numeric" min="0"></label></div>
@@ -729,18 +739,28 @@ function abrirFicha(id) {
     <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="fiPaso" type="text" value="${esc(c.paso)}"></label>
       <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label></div>
       <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button>${selEtapa(c)}
-      <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo)].filter(Boolean).join(" · ")}</p></section>
+      <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo), activo(c) && `${enEtapa(c)} días en ${c.etapa}${c.desde ? "" : " (aprox.)"}`, c.pausa && "pausa: " + c.pausa, c.motivo && "compró: " + c.motivo].filter(Boolean).join(" · ")}</p></section>
+    <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
+      <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>
     <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
+  cargarHist(id);
+}
+async function cargarHist(id) {
+  const pinta = xs => { if (FICHA !== id || !$("fiHist")) return; $("fiHist").innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
+  if (HIST[id]) return pinta(HIST[id]);
+  try { HIST[id] = (await crm({ accion: "historial", id })).historial; pinta(HIST[id]); }
+  catch (e) { if (FICHA === id && $("fiHist")) $("fiHist").innerHTML = `<p class="ayuda">${esc(e.message)}</p>`; }
 }
 function cerrarFicha() { FICHA = null; $("fi").hidden = true; document.body.style.overflow = ""; }
 $("fiCerrar").onclick = cerrarFicha;
 const avisoFi = (t, m) => { if ($("fi").hidden) return aviso(t, m); $("fiEstado").textContent = t; $("fiEstado").className = "estado " + (m ? "mal" : "bien"); };
 async function hacer(cuerpo, ok) {
   if (!$("fi").hidden) avisoFi("Guardando en Notion…"); else aviso("Guardando en Notion…");
+  if (cuerpo.id) delete HIST[cuerpo.id];
   try { await crm(cuerpo); await cargarCRM(); avisoFi(ok || "✅ Guardado."); return true; }
   catch (e) { pintarCRM(); if (FICHA) abrirFicha(FICHA); avisoFi(e.message, true); return false; }
 }
-const OK_EV = { respondio: "✅ Quedó que respondió.", no_responde: "✅ Quedó el intento y la próxima fecha.", pausa: "✅ En pausa 30 días." };
+const OK_EV = { respondio: "✅ Quedó que respondió.", no_responde: "✅ Quedó el intento y la próxima fecha." };
 
 // ---------- Cambiar de etapa desde la tarjeta ----------
 let MV = null;
@@ -751,16 +771,24 @@ function mover(id, etapa) {
   if (etapa === "Opciones enviadas") return hacer({ accion: "editar", id, campos: { etapa, paso: "Preguntar qué le parecieron las opciones", fecha: masDias(1) } }, `✅ ${c.nombre} pasa a Opciones enviadas.`);
   if (etapa === "Visitó") return ev("visito");
   if (etapa === "Oferta") return ev("oferta");
-  MV = { id, etapa }; $("mvTit").textContent = `${c.nombre} → ${etapa}`;
-  $("mvCampo").innerHTML = etapa === "Ya compró" ? `<label class="txt">¿Dónde o por qué compró?<select id="mvVal">${MOTIVOS.map(x => `<option>${x}</option>`).join("")}</select></label>`
-    : `<label class="txt">${etapa === "En pausa" ? "¿Cuándo la retomamos?" : "¿Qué día es la visita?"}<input id="mvVal" type="date" value="${etapa === "En pausa" ? masDias(30) : ""}" min="${HOY}"></label>`;
+  pedir(id, etapa);
+}
+// Pausar o "Ya compró" piden el motivo; Visita agendada pide la fecha.
+function pedir(id, etapa) {
+  const c = C.find(x => x.id === id); MV = { id, etapa }; $("mvTit").textContent = `${c.nombre} → ${etapa}`;
+  const opc = xs => xs.map(x => `<option>${x}</option>`).join("");
+  $("mvCampo").innerHTML = etapa === "Ya compró" ? `<label class="txt">¿Dónde o por qué compró?<select id="mvVal"><option value="">Elige…</option>${opc(MOTIVOS)}</select></label><label class="txt">Detalle (opcional)<input id="mvCom" type="text" class="inp"></label>`
+    : etapa === "En pausa" ? `<label class="txt">¿Por qué se pausa?<select id="mvVal"><option value="">Elige…</option>${opc(PAUSAS)}</select></label>
+      <label class="txt">¿Cuándo la retomamos?<input id="mvFecha" type="date" class="inp" value="${masDias(30)}" min="${HOY}"></label><label class="txt">Detalle (opcional)<input id="mvCom" type="text" class="inp"></label>`
+    : `<label class="txt">¿Qué día es la visita?<input id="mvVal" type="date" class="inp" min="${HOY}"></label>`;
   $("mvd").hidden = false;
 }
 $("mvNo").onclick = () => { MV = null; $("mvd").hidden = true; pintarCRM(); if (FICHA) abrirFicha(FICHA); };
-$("mvSi").onclick = () => { const v = $("mvVal").value, { id, etapa } = MV, c = C.find(x => x.id === id);
-  if (!v) return aviso("Falta ese dato.", true);
+$("mvSi").onclick = () => { const v = $("mvVal").value, { id, etapa } = MV, c = C.find(x => x.id === id), com = $("mvCom") ? $("mvCom").value.trim() : "";
+  if (!v) return aviso(etapa === "Visita agendada" ? "Pon la fecha de la visita." : "Elige el motivo: así sabemos por qué se pierden.", true);
   MV = null; $("mvd").hidden = true;
-  hacer({ accion: "evento", id, tipo: etapa === "Ya compró" ? "ya_compro" : etapa === "En pausa" ? "pausa" : "visita", datos: etapa === "Ya compró" ? { motivo: v } : { fecha: v } }, `✅ ${c.nombre} pasa a ${etapa}.`); };
+  hacer({ accion: "evento", id, tipo: etapa === "Ya compró" ? "ya_compro" : etapa === "En pausa" ? "pausa" : "visita",
+    datos: etapa === "Ya compró" ? { motivo: v, comentario: com } : etapa === "En pausa" ? { motivo: v, fecha: $("mvFecha").value, comentario: com } : { fecha: v } }, `✅ ${c.nombre} pasa a ${etapa}.`); };
 document.addEventListener("change", e => { const s = e.target.closest("[data-mv]"); if (s) mover(s.dataset.mv, s.value);
   const k = e.target.closest("[data-cmv]"); if (k) hacer({ accion: "cole_editar", id: k.dataset.cmv, campos: { etapa: k.value } }, "✅ Etapa del negocio guardada."); });
 
@@ -773,6 +801,9 @@ document.addEventListener("click", e => {
   const et = t.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
   const ev = t.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
   const oc = t.closest("[data-opc]"); if (oc) return mandar(oc.dataset.opc, "");
+  const pz = t.closest("[data-pausar]"); if (pz) return pedir(pz.dataset.pausar, "En pausa");
+  if (t.id === "fiNotaB") { const v = $("fiNota").value.trim(); if (v.length < 2) return avisoFi("Escribe la nota.", true);
+    delete HIST[FICHA]; return hacer({ accion: "evento", id: FICHA, tipo: "nota", datos: { texto: v } }, "✅ Nota guardada."); }
   const rq = t.closest("[data-rq]"); if (rq) return abrirReq(rq.dataset.rq, rq.dataset.req);
   const co = t.closest("[data-cole]"); if (co) return abrirCole(co.dataset.cole);
   const cl = t.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
