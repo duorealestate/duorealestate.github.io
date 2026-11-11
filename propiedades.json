@@ -4565,7 +4565,11 @@
       "$939.000"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Remodelado · baño y vestier en cada alcoba",
+     "Balcón con vista panorámica · habitación de servicio · cuarto útil",
+     "Piscina · gimnasio · zona infantil · zonas verdes · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D089/914e9229da-800.jpg",
@@ -4581,7 +4585,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Remodelado hermoso, cada alcoba con su baño y vestier",
    "venta": 1580000000.0
   },
   "url": "https://duorealestate.com.co/D089"
