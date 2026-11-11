@@ -111,8 +111,8 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .modal .estado{margin:14px 16px 0;font-size:15px}
 .modal .estado.mal{color:#B3261E}
 .modal .estado.bien{color:var(--verde)}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
-.nav button{font:inherit;font-size:13.5px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
+.nav button{font:inherit;font-size:12.5px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
 .nav button[aria-current=true]{color:var(--azul-profundo);box-shadow:inset 0 3px 0 var(--azul)}
 .barra{bottom:calc(52px + env(safe-area-inset-bottom))}
 .mandar{position:sticky;top:0;z-index:5;background:var(--azul-profundo);color:var(--crema);padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:15px}
@@ -155,6 +155,9 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+.dos-bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 16px 0}.dos-bt .nuevo{margin:0;width:100%;font-size:15px}
+button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.btn-wa{flex:1 1 40%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;padding:11px 6px;border-radius:10px;background:var(--verde);color:#fff;text-decoration:none}
 #re{z-index:13}
 .re-lista{display:grid;gap:2px;max-height:50vh;overflow:auto;margin-top:8px}
 .re-fila{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-top:1px solid var(--linea);font-size:15px}
@@ -198,9 +201,10 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 <main id="vHoy"></main>
 <main id="vCli" hidden><div class="seg3" id="subs"><button class="chip" type="button" data-sub="pipe" aria-pressed="true">Pipeline</button><button class="chip" type="button" data-sub="vis" aria-pressed="false">Visitas y ofertas</button><button class="chip" type="button" data-sub="col" aria-pressed="false">Colegas</button></div>
 <div class="buscar"><input id="cliQ" type="search" placeholder="Buscar cliente por nombre…" autocomplete="off"></div><div id="cliCuerpo"></div></main>
+<main id="vDu" hidden><div class="buscar"><input id="duQ" type="search" placeholder="Buscar propietario o propiedad…" autocomplete="off"></div><div id="duCuerpo"></div></main>
 <main id="vOp" hidden></main>
 <main id="vProp" hidden>
-<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Lo mandó Camila</button><button type="button" id="mandarLuz" hidden>✅ Lo mandó Luz Stella</button><button type="button" id="mandarTodo" hidden>Ver todo el inventario</button><button type="button" id="mandarNo">Cancelar</button></div>
+<div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Ya lo mandé</button><button type="button" id="mandarTodo" hidden>Ver todo el inventario</button><button type="button" id="mandarNo">Cancelar</button></div>
 <div class="buscar">
   <input id="q" type="search" placeholder="Buscar: nombre, código, sector…" autocomplete="off">
 </div>
@@ -231,7 +235,7 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
   <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
   <button id="limpiar" type="button">Quitar selección</button>
 </div>
-<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="op" aria-current="false">Oportunidades</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
+<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="du" aria-current="false">Propietarios</button><button type="button" data-v="op" aria-current="false">Matches</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
 <div class="modal" id="nv" hidden><div class="top"><b>Cliente nuevo</b><button type="button" id="nvCerrar">Cerrar</button></div>
   <section><div class="campos"><label class="ancho">Nombre y apellido<input id="nvNombre" type="text" autocomplete="off"></label></div></section>
   <section><h4>DE DÓNDE LLEGÓ</h4><div class="sectores" id="nvOrigen"></div></section>
@@ -263,9 +267,9 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
   <section id="reExt" hidden><p class="ayuda">Para una propiedad de una colega o una nuestra que todavía no está en la base.</p>
     <label class="txt">Qué propiedad es<textarea id="reDesc" rows="2" placeholder="Ej.: apto 120 m² en Los Balsos, 3 alcobas, 1.800 millones"></textarea></label>
     <label class="txt">Colega (vacío si es nuestra)<input id="reCol" type="text" class="inp" autocomplete="off"></label></section>
-  <section><div class="campos"><label class="ancho">¿Cuándo se la mandaron?<input id="reFecha" type="date"></label></div>
-    <h4 class="nv-z">¿QUIÉN SE LA MANDÓ?</h4><div class="seg3 dos"><button class="chip" type="button" data-req2="Camila" aria-pressed="false">Camila</button><button class="chip" type="button" data-req2="Luz Stella" aria-pressed="false">Luz Stella</button></div></section>
+  <section><div class="campos"><label class="ancho">¿Cuándo se la mandaron?<input id="reFecha" type="date"></label></div></section>
   <p class="estado" id="reEstado"></p><div class="pie"><button type="button" id="reGuardar">Guardar</button></div></div>
+<div class="modal" id="du" hidden><div class="top"><b id="duTit">Propietario</b><button type="button" id="duCerrar">Cerrar</button></div><p class="estado" id="duEstado"></p><div id="duCuerpo2"></div></div>
 <div class="modal" id="fi" hidden><div class="top"><b id="fiTit">Cliente</b><button type="button" id="fiCerrar">Cerrar</button></div><p class="estado" id="fiEstado"></p><div id="fiCuerpo"></div></div>
 <div class="modal" id="ed" hidden>
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
@@ -625,6 +629,8 @@ function pintarHoy() {
   const toca = C.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
   const colegas = COLE.filter(x => coleAbierta(x) && (!x.fecha || x.fecha <= HOY));
+  const duHoy = DU.filter(d => duActivo(d) && d.fecha && d.fecha <= HOY).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  const duAct = DU.filter(d => d.etapa === "En comercialización" && d.proxAct && d.proxAct <= HOY && !duHoy.includes(d));
   const pronto = C.filter(c => c.fecha > HOY && c.fecha <= masDias(7) && (activo(c) || c.etapa === "En pausa")).sort((a, b) => a.fecha.localeCompare(b.fecha));
   const conOp = Object.keys(M.porCli).length, enToca = new Set(toca.map(c => c.id).concat(sinPaso.map(c => c.id)));
   const quietos = C.filter(c => quieto(c) && !enToca.has(c.id)).sort((a, b) => enEtapa(b) - enEtapa(a));
@@ -633,17 +639,19 @@ function pintarHoy() {
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button>
       <button type="button" data-ev="no_responde" data-id="${c.id}">No responde</button></div></div>`).join("");
   $("vHoy").innerHTML = `<div class="stats">
-      <button type="button" data-ir="hoy"><b>${toca.length + sinPaso.length + colegas.length}</b>para atender hoy</button>
+      <button type="button" data-ir="hoy"><b>${toca.length + sinPaso.length + colegas.length + duHoy.length + duAct.length}</b>para atender hoy</button>
       <button type="button" data-ir="cli"><b>${C.filter(activo).length}</b>clientes activos</button>
       <button type="button" data-ir="op"><b>${conOp}</b>con opciones nuevas</button>
       <button type="button" data-ir="op"><b>${M.faltan.length}</b>búsquedas por completar</button></div>
     ${AVISOS.map(a => `<p class="vacio mal">${esc(a)}</p>`).join("")}
-    <button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button>
+    <div class="dos-bt"><button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button><button class="nuevo" type="button" id="btnDu">➕ Propietario nuevo</button></div>
     ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(c => tarjetaCli(c)).join("")}</div>` : ""}
     ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : ""}
     ${quietos.length ? `<h3>Quietos hace rato</h3><div class="lista">${quietos.map(c => tarjetaCli(c)).join("")}</div>` : ""}
+    ${duHoy.length ? `<h3>Propietarios</h3><div class="lista">${duHoy.map(tarjetaDu).join("")}</div>` : ""}
+    ${duAct.length ? `<h3>Mandarles actualización</h3><div class="lista">${duAct.map(tarjetaDu).join("")}</div>` : ""}
     ${colegas.length ? `<h3>Negocios con colegas</h3><div class="lista">${colegas.map(tarjetaCole).join("")}</div>` : ""}
-    ${!toca.length && !sinPaso.length && !colegas.length && !quietos.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
+    ${!toca.length && !sinPaso.length && !colegas.length && !quietos.length && !duHoy.length && !duAct.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
     ${pronto.length ? `<h3>Próximos 7 días</h3><div class="lista">${pronto.map(c => tarjetaCli(c)).join("")}</div>` : ""}`;
 }
 
@@ -703,16 +711,16 @@ function pintarOp() {
   }
   $("vOp").innerHTML = `<p class="nota arriba">Cruce automático del inventario con lo que busca cada cliente. No repite lo que ya le mandaron.</p>${seg}<div class="lista">${cuerpo}</div>`;
 }
-const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarOp(); };
+const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarDu(); pintarOp(); };
 async function cargarCRM() {
   if (!CLAVE) return pintarCRM();
   if (!cargado) $("vHoy").innerHTML = `<p class="vacio">Cargando desde Notion…</p>`;
-  try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
+  try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; DU = d.duenos || []; PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
     cruzar(); pintarCRM(); pintar(); if (FICHA) abrirFicha(FICHA); }
-  catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
+  catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("duCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
 }
-document.addEventListener("visibilitychange", () => { if (!document.hidden && cargado && Date.now() - cargado > 60000 && $("fi").hidden && $("nv").hidden && $("rq").hidden && $("co").hidden && $("mvd").hidden) cargarCRM(); });
-function ir(v) { vista = v; ["Hoy", "Cli", "Op", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && cargado && Date.now() - cargado > 60000 && $("fi").hidden && $("nv").hidden && $("rq").hidden && $("co").hidden && $("mvd").hidden && $("du").hidden && $("re").hidden) cargarCRM(); });
+function ir(v) { vista = v; ["Hoy", "Cli", "Du", "Op", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
   document.querySelectorAll(".nav button").forEach(b => b.setAttribute("aria-current", b.dataset.v === v)); window.scrollTo(0, 0); }
 document.querySelector(".nav").onclick = e => { const b = e.target.closest("[data-v]"); if (b) ir(b.dataset.v); };
 $("cliQ").oninput = pintarClientes;
@@ -736,7 +744,8 @@ function abrirFicha(id) {
   const reqs = c.reqs.filter(r => r.estado !== "Cerrada");
   const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc(titTxt(p.cod, p.nombre))}</option>`).join("");
   const nReq = r => Object.values(M.porCli[id] || {}).filter(x => x.req === r.id).length;
-  $("fiCuerpo").innerHTML = `${visitaCal(c)}<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
+  const du = duDe(c);
+  $("fiCuerpo").innerHTML = `${visitaCal(c)}${du ? `<button class="cal" type="button" data-due="${du.id}">También es propietario${du.cods.length ? ": " + esc(du.cods.map(cod => titTxt(cod)).join(", ")) : ""} (${esc(du.etapa || "sin etapa")})</button>` : ""}<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
       ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
       ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}
       <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
@@ -759,11 +768,11 @@ function abrirFicha(id) {
     <section><h4>QUÉ LE HEMOS MANDADO</h4><button class="secundario" type="button" data-reg="${c.id}">➕ Registrar algo que le mandé</button>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
   cargarHist(id);
 }
-async function cargarHist(id) {
-  const pinta = xs => { if (FICHA !== id || !$("fiHist")) return; $("fiHist").innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
+async function cargarHist(id, cont = "fiHist") {
+  const pinta = xs => { if ((cont === "fiHist" ? FICHA : DUF) !== id || !$(cont)) return; $(cont).innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
   if (HIST[id]) return pinta(HIST[id]);
   try { HIST[id] = (await crm({ accion: "historial", id })).historial; pinta(HIST[id]); }
-  catch (e) { if (FICHA === id && $("fiHist")) $("fiHist").innerHTML = `<p class="ayuda">${esc(e.message)}</p>`; }
+  catch (e) { if ($(cont)) $(cont).innerHTML = `<p class="ayuda">${esc(e.message)}</p>`; }
 }
 function cerrarFicha() { FICHA = null; $("fi").hidden = true; document.body.style.overflow = ""; }
 $("fiCerrar").onclick = cerrarFicha;
@@ -821,7 +830,8 @@ document.addEventListener("click", e => {
     delete HIST[FICHA]; return hacer({ accion: "evento", id: FICHA, tipo: "nota", datos: { texto: v } }, "✅ Nota guardada."); }
   const rq = t.closest("[data-rq]"); if (rq) return abrirReq(rq.dataset.rq, rq.dataset.req);
   const co = t.closest("[data-cole]"); if (co) return abrirCole(co.dataset.cole);
-  const cl = t.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
+  const cl = t.closest("[data-cli]"); if (cl) { if (!$("du").hidden) cerrarDu(); return abrirFicha(cl.dataset.cli); }
+  if (t.closest("#fi [data-due]")) cerrarFicha();
   if (t.id === "btnNuevo" || t.closest("[data-nuevo]")) return abrirNuevo();
   if (t.id === "btnCole") return abrirCole("");
   const pr = t.closest("[data-p]"); if (pr) { const k = pr.dataset.p;
@@ -890,14 +900,96 @@ $("rqGuardar").onclick = async () => {
   $("rqGuardar").disabled = false;
 };
 
+// ---------- Propietarios: el embudo de captación y la relación con el dueño ----------
+const ETAPAS_DU = ["Prospecto", "Primera reunión", "Mandato firmado", "En comercialización", "Cerrado", "Retirado"];
+const duActivo = d => !["Cerrado", "Retirado"].includes(d.etapa);
+let DU = [], duEtapa = "", DUF = null;
+const mismo = (a, b) => norm(a).replace(/\s+/g, " ").trim() === norm(b).replace(/\s+/g, " ").trim();
+const duDe = c => DU.find(d => mismo(d.nombre, c.nombre));
+const cliDe = d => C.find(c => mismo(c.nombre, d.nombre));
+function statsProp(cod) {
+  const ps = C.flatMap(c => c.pres.filter(x => x.cod === cod)), co = COLE.filter(x => x.cod === cod);
+  return { mostrada: ps.length, visitas: ps.filter(x => ["Visitó", "Oferta", "Negocio cerrado"].includes(x.estado) || x.visita).length + co.filter(x => x.visita || !["Visita agendada"].includes(x.etapa)).length,
+    ofertas: ps.filter(x => x.estado === "Oferta").length + co.filter(x => ["Propuesta recibida", "Negociación"].includes(x.etapa)).length };
+}
+const tipoDe = cod => { const p = P.find(x => x.cod === cod); return p ? ({ Apartamento: "apartamento", Casa: "casa", Lote: "lote", Oficina: "oficina" }[p.tipo] || "propiedad") : "propiedad"; };
+function msgDueno(d) {
+  const n = d.nombre.split(" ")[0], partes = d.cods.map(cod => { const s = statsProp(cod);
+    const cual = `tu ${tipoDe(cod)}${d.cods.length > 1 ? " (" + titTxt(cod) + ")" : ""}`;
+    if (!s.mostrada && !s.visitas) return `${cual}: la estamos moviendo con clientes y colegas`;
+    return `${cual}: hasta hoy la hemos mostrado a ${s.mostrada} cliente${s.mostrada === 1 ? "" : "s"}${s.visitas ? ` y ${s.visitas} la ${s.visitas === 1 ? "ha" : "han"} visitado` : ""}${s.ofertas ? `, con ${s.ofertas} oferta${s.ofertas === 1 ? "" : "s"}` : ""}`; });
+  return `¡Hola, ${n}! 💙 Te contamos cómo va ${partes.join("; ") || "tu propiedad"}. Cualquier novedad te contamos de una.`;
+}
+const tarjetaDu = d => { const v = d.fecha ? dias(d.fecha, HOY) : 0, c = cliDe(d);
+  return `<div class="cli-card"><button class="cli-b" type="button" data-due="${d.id}"><b>${esc(d.nombre)}</b>
+    <span class="cli-et">${esc(d.etapa || "Sin etapa")}${d.exclusiva === "Exclusiva" ? " · EXCLUSIVA" : ""}</span>
+    ${d.cods.length ? `<span>${d.cods.map(cod => esc(titTxt(cod))).join(" · ")}</span>` : ""}
+    <span>${esc(d.paso || (duActivo(d) ? "Sin próximo paso" : ""))}</span>
+    ${d.fecha ? `<span class="${v > 0 ? "tarde" : ""}">${v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(d.fecha)}</span>` : ""}
+    ${c ? `<span class="chapa nueva">También es cliente</span>` : ""}</button>
+    ${duActivo(d) || d.etapa ? `<label class="mv">Etapa<select data-dmv="${d.id}">${ETAPAS_DU.map(x => `<option${x === d.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label>` : ""}</div>`; };
+function pintarDu() {
+  if (!CLAVE) return $("duCuerpo").innerHTML = `<p class="vacio">Escribe el PIN para ver los propietarios.</p>`;
+  const q = norm($("duQ").value.trim()), n = e => DU.filter(d => (d.etapa || "Prospecto") === e).length;
+  if (!duEtapa) duEtapa = ETAPAS_DU.find(e => n(e) && e !== "En comercialización" && duActivo({ etapa: e })) || "En comercialización";
+  const xs = q ? DU.filter(d => norm([d.nombre, ...d.cods.map(cod => titTxt(cod))].join(" ")).includes(q)) : DU.filter(d => (d.etapa || "Prospecto") === duEtapa);
+  $("duCuerpo").innerHTML = `<button class="nuevo" type="button" id="btnDu">➕ Propietario nuevo</button>
+    ${q ? "" : `<div class="chips etapas">${ETAPAS_DU.map(e => `<button class="chip" type="button" data-de="${e}" aria-pressed="${duEtapa === e}">${e} ${n(e)}</button>`).join("")}</div>`}
+    <div class="lista">${xs.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9") || a.nombre.localeCompare(b.nombre)).map(tarjetaDu).join("") || `<p class="vacio">Nadie aquí.</p>`}</div>`;
+}
+$("duQ").oninput = pintarDu;
+function abrirDu(id) {
+  const d = DU.find(x => x.id === id); if (!d) return cerrarDu(); DUF = id; $("du").hidden = false; document.body.style.overflow = "hidden";
+  $("duTit").textContent = d.nombre; $("duEstado").textContent = ""; $("duEstado").className = "estado";
+  const c = cliDe(d), toca = d.proxAct && d.proxAct <= HOY;
+  $("duCuerpo2").innerHTML = `${c ? `<button class="cal" type="button" data-cli="${c.id}">También es cliente: ver su búsqueda (${esc(c.etapa)})</button>` : ""}
+    <section><h4>SUS PROPIEDADES</h4>${d.cods.map(cod => { const s = statsProp(cod), p = P.find(x => x.cod === cod);
+      return `<div class="pres"><span class="pn">${tit(cod)}</span><span>${esc([(PROPS[cod] || {}).e, p && precio(p)].filter(Boolean).join(" · "))}</span>
+        <span>Mostrada a ${s.mostrada} · ${s.visitas} visita${s.visitas === 1 ? "" : "s"} · ${s.ofertas} oferta${s.ofertas === 1 ? "" : "s"}</span></div>`; }).join("")
+      || `<p class="ayuda">Todavía no tiene propiedades en la base. Cuando la subas con el formulario, se le relaciona.</p>`}</section>
+    ${d.cods.length ? `<section><h4>ACTUALIZARLO</h4><p class="ayuda">${d.ultAct ? "Última actualización: " + fCorta(d.ultAct) : "Todavía no se le ha mandado actualización."}${toca ? " · <b>Ya toca otra.</b>" : d.proxAct ? " · Próxima: " + fCorta(d.proxAct) : ""}</p>
+      <p class="msg">${esc(msgDueno(d))}</p><div class="acc"><a class="btn-wa" href="${esc(wa(msgDueno(d)))}" target="_blank" rel="noopener">💬 Mandar por WhatsApp</a>
+      <button type="button" data-dact="${d.id}">✅ Ya se la mandé</button></div></section>` : ""}
+    <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="duPaso" type="text" value="${esc(d.paso)}" placeholder="Ej.: ir a ver el apto y tomar fotos"></label>
+      <label class="ancho">Fecha<input id="duFecha" type="date" value="${d.fecha}"></label>
+      <label class="ancho">Etapa<select id="duEtapaSel">${ETAPAS_DU.map(x => `<option${x === d.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label></div>
+      <button class="primario" type="button" id="duGuardar">Guardar</button></section>
+    <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="duNota" rows="1" placeholder="Ej.: entrega el apto el viernes; quiere precio de 1.900"></textarea></label>
+      <button class="secundario" type="button" id="duNotaB">Guardar nota</button><div id="duHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>`;
+  cargarHist(id, "duHist");
+}
+function cerrarDu() { DUF = null; $("du").hidden = true; document.body.style.overflow = ""; }
+$("duCerrar").onclick = cerrarDu;
+const avisoDu = (t, m) => { if ($("du").hidden) return aviso(t, m); $("duEstado").textContent = t; $("duEstado").className = "estado " + (m ? "mal" : "bien"); };
+async function hacerDu(cuerpo, ok) {
+  if (cuerpo.id) delete HIST[cuerpo.id];
+  if (!$("du").hidden) avisoDu("Guardando en Notion…"); else aviso("Guardando en Notion…");
+  try { await crm(cuerpo); await cargarCRM(); if (DUF) abrirDu(DUF); avisoDu(ok); }
+  catch (e) { pintarCRM(); avisoDu(e.message, true); }
+}
+function abrirDuNuevo() {
+  const n = prompt("Nombre del propietario"); if (!n || !n.trim()) return;
+  const paso = prompt("¿Qué sigue con él? (ej.: ir a ver el apto)", "Conocer la propiedad") || "";
+  hacerDu({ accion: "dueno_nuevo", datos: { nombre: n.trim(), paso: paso.trim() } }, "✅ Propietario creado.");
+}
+document.addEventListener("click", e => { const t = e.target;
+  const de = t.closest("[data-de]"); if (de) { duEtapa = de.dataset.de; return pintarDu(); }
+  const du = t.closest("[data-due]"); if (du) return abrirDu(du.dataset.due);
+  if (t.id === "btnDu") return abrirDuNuevo();
+  const da = t.closest("[data-dact]"); if (da) return hacerDu({ accion: "dueno_actualizado", id: da.dataset.dact }, "✅ Listo. La próxima actualización le toca en 15 días.");
+  if (t.id === "duGuardar") return hacerDu({ accion: "dueno_editar", id: DUF, campos: { paso: $("duPaso").value.trim(), fecha: $("duFecha").value, etapa: $("duEtapaSel").value } }, "✅ Guardado.");
+  if (t.id === "duNotaB") { const v = $("duNota").value.trim(); if (v.length < 2) return avisoDu("Escribe la nota.", true);
+    return hacerDu({ accion: "dueno_nota", id: DUF, texto: v }, "✅ Nota guardada."); }
+  const ce = t.closest("#du [data-cli]"); if (ce) { cerrarDu(); }
+});
+document.addEventListener("change", e => { const s = e.target.closest("[data-dmv]"); if (s) hacerDu({ accion: "dueno_editar", id: s.dataset.dmv, campos: { etapa: s.value } }, "✅ Etapa guardada."); });
 // ---------- Registrar lo que ya se le mandó (sin pasar por WhatsApp) ----------
 let RE = null;
 function abrirRe(id) {
   const c = C.find(x => x.id === id);
-  RE = { id, modo: "inv", sel: new Set(), quien: "", ya: new Set(c.pres.map(p => p.cod).filter(Boolean)) };
+  RE = { id, modo: "inv", sel: new Set(), ya: new Set(c.pres.map(p => p.cod).filter(Boolean)) };
   $("reTit").textContent = "Lo que le mandé a " + c.nombre; $("reQ").value = ""; $("reDesc").value = ""; $("reCol").value = "";
   $("reFecha").value = HOY; $("reFecha").max = HOY; $("reEstado").textContent = ""; $("reEstado").className = "estado";
-  document.querySelectorAll("[data-req2]").forEach(b => b.setAttribute("aria-pressed", "false"));
   modoRe("inv"); $("re").hidden = false;
 }
 function modoRe(m) { RE.modo = m; document.querySelectorAll("[data-rev]").forEach(b => b.setAttribute("aria-pressed", b.dataset.rev === m));
@@ -912,17 +1004,15 @@ function listaRe() {
 }
 $("reQ").oninput = listaRe;
 $("reLista").onchange = e => { const c = e.target.dataset.rec; if (!c) return; e.target.checked ? RE.sel.add(c) : RE.sel.delete(c); };
-$("re").addEventListener("click", e => { const m = e.target.closest("[data-rev]"); if (m) return modoRe(m.dataset.rev);
-  const q = e.target.closest("[data-req2]"); if (q) { RE.quien = q.dataset.req2; document.querySelectorAll("[data-req2]").forEach(b => b.setAttribute("aria-pressed", b === q)); } });
+$("re").addEventListener("click", e => { const m = e.target.closest("[data-rev]"); if (m) return modoRe(m.dataset.rev); });
 const cerrarRe = () => { $("re").hidden = true; };
 $("reCerrar").onclick = cerrarRe;
 $("reGuardar").onclick = async () => {
   const mal = t => { $("reEstado").textContent = t; $("reEstado").className = "estado mal"; };
   if (RE.modo === "inv" && !RE.sel.size) return mal("Elige al menos una propiedad.");
   if (RE.modo === "ext" && $("reDesc").value.trim().length < 3) return mal("Describe la propiedad.");
-  if (!RE.quien) return mal("Elige quién se la mandó.");
   $("reGuardar").disabled = true; $("reEstado").textContent = "Guardando en Notion…"; $("reEstado").className = "estado";
-  try { const id = RE.id, d = await crm({ accion: "presentar", id, quien: RE.quien, fecha: $("reFecha").value,
+  try { const id = RE.id, d = await crm({ accion: "presentar", id, fecha: $("reFecha").value,
       cods: RE.modo === "inv" ? [...RE.sel] : [], externa: RE.modo === "ext" ? { descripcion: $("reDesc").value.trim(), colega: $("reCol").value.trim() } : undefined });
     cerrarRe(); delete HIST[id]; await cargarCRM(); abrirFicha(id);
     avisoFi(`✅ Registrado: ${d.creadas} propiedad${d.creadas === 1 ? "" : "es"}.${d.repetidas ? ` ${d.repetidas} ya estaba${d.repetidas === 1 ? "" : "n"}.` : ""}`);
@@ -964,19 +1054,18 @@ function bandaMandar() { const b = $("mandar"); b.hidden = !MANDAR; if (!MANDAR)
   $("mandarTxt").textContent = PEND ? `¿Ya le mandaste ${PEND.length === 1 ? "la propiedad" : PEND.length + " propiedades"} a ${MANDAR.nombre}?`
     : MANDAR.todo ? `Para ${MANDAR.nombre}: todo el inventario, sin lo que ya le mandaron.${n ? "" : " Su búsqueda no tiene opciones que encajen o le faltan datos."}`
     : `Para ${MANDAR.nombre}: ${n} opci${n === 1 ? "ón que encaja" : "ones que encajan"}. Ya quité lo que le mandaron.`;
-  $("mandarSi").hidden = $("mandarLuz").hidden = !PEND; $("mandarTodo").hidden = !!PEND || !n;
+  $("mandarSi").hidden = !PEND; $("mandarTodo").hidden = !!PEND || !n;
   $("mandarTodo").textContent = MANDAR.todo ? "Ver solo lo que encaja" : "Ver todo el inventario"; }
 $("mandarTodo").onclick = () => { MANDAR.todo = !MANDAR.todo; pintar(); bandaMandar(); };
 $("mandarNo").onclick = () => { if (PEND) { PEND = null; return bandaMandar(); }
   const v = MANDAR.volver; MANDAR = null; $("limpiarF").click(); bandaMandar(); pintar();
   if (v) { ir(v.vista === "prop" ? "hoy" : v.vista); if (v.ficha) abrirFicha(v.ficha); } };
-const registrar = async quien => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = $("mandarLuz").disabled = true;
-  try { const d = await crm({ accion: "presentar", id: m.id, cods, quien, requerimiento: m.reqId || (m.niv[cods[0]] || {}).req || undefined });
+const registrar = async () => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = true;
+  try { const d = await crm({ accion: "presentar", id: m.id, cods, requerimiento: m.reqId || (m.niv[cods[0]] || {}).req || undefined });
     MANDAR = null; PEND = null; sel.clear(); barra(); $("limpiarF").click(); bandaMandar(); await cargarCRM(); ir("cli"); abrirFicha(m.id);
     avisoFi(`✅ Registrado: ${d.creadas} nueva${d.creadas === 1 ? "" : "s"}. Mañana toca preguntarle qué le parecieron.`);
-  } catch (e) { aviso(e.message, true); } $("mandarSi").disabled = $("mandarLuz").disabled = false; };
-$("mandarSi").onclick = () => registrar("Camila");
-$("mandarLuz").onclick = () => registrar("Luz Stella");
+  } catch (e) { aviso(e.message, true); } $("mandarSi").disabled = false; };
+$("mandarSi").onclick = registrar;
 document.addEventListener("click", e => { if (!MANDAR) return; const a = e.target.closest("a.cli, #varCli"); if (!a) return;
   PEND = a.id === "varCli" ? [...sel] : [a.dataset.c]; bandaMandar(); });
 // Lo que se ve en cada tarjeta de propiedad: el nivel si se está mandando, o a quién le sirve.
