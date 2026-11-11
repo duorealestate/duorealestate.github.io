@@ -155,6 +155,11 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+#re{z-index:13}
+.re-lista{display:grid;gap:2px;max-height:50vh;overflow:auto;margin-top:8px}
+.re-fila{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-top:1px solid var(--linea);font-size:15px}
+.re-fila input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--verde)}
+.re-fila small{color:var(--tinta-suave)}
 .hist{margin-top:10px;display:grid;gap:6px;max-height:260px;overflow:auto}.hist p{margin:0;font-size:14px;padding:6px 0;border-top:1px solid var(--linea)}
 .cd{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--tinta-suave)}
 .pn b{color:var(--tinta)}
@@ -252,6 +257,15 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
     <label class="ancho">Próximo paso<input id="coPaso" type="text"></label><label>Fecha del próximo paso<input id="coFecha" type="date"></label><label>Fecha de visita<input id="coVisita" type="date"></label>
     <label class="ancho">Propuesta en pesos<input id="coProp$" type="number" inputmode="numeric" min="0"></label><label class="ancho">Notas<input id="coNotas" type="text"></label></div></section>
   <div class="pie"><button type="button" id="coGuardar">Guardar</button></div></div>
+<div class="modal sobre" id="re" hidden><div class="top"><b id="reTit">Registrar lo que le mandé</b><button type="button" id="reCerrar">Cerrar</button></div>
+  <div class="seg3 dos"><button class="chip" type="button" data-rev="inv" aria-pressed="true">De nuestro inventario</button><button class="chip" type="button" data-rev="ext" aria-pressed="false">De colega o nueva</button></div>
+  <section id="reInv"><div class="buscar"><input id="reQ" type="search" placeholder="Buscar por nombre, sector o código…" autocomplete="off"></div><div id="reLista" class="re-lista"></div></section>
+  <section id="reExt" hidden><p class="ayuda">Para una propiedad de una colega o una nuestra que todavía no está en la base.</p>
+    <label class="txt">Qué propiedad es<textarea id="reDesc" rows="2" placeholder="Ej.: apto 120 m² en Los Balsos, 3 alcobas, 1.800 millones"></textarea></label>
+    <label class="txt">Colega (vacío si es nuestra)<input id="reCol" type="text" class="inp" autocomplete="off"></label></section>
+  <section><div class="campos"><label class="ancho">¿Cuándo se la mandaron?<input id="reFecha" type="date"></label></div>
+    <h4 class="nv-z">¿QUIÉN SE LA MANDÓ?</h4><div class="seg3 dos"><button class="chip" type="button" data-req2="Camila" aria-pressed="false">Camila</button><button class="chip" type="button" data-req2="Luz Stella" aria-pressed="false">Luz Stella</button></div></section>
+  <p class="estado" id="reEstado"></p><div class="pie"><button type="button" id="reGuardar">Guardar</button></div></div>
 <div class="modal" id="fi" hidden><div class="top"><b id="fiTit">Cliente</b><button type="button" id="fiCerrar">Cerrar</button></div><p class="estado" id="fiEstado"></p><div id="fiCuerpo"></div></div>
 <div class="modal" id="ed" hidden>
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
@@ -742,7 +756,7 @@ function abrirFicha(id) {
       <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo), activo(c) && `${enEtapa(c)} días en ${c.etapa}${c.desde ? "" : " (aprox.)"}`, c.pausa && "pausa: " + c.pausa, c.motivo && "compró: " + c.motivo].filter(Boolean).join(" · ")}</p></section>
     <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
       <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>
-    <section><h4>QUÉ LE HEMOS MANDADO</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
+    <section><h4>QUÉ LE HEMOS MANDADO</h4><button class="secundario" type="button" data-reg="${c.id}">➕ Registrar algo que le mandé</button>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
   cargarHist(id);
 }
 async function cargarHist(id) {
@@ -801,6 +815,7 @@ document.addEventListener("click", e => {
   const et = t.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
   const ev = t.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
   const oc = t.closest("[data-opc]"); if (oc) return mandar(oc.dataset.opc, "");
+  const rg = t.closest("[data-reg]"); if (rg) return abrirRe(rg.dataset.reg);
   const pz = t.closest("[data-pausar]"); if (pz) return pedir(pz.dataset.pausar, "En pausa");
   if (t.id === "fiNotaB") { const v = $("fiNota").value.trim(); if (v.length < 2) return avisoFi("Escribe la nota.", true);
     delete HIST[FICHA]; return hacer({ accion: "evento", id: FICHA, tipo: "nota", datos: { texto: v } }, "✅ Nota guardada."); }
@@ -875,6 +890,45 @@ $("rqGuardar").onclick = async () => {
   $("rqGuardar").disabled = false;
 };
 
+// ---------- Registrar lo que ya se le mandó (sin pasar por WhatsApp) ----------
+let RE = null;
+function abrirRe(id) {
+  const c = C.find(x => x.id === id);
+  RE = { id, modo: "inv", sel: new Set(), quien: "", ya: new Set(c.pres.map(p => p.cod).filter(Boolean)) };
+  $("reTit").textContent = "Lo que le mandé a " + c.nombre; $("reQ").value = ""; $("reDesc").value = ""; $("reCol").value = "";
+  $("reFecha").value = HOY; $("reFecha").max = HOY; $("reEstado").textContent = ""; $("reEstado").className = "estado";
+  document.querySelectorAll("[data-req2]").forEach(b => b.setAttribute("aria-pressed", "false"));
+  modoRe("inv"); $("re").hidden = false;
+}
+function modoRe(m) { RE.modo = m; document.querySelectorAll("[data-rev]").forEach(b => b.setAttribute("aria-pressed", b.dataset.rev === m));
+  $("reInv").hidden = m !== "inv"; $("reExt").hidden = m !== "ext"; if (m === "inv") listaRe(); }
+function listaRe() {
+  const q = norm($("reQ").value.trim());
+  const xs = P.filter(p => !RE.ya.has(p.cod) && (!q || coincide(q, [nombre(p), p.cod, p.tipo, p.sector, p.titulo].join(" "))))
+    .sort((a, b) => RE.sel.has(b.cod) - RE.sel.has(a.cod) || titTxt(a.cod).localeCompare(titTxt(b.cod))).slice(0, 40);
+  $("reLista").innerHTML = (RE.sel.size ? `<p class="ayuda">${RE.sel.size} elegida${RE.sel.size === 1 ? "" : "s"}</p>` : "")
+    + (xs.map(p => `<label class="re-fila"><input type="checkbox" data-rec="${esc(p.cod)}" ${RE.sel.has(p.cod) ? "checked" : ""}><span>${tit(p.cod)}<br><small>${esc([p.sector, precio(p), datos(p)].filter(Boolean).join(" · "))}</small></span></label>`).join("")
+    || `<p class="ayuda">No encontré nada. Si no está en la base, usa "De colega o nueva".</p>`);
+}
+$("reQ").oninput = listaRe;
+$("reLista").onchange = e => { const c = e.target.dataset.rec; if (!c) return; e.target.checked ? RE.sel.add(c) : RE.sel.delete(c); };
+$("re").addEventListener("click", e => { const m = e.target.closest("[data-rev]"); if (m) return modoRe(m.dataset.rev);
+  const q = e.target.closest("[data-req2]"); if (q) { RE.quien = q.dataset.req2; document.querySelectorAll("[data-req2]").forEach(b => b.setAttribute("aria-pressed", b === q)); } });
+const cerrarRe = () => { $("re").hidden = true; };
+$("reCerrar").onclick = cerrarRe;
+$("reGuardar").onclick = async () => {
+  const mal = t => { $("reEstado").textContent = t; $("reEstado").className = "estado mal"; };
+  if (RE.modo === "inv" && !RE.sel.size) return mal("Elige al menos una propiedad.");
+  if (RE.modo === "ext" && $("reDesc").value.trim().length < 3) return mal("Describe la propiedad.");
+  if (!RE.quien) return mal("Elige quién se la mandó.");
+  $("reGuardar").disabled = true; $("reEstado").textContent = "Guardando en Notion…"; $("reEstado").className = "estado";
+  try { const id = RE.id, d = await crm({ accion: "presentar", id, quien: RE.quien, fecha: $("reFecha").value,
+      cods: RE.modo === "inv" ? [...RE.sel] : [], externa: RE.modo === "ext" ? { descripcion: $("reDesc").value.trim(), colega: $("reCol").value.trim() } : undefined });
+    cerrarRe(); delete HIST[id]; await cargarCRM(); abrirFicha(id);
+    avisoFi(`✅ Registrado: ${d.creadas} propiedad${d.creadas === 1 ? "" : "es"}.${d.repetidas ? ` ${d.repetidas} ya estaba${d.repetidas === 1 ? "" : "n"}.` : ""}`);
+  } catch (e) { mal(e.message); }
+  $("reGuardar").disabled = false;
+};
 // ---------- Negocios con colegas ----------
 let CO = null;
 function abrirCole(id) {
@@ -901,7 +955,8 @@ $("coGuardar").onclick = async () => {
 function mandar(id, reqId) {
   const c = C.find(x => x.id === id), todas = M.porCli[id] || {};
   const niv = Object.fromEntries(Object.entries(todas).filter(([, n]) => !reqId || n.req === reqId));
-  MANDAR = { id, reqId, nombre: c.nombre, excl: new Set(c.pres.map(p => p.cod).filter(Boolean)), niv, todo: !Object.keys(niv).length };
+  const volver = { vista, ficha: FICHA };
+  MANDAR = { volver, id, reqId, nombre: c.nombre, excl: new Set(c.pres.map(p => p.cod).filter(Boolean)), niv, todo: !Object.keys(niv).length };
   PEND = null; $("limpiarF").click(); cerrarFicha(); ir("prop"); pintar(); bandaMandar();
 }
 function bandaMandar() { const b = $("mandar"); b.hidden = !MANDAR; if (!MANDAR) return;
@@ -912,7 +967,9 @@ function bandaMandar() { const b = $("mandar"); b.hidden = !MANDAR; if (!MANDAR)
   $("mandarSi").hidden = $("mandarLuz").hidden = !PEND; $("mandarTodo").hidden = !!PEND || !n;
   $("mandarTodo").textContent = MANDAR.todo ? "Ver solo lo que encaja" : "Ver todo el inventario"; }
 $("mandarTodo").onclick = () => { MANDAR.todo = !MANDAR.todo; pintar(); bandaMandar(); };
-$("mandarNo").onclick = () => { if (PEND) { PEND = null; return bandaMandar(); } MANDAR = null; $("limpiarF").click(); bandaMandar(); pintar(); };
+$("mandarNo").onclick = () => { if (PEND) { PEND = null; return bandaMandar(); }
+  const v = MANDAR.volver; MANDAR = null; $("limpiarF").click(); bandaMandar(); pintar();
+  if (v) { ir(v.vista === "prop" ? "hoy" : v.vista); if (v.ficha) abrirFicha(v.ficha); } };
 const registrar = async quien => { const m = MANDAR, cods = PEND; $("mandarSi").disabled = $("mandarLuz").disabled = true;
   try { const d = await crm({ accion: "presentar", id: m.id, cods, quien, requerimiento: m.reqId || (m.niv[cods[0]] || {}).req || undefined });
     MANDAR = null; PEND = null; sel.clear(); barra(); $("limpiarF").click(); bandaMandar(); await cargarCRM(); ir("cli"); abrirFicha(m.id);
