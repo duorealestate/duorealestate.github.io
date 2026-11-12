@@ -4695,5 +4695,51 @@
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D090"
+ },
+ "D091": {
+  "fotos": 6,
+  "notion_id": "41622d40-016d-8180-aa8a-fa0f3e0f4947",
+  "tarjeta": {
+   "alc": 1.0,
+   "area": 84.28,
+   "ban": 2.0,
+   "canon": 0,
+   "codigo": "D091",
+   "creada": "2026-11-12",
+   "det": {
+    "amen": [
+     "Zonas verdes",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Dúplex"
+    ],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D091/03916c467d-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 1.0,
+   "precios": [
+    [
+     "VENTA",
+     "$0 millones"
+    ]
+   ],
+   "sector": "Alto de las Palmas",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en Alto de las Palmas",
+   "venta": 1050.0
+  },
+  "url": "https://duorealestate.com.co/D091"
  }
 }
