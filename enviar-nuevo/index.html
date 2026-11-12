@@ -155,6 +155,9 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+.peligro{width:100%;margin-top:10px;font:inherit;font-weight:700;padding:11px;border:1px solid #B3261E;border-radius:12px;background:none;color:#B3261E}
+#edQuitar{margin-top:10px;display:grid;gap:8px}
+#ed textarea#edWow{width:100%;font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;background:var(--crema)}
 .kanban{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
 .kanban::-webkit-scrollbar{display:none}
 .kcol{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-height:45vh}
@@ -300,9 +303,17 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
   <p class="estado" id="edEstado"></p>
   <div id="edCuerpo" hidden>
-    <section><h4>FOTOS</h4><p class="ayuda">La primera es la portada de la web y de WhatsApp. Ordénalas con las flechas.</p><div class="fotos" id="edFotos"></div></section>
-    <section><h4>DATOS</h4><div class="campos" id="edCampos"></div></section>
+    <section><h4>FOTOS</h4><p class="ayuda">La primera es la portada de la web y de WhatsApp. Ordénalas con las flechas. Solo horizontales, máximo 10.</p><div class="fotos" id="edFotos"></div>
+      <input id="edFile" type="file" accept="image/*" multiple hidden><button class="secundario" type="button" id="edFotoB">➕ Agregar fotos</button><p class="estado" id="edFotoEstado"></p></section>
+    <section><h4>PRECIO Y COSTOS</h4><div class="campos" id="edPrecio"></div></section>
+    <section><h4>CARACTERÍSTICAS</h4><div class="campos" id="edCampos"></div><div id="edChips"></div></section>
+    <section><h4>LO WOW</h4><p class="ayuda">Lo que más enamora, con tus palabras. Es para el contenido; no sale en la web.</p><textarea data-k="Lo wow" id="edWow" rows="2"></textarea></section>
     <section><h4>TEXTOS DE LA WEB</h4><p class="ayuda">Sin nombre del edificio, número de apto, piso ni dirección.</p><div id="edTextos"></div></section>
+    <section><h4>ESTADO</h4><div class="campos" id="edEstadoSel"></div>
+      <button class="peligro" type="button" id="edQuitarB">Quitar de la web…</button>
+      <div id="edQuitar" hidden><p class="ayuda">No se borra: queda guardada con su historial y sale de la web, de la página para colegas y de Enviar.</p>
+        <div class="sectores" id="edQuitarMot"></div><label class="txt">Detalle (opcional)<input id="edQuitarDet" type="text" class="inp"></label>
+        <button class="primario" type="button" id="edQuitarSi">Quitar de la web</button></div></section>
   </div>
   <div class="pie" id="edPie" hidden><button type="button" id="edGuardar">Guardar cambios</button></div>
 </div>
@@ -474,31 +485,44 @@ function barra() {
   $("nsel").textContent = `${ps.length} marcada${ps.length === 1 ? "" : "s"}: mandarlas juntas`;
   $("varCli").href = wa(msgCli(ps)); $("varCol").href = wa(msgCol(ps));
 }
-// ---------- Editor (✏️): guarda en Notion a través del Worker "editor-duo" ----------
-const NUM = [["Precio venta COP", "Precio venta"], ["Canon arriendo COP", "Canon arriendo / mes"], ["Administración mensual COP", "Administración / mes"],
-  ["Área construida m²", "Área m²"], ["Área lote m²", "Lote m²"], ["Área exterior m²", "Exteriores m²"], ["Alcobas", "Alcobas"], ["Baños", "Baños"], ["Parqueaderos", "Parqueaderos"]];
+// ---------- Editor (✏️): todos los datos de la propiedad, quitar de la web y agregar fotos (Worker "crm-duo") ----------
+const MONEDA = [["Precio venta COP", "Precio de venta (millones)", true], ["Canon arriendo COP", "Canon / mes (millones)", true],
+  ["Administración mensual COP", "Administración / mes (pesos)"], ["Predial COP", "Predial (pesos)"]];
+const NUM = [["Área construida m²", "Área m²"], ["Área lote m²", "Lote m²"], ["Área exterior m²", "Exteriores m²"], ["Alcobas", "Alcobas"],
+  ["Baños", "Baños"], ["Parqueaderos", "Parqueaderos"], ["Estrato", "Estrato"]];
+const SELS = { "Periodicidad predial": ["Anual", "Semestral", "Trimestral", "Bimestral", "Por confirmar"], "Habitación de servicio": ["Sí", "No", "Por confirmar"], "Exclusividad": ["Sí", "No"] };
+const MULTIS = { "Operación": ["Venta", "Alquiler"],
+  "Características": ["Terraza", "Balcón", "Estudio", "Chimenea", "Turco / sauna", "Jardín privado", "Vista panorámica", "Dúplex", "Cuarto útil", "Cava", "Piscina privada", "Domótica", "Un solo nivel", "Remodelado"],
+  "Amenidades unidad": ["Piscina", "Gimnasio", "Squash", "Zona infantil", "Zonas verdes", "Salón social", "Portería 24 h", "BBQ", "Cancha"] };
 const TXT = [["Título web", 1], ["Descripción pública", 6], ["Lo que tiene", 5]];
 const ESTADOS = ["Activa", "Oferta recibida", "Por completar", "Por verificar", "Pausada", "Vendida DUO", "Vendida", "Arrendada", "Retirada"];
+const QUITAR = ["La vendimos nosotras", "La vendió otra persona", "Se arrendó", "El dueño la retiró", "El dueño la pausó"];
 let ED = null;
-async function api(cuerpo) {
-  const r = await fetch(EDITOR, { method: "POST", headers: { "Content-Type": "application/json", "X-Clave": CLAVE }, body: JSON.stringify(cuerpo) });
-  const d = await r.json().catch(() => ({ error: "El editor no respondió" }));
-  if (!r.ok || d.error) throw new Error(d.error || "Error " + r.status);
-  return d;
-}
 const estadoEd = (t, c = "") => { $("edEstado").textContent = t; $("edEstado").className = "estado " + c; };
+const selHtml = (k, v, vacio) => `<select data-k="${esc(k)}">${vacio ? `<option value="">Sin dato</option>` : ""}${SELS[k].map(o => `<option${o === v ? " selected" : ""}>${o}</option>`).join("")}</select>`;
+function llenarEd(d) {
+  ED.orig = d; ED.fotos = d.fotos.map(f => ({ ...f, fuera: false })); ED.multi = Object.fromEntries(Object.keys(MULTIS).map(k => [k, new Set(d[k] || [])]));
+  const millones = v => v ? +(v / 1e6).toFixed(2) : "";
+  $("edPrecio").innerHTML = MONEDA.map(([k, t, mill]) => `<label>${esc(t)}<input data-k="${esc(k)}" data-m="${mill ? 1 : "p"}" type="text" inputmode="decimal" value="${mill ? millones(d[k]) : (d[k] ?? "")}"><small class="ayuda" data-mt="${esc(k)}"></small></label>`).join("")
+    + `<label class="ancho">Periodicidad del predial${selHtml("Periodicidad predial", d["Periodicidad predial"], true)}</label>`;
+  $("edCampos").innerHTML = NUM.map(([k, t]) => `<label>${esc(t)}<input data-k="${esc(k)}" type="number" inputmode="decimal" min="0" value="${d[k] ?? ""}"></label>`).join("")
+    + `<label class="ancho">Habitación de servicio${selHtml("Habitación de servicio", d["Habitación de servicio"], true)}</label>`;
+  $("edChips").innerHTML = Object.entries(MULTIS).map(([k, ops]) => `<h4 class="nv-z">${esc(k.toUpperCase())}</h4><div class="sectores">${ops.map(o => `<button class="chip" type="button" data-mk="${esc(k)}" aria-pressed="${ED.multi[k].has(o)}">${esc(o)}</button>`).join("")}</div>`).join("");
+  $("edWow").value = d["Lo wow"] || "";
+  $("edTextos").innerHTML = TXT.map(([k, n]) => `<label class="txt">${esc(k)}<textarea data-k="${esc(k)}" rows="${n}">${esc(d[k] || "")}</textarea></label>`).join("");
+  $("edEstadoSel").innerHTML = `<label class="ancho">Estado<select data-k="Estado comercial">${ESTADOS.map(s => `<option${s === d["Estado comercial"] ? " selected" : ""}>${s}</option>`).join("")}</select></label>
+    <label class="ancho">Exclusividad${selHtml("Exclusividad", d["Exclusividad"], true)}</label>`;
+  $("edQuitarMot").innerHTML = QUITAR.map(m => `<button class="chip" type="button" data-qm="${esc(m)}" aria-pressed="false">${esc(m)}</button>`).join("");
+  $("edQuitar").hidden = true; ED.quitar = ""; pintarFotos(); dineroEd();
+}
+const pesosEd = i => i.dataset.m === "p" ? Number(String(i.value).replace(/\D/g, "")) || 0 : aPesos(i.value);
+function dineroEd() { document.querySelectorAll("#edPrecio [data-m]").forEach(i => { const v = pesosEd(i); document.querySelector(`[data-mt="${i.dataset.k}"]`).textContent = v ? "= " + enPalabras(v) : ""; }); }
 async function editar(cod) {
-  ED = null; $("ed").hidden = false; document.body.style.overflow = "hidden";
-  $("edTit").textContent = `Editar ${cod}` + (nombre(P.find(p => p.cod === cod) || {}) ? " · " + nombre(P.find(p => p.cod === cod)) : "");
-  $("edCuerpo").hidden = $("edPie").hidden = true; estadoEd("Cargando desde Notion…");
-  try {
-    const d = await api({ accion: "leer", cod });
-    ED = { cod, orig: d, fotos: d.fotos.map(f => ({ ...f, fuera: false })) };
-    $("edCampos").innerHTML = NUM.map(([k, t]) => `<label>${esc(t)}<input data-k="${esc(k)}" type="number" inputmode="decimal" min="0" value="${d[k] ?? ""}"></label>`).join("")
-      + `<label class="ancho">Estado<select data-k="Estado comercial">${ESTADOS.map(s => `<option${s === d["Estado comercial"] ? " selected" : ""}>${s}</option>`).join("")}</select></label>`;
-    $("edTextos").innerHTML = TXT.map(([k, n]) => `<label class="txt">${esc(k)}<textarea data-k="${esc(k)}" rows="${n}">${esc(d[k] || "")}</textarea></label>`).join("");
-    pintarFotos(); estadoEd(""); $("edCuerpo").hidden = $("edPie").hidden = false;
-  } catch (e) { estadoEd(e.message, "mal"); }
+  ED = { cod }; $("ed").hidden = false; document.body.style.overflow = "hidden";
+  $("edTit").textContent = titTxt(cod) + " · " + cod;
+  $("edCuerpo").hidden = $("edPie").hidden = true; estadoEd("Cargando desde Notion…"); $("edFotoEstado").textContent = "";
+  try { llenarEd(await crm({ accion: "prop_leer", cod })); estadoEd(""); $("edCuerpo").hidden = $("edPie").hidden = false; }
+  catch (e) { estadoEd(e.message, "mal"); }
 }
 function pintarFotos() {
   const fs = ED.fotos, n = fs.length;
@@ -507,7 +531,7 @@ function pintarFotos() {
     <button type="button" data-f="sub" data-i="${i}" ${i === 0 ? "disabled" : ""} aria-label="Subir">↑</button>
     <button type="button" data-f="baj" data-i="${i}" ${i === n - 1 ? "disabled" : ""} aria-label="Bajar">↓</button>
     <button type="button" data-f="por" data-i="${i}" ${i === 0 ? "disabled" : ""} aria-label="Poner de portada">★</button>
-    <button type="button" data-f="qui" data-i="${i}" aria-label="${f.fuera ? "Volver a poner" : "Quitar"}">${f.fuera ? "↺" : "✕"}</button></div></div>`).join("");
+    <button type="button" data-f="qui" data-i="${i}" aria-label="${f.fuera ? "Volver a poner" : "Quitar"}">${f.fuera ? "↺" : "✕"}</button></div></div>`).join("") || `<p class="ayuda">Todavía no tiene fotos.</p>`;
 }
 $("edFotos").onclick = e => {
   const b = e.target.closest("[data-f]"); if (!b) return; const i = +b.dataset.i, fs = ED.fotos;
@@ -517,25 +541,63 @@ $("edFotos").onclick = e => {
   if (b.dataset.f === "qui") fs[i].fuera = !fs[i].fuera;
   pintarFotos();
 };
+$("ed").addEventListener("input", e => { if (e.target.dataset.m) dineroEd(); });
+$("ed").addEventListener("click", e => { const t = e.target;
+  const mk = t.closest("[data-mk]"); if (mk) { const s_ = ED.multi[mk.dataset.mk], v = mk.textContent; s_.has(v) ? s_.delete(v) : s_.add(v); mk.setAttribute("aria-pressed", s_.has(v)); return; }
+  const qm = t.closest("[data-qm]"); if (qm) { ED.quitar = qm.dataset.qm; document.querySelectorAll("[data-qm]").forEach(b => b.setAttribute("aria-pressed", b === qm)); return; }
+  if (t.id === "edQuitarB") { $("edQuitar").hidden = !$("edQuitar").hidden; return; }
+  if (t.id === "edFotoB") return $("edFile").click(); });
+$("edQuitarSi").onclick = async () => {
+  if (!ED.quitar) return estadoEd("Elige por qué se quita.", "mal");
+  $("edQuitarSi").disabled = true; estadoEd("Guardando en Notion…");
+  try { const d = await crm({ accion: "prop_quitar", cod: ED.cod, motivo: ED.quitar, detalle: $("edQuitarDet").value.trim() });
+    estadoEd(`✅ Quedó como ${d.estado}. En unos 2 minutos sale de la web, de la página para colegas y de Enviar.${d.estado === "Vendida DUO" ? " Cuéntale al asistente los datos de la venta para registrarla en Ventas cerradas." : ""}`, "bien");
+    $("edCuerpo").hidden = $("edPie").hidden = true;
+  } catch (e) { estadoEd(e.message, "mal"); }
+  $("edQuitarSi").disabled = false;
+};
+// Fotos nuevas: solo horizontales; se achican en el celular antes de subirlas.
+function prepararFoto(file) {
+  return new Promise((ok, mal) => { const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(url); const w = img.naturalWidth, h = img.naturalHeight;
+      if (w <= h) return mal(new Error(`"${file.name}" es vertical. Solo se suben fotos horizontales.`));
+      const k = Math.min(1, 2400 / w), c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      c.toBlob(b => { const r = new FileReader(); r.onload = () => ok({ nombre: file.name.replace(/\.\w+$/, "") + ".jpg", datos: String(r.result).split(",")[1] }); r.readAsDataURL(b); }, "image/jpeg", 0.85); };
+    img.onerror = () => { URL.revokeObjectURL(url); mal(new Error(`No pude abrir "${file.name}".`)); }; img.src = url; });
+}
+$("edFile").onchange = async e => {
+  const files = [...e.target.files]; e.target.value = ""; if (!files.length) return;
+  const libres = 10 - ED.orig.fotos.length; if (libres <= 0) return $("edFotoEstado").textContent = "Ya tiene 10 fotos, que es el máximo. Quita una y guarda antes de agregar otra.";
+  let subidas = 0; const errores = [];
+  for (const f of files.slice(0, libres)) {
+    $("edFotoEstado").textContent = `Subiendo ${subidas + 1} de ${Math.min(files.length, libres)}…`;
+    try { const p = await prepararFoto(f); const d = await crm({ accion: "prop_foto", cod: ED.cod, nombre: p.nombre, tipo: "image/jpeg", datos: p.datos }); llenarEd(d); subidas++; }
+    catch (err) { errores.push(err.message); }
+  }
+  if (files.length > libres) errores.push(`Solo cabían ${libres}: el máximo es 10.`);
+  $("edFotoEstado").textContent = (subidas ? `✅ ${subidas} foto${subidas === 1 ? "" : "s"} agregada${subidas === 1 ? "" : "s"} al final. ` : "") + errores.join(" ");
+};
 const cerrarEd = () => { $("ed").hidden = true; document.body.style.overflow = ""; };
 $("edCerrar").onclick = cerrarEd;
 $("edGuardar").onclick = async () => {
-  if (!ED) return;
-  const campos = {};
+  if (!ED || !ED.orig) return;
+  const campos = {}, o = ED.orig;
   document.querySelectorAll("#ed [data-k]").forEach(el => {
-    const k = el.dataset.k, o = ED.orig[k];
-    if (NUM.some(([n]) => n === k)) { const v = el.value.trim() === "" ? null : Number(el.value); if (v !== o) campos[k] = v; }
-    else if (el.value.trim() !== String(o || "").trim()) campos[k] = el.value.trim();
+    const k = el.dataset.k;
+    if (el.dataset.m) { const v = el.value.trim() === "" ? null : pesosEd(el); if (v !== o[k]) campos[k] = v; }
+    else if (el.type === "number") { const v = el.value.trim() === "" ? null : Number(el.value); if (v !== o[k]) campos[k] = v; }
+    else if (el.value.trim() !== String(o[k] || "").trim()) campos[k] = el.value.trim();
   });
+  for (const k of Object.keys(MULTIS)) { const a = [...ED.multi[k]].sort().join("|"), b = [...(o[k] || [])].sort().join("|"); if (a !== b) campos[k] = [...ED.multi[k]]; }
   const orden = ED.fotos.filter(f => !f.fuera).map(f => f.id);
-  const fotosCambian = orden.join() !== ED.orig.fotos.map(f => f.id).join();
-  if (!orden.length) return estadoEd("Deja al menos una foto.", "mal");
+  const fotosCambian = orden.join() !== o.fotos.map(f => f.id).join();
+  if (o.fotos.length && !orden.length) return estadoEd("Deja al menos una foto.", "mal");
   if (!Object.keys(campos).length && !fotosCambian) return estadoEd("No hay cambios para guardar.");
   $("edGuardar").disabled = true; estadoEd("Guardando en Notion…");
   try {
-    await api({ accion: "guardar", cod: ED.cod, campos, fotos: fotosCambian ? orden : undefined });
+    llenarEd(await crm({ accion: "prop_guardar", cod: ED.cod, campos, fotos: fotosCambian ? orden : undefined }));
     estadoEd("✅ Guardado en Notion. En unos 2 minutos se ve en Enviar, la web y la página para colegas.", "bien");
-    $("edCuerpo").hidden = $("edPie").hidden = true;
   } catch (e) { estadoEd(e.message, "mal"); }
   $("edGuardar").disabled = false;
 };
