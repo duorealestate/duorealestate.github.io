@@ -644,7 +644,9 @@ const aviso = (t, mal) => { const a = $("toast"); a.textContent = t; a.className
 const OPMAP = { Compra: "Venta", Arriendo: "Alquiler" };
 const reqAbierto = r => !["Cerrada", "En pausa"].includes(r.estado);
 const faltaReq = r => [!r.operacion.length && "si compra o arrienda", !r.max && "el tope", !(r.sectores.length || r.zonas) && "la zona"].filter(Boolean);
-const textoProp = p => { const d = p.det || {}; return norm([p.titulo, ...(d.carac || []), ...(d.amen || []), ...(d.lista || []), ...(d.detalles || []).map(x => x.join(" "))].join(" ")); };
+// Los detalles con "No" (ej. "Alcoba de servicio: No") no cuentan como que la propiedad lo tiene.
+const textoProp = p => { const d = p.det || {}; return norm([p.titulo, ...(d.carac || []), ...(d.amen || []), ...(d.lista || []), ...(d.detalles || []).filter(x => x[1] !== "No").map(x => x.join(" "))].join(" ")); };
+const detalleProp = (p, k) => (((p.det || {}).detalles || []).find(x => norm(x[0]) === norm(k)) || [])[1] || "";
 const soloLetras = s => norm(s).replace(/[^a-z0-9]/g, "");
 function nivel(p, r) {
   const ops = r.operacion.map(o => OPMAP[o]).filter(o => p.ops.includes(o));
@@ -665,7 +667,11 @@ function nivel(p, r) {
   if (!r.sectores.length) dudas.push("zona");
   if (PROPS[p.cod] && PROPS[p.cod].e && PROPS[p.cod].e !== "Activa") dudas.push("disponibilidad");
   const t = textoProp(p);
-  const conf = r.indispensables.split(/[,;\n.]| y /).map(x => x.trim()).filter(x => x.length > 2 && !/\d/.test(x)).filter(x => {
+  const pedidos = r.indispensables.split(/[,;\n.]| y /).map(x => x.trim()).filter(x => x.length > 2 && !/\d/.test(x));
+  // Alcoba de servicio: se usa el dato de la ficha. "No" la saca; sin dato queda por confirmar.
+  if (pedidos.some(x => /servic/.test(norm(x)))) { const hs = detalleProp(p, "Alcoba de servicio");
+    if (hs === "No") return null; if (hs !== "Sí") dudas.push("alcoba de servicio"); }
+  const conf = pedidos.filter(x => !/servic/.test(norm(x))).filter(x => {
     const ws = norm(x).split(/[^a-z0-9]+/).filter(w => w.length > 3); return !(ws.length && ws.every(w => t.includes(w))); });
   return { n: precio === 2 ? 2 : dudas.length ? 1 : 0, dudas, conf };
 }
