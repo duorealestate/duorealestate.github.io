@@ -184,7 +184,7 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
 .re-fila{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-top:1px solid var(--linea);font-size:15px}
 .re-fila input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--verde)}
 .re-fila small{color:var(--tinta-suave)}
-.hist{margin-top:10px;display:grid;gap:6px;max-height:260px;overflow:auto}.hist p{margin:0;font-size:14px;padding:6px 0;border-top:1px solid var(--linea)}
+.hist{margin-top:10px;display:grid;gap:6px;max-height:260px;overflow:auto}.hist .enlace{font-size:13px;padding:0 4px}.hist p{margin:0;font-size:14px;padding:6px 0;border-top:1px solid var(--linea)}
 .cd{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--tinta-suave)}
 .pn b{color:var(--tinta)}
 .cal{display:block;margin:14px 16px 0;padding:13px;border-radius:12px;background:var(--azul-profundo);color:var(--crema);font-weight:700;font-size:15px;text-align:center;text-decoration:none}
@@ -936,14 +936,16 @@ function abrirFicha(id) {
       ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
       ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}${sugerirSector(r)}
       <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
-      <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
+      <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button>
+      <button class="secundario" type="button" data-bq="${r.id}">${r.estado === "En pausa" ? "▶️ Reabrir o cerrar esta búsqueda" : "🏁 Ya no busca esto / cerrar"}</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda abierta.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
+      ${c.reqs.filter(r => r.estado === "Cerrada").map(r => `<p class="ayuda">Cerrada: ${esc(resumenReq(r) || r.titulo)} <button class="enlace" type="button" data-bqa="${r.id}">Reabrir</button></p>`).join("")}
       <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
     <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
       <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>`;
   cargarHist(id);
 }
 async function cargarHist(id, cont = "fiHist") {
-  const pinta = xs => { if (FICHA !== id || !$(cont)) return; $(cont).innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
+  const pinta = xs => { if (FICHA !== id || !$(cont)) return; $(cont).innerHTML = xs.length ? xs.slice().reverse().map(h => `<p>${esc(h.t)} <button class="enlace" type="button" data-nota="${h.id}" aria-label="Corregir">✏️</button></p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
   if (HIST[id]) return pinta(HIST[id]);
   try { HIST[id] = (await crm({ accion: "historial", id })).historial; pinta(HIST[id]); }
   catch (e) { if ($(cont)) $(cont).innerHTML = `<p class="ayuda">${esc(e.message)}</p>`; }
@@ -972,6 +974,22 @@ function mover(id, etapa) {
   pedir(id, etapa);
 }
 // Pausar o "Ya compró" piden el motivo; Visita agendada pide la fecha.
+// Cerrar o pausar una sola búsqueda, y corregir una nota del historial: usan la misma ventanita.
+const MOT_BUSQ = c => [...(esArriendo(c) ? ["Arrendó por otro lado", "Arrendó con nosotras"] : ["Compró por otro lado", "Compró con nosotras"]), "Ya no busca", "Pausar por ahora"];
+function pedirBusq(reqId, reabrir) {
+  const c = C.find(x => x.id === FICHA), r = c.reqs.find(x => x.id === reqId); MV = { busq: reqId };
+  $("mvTit").textContent = `${resumenReq(r) || "Búsqueda"}: ${reabrir ? "¿la reabrimos?" : "¿qué pasó?"}`;
+  $("mvCampo").innerHTML = reabrir ? `<input type="hidden" id="mvVal" value="Reabrir"><p class="ayuda">Vuelve a cruzarse con el inventario.</p>`
+    : `<label class="txt">¿Qué pasó?<select id="mvVal"><option value="">Elige…</option>${[...MOT_BUSQ(c), ...(r.estado === "En pausa" ? ["Reabrir"] : [])].map(x => `<option>${x}</option>`).join("")}</select></label>
+      <label class="txt">Detalle (opcional)<input id="mvCom" type="text" class="inp" placeholder="Ej.: compró en Ciudad del Río"></label>`;
+  $("mvd").hidden = false;
+}
+function pedirNota(bloque) {
+  const h = (HIST[FICHA] || []).find(x => x.id === bloque); if (!h) return; MV = { nota: bloque };
+  $("mvTit").textContent = "Corregir lo que quedó anotado";
+  $("mvCampo").innerHTML = `<label class="txt">Texto<textarea id="mvVal" rows="4">${esc(h.cuerpo)}</textarea></label><p class="ayuda">La fecha se conserva.</p>`;
+  $("mvd").hidden = false;
+}
 function pedir(id, etapa) {
   const c = C.find(x => x.id === id); MV = { id, etapa }; $("mvTit").textContent = `${c.nombre} → ${etq(etapa, c)}`;
   const opc = xs => xs.map(x => `<option>${x}</option>`).join("");
@@ -982,7 +1000,17 @@ function pedir(id, etapa) {
   $("mvd").hidden = false;
 }
 $("mvNo").onclick = () => { MV = null; $("mvd").hidden = true; pintarCRM(); if (FICHA) abrirFicha(FICHA); };
-$("mvSi").onclick = () => { const v = $("mvVal").value, { id, etapa } = MV, c = C.find(x => x.id === id), com = $("mvCom") ? $("mvCom").value.trim() : "";
+$("mvSi").onclick = () => {
+  if (MV && (MV.busq || MV.nota)) { const v = $("mvVal").value.trim(), com = $("mvCom") ? $("mvCom").value.trim() : "", id = FICHA, m = MV;
+    if (!v) return aviso(m.nota ? "La nota no puede quedar vacía." : "Elige qué pasó.", true);
+    MV = null; $("mvd").hidden = true; delete HIST[id];
+    if (m.nota) return hacer({ accion: "nota_editar", id, bloque: m.nota, texto: v }, "✅ Nota corregida.").then(() => FICHA && abrirFicha(FICHA));
+    avisoFi("Guardando en Notion…");
+    return crm({ accion: "busqueda", id, requerimiento: m.busq, motivo: v, detalle: com }).then(async d => { await cargarCRM(); abrirFicha(id);
+      const c = C.find(x => x.id === id);
+      avisoFi(v === "Reabrir" ? "✅ Búsqueda reabierta." : `✅ Búsqueda ${d.estado === "En pausa" ? "pausada" : "cerrada"}.${!d.abiertas && /^(Compró|Arrendó)/.test(v) && c && c.etapa !== "Ya compró" ? ` No le quedan búsquedas abiertas: si ya terminó, márcalo con 🏁 ${etq("Ya compró", c)}.` : ""}`);
+    }).catch(e => avisoFi(e.message, true)); }
+  const v = $("mvVal").value, { id, etapa } = MV, c = C.find(x => x.id === id), com = $("mvCom") ? $("mvCom").value.trim() : "";
   if (!v) return aviso(etapa === "Visita agendada" ? "Pon la fecha de la visita." : "Elige el motivo: así sabemos por qué se pierden.", true);
   MV = null; $("mvd").hidden = true;
   hacer({ accion: "evento", id, tipo: etapa === "Ya compró" ? "ya_compro" : etapa === "En pausa" ? "pausa" : "visita",
@@ -1003,6 +1031,9 @@ document.addEventListener("click", e => {
   const oc = t.closest("[data-opc]"); if (oc) return mandar(oc.dataset.opc, "");
   const rg = t.closest("[data-reg]"); if (rg) return abrirRe(rg.dataset.reg);
   const fd = t.closest("[data-fd]"); if (fd) { $("fiFecha").value = fd.dataset.fd; document.querySelectorAll("[data-fd]").forEach(b => b.setAttribute("aria-pressed", b === fd)); return; }
+  const bq = t.closest("[data-bq]"); if (bq) return pedirBusq(bq.dataset.bq, false);
+  const bqa = t.closest("[data-bqa]"); if (bqa) return pedirBusq(bqa.dataset.bqa, true);
+  const nt = t.closest("[data-nota]"); if (nt) return pedirNota(nt.dataset.nota);
   const yc = t.closest("[data-yacompro]"); if (yc) return pedir(yc.dataset.yacompro, "Ya compró");
   const pz = t.closest("[data-pausar]"); if (pz) return pedir(pz.dataset.pausar, "En pausa");
   if (t.id === "fiNotaB") { const v = $("fiNota").value.trim(); if (v.length < 2) return avisoFi("Escribe la nota.", true);
