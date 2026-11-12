@@ -111,8 +111,8 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .modal .estado{margin:14px 16px 0;font-size:15px}
 .modal .estado.mal{color:#B3261E}
 .modal .estado.bien{color:var(--verde)}
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
-.nav button{font:inherit;font-size:12.5px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:7;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
+.nav button{font:inherit;font-size:14px;font-weight:700;padding:14px 4px;border:0;background:none;color:var(--tinta-suave)}
 .nav button[aria-current=true]{color:var(--azul-profundo);box-shadow:inset 0 3px 0 var(--azul)}
 .barra{bottom:calc(52px + env(safe-area-inset-bottom))}
 .mandar{position:sticky;top:0;z-index:5;background:var(--azul-profundo);color:var(--crema);padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:15px}
@@ -155,6 +155,17 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+#vi{z-index:14}
+.reac{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linea);border-top:1px solid var(--linea)}
+.reac button{font:inherit;font-size:13px;padding:11px 2px;border:0;background:#fff;color:var(--azul-profundo);font-weight:700}
+.cf-extra{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 12px 12px}.cf-extra .inp{font-size:15px;padding:8px 10px}
+.mini{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.mini button{font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--azul);border-radius:9px;background:none;color:var(--azul);font-weight:700}
+.nls{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--linea);background:#fff;color:var(--tinta-suave);font-size:14px}
+.op-fila{justify-content:flex-start}.op-fila>span:nth-child(2){flex:1}
+.nls-t{justify-self:start;font:inherit;font-size:13px;font-weight:700;padding:4px 10px;border:1px solid var(--linea);border-radius:999px;background:#fff;color:#7A3515;margin-bottom:2px}
+.enlace{background:none;border:0;padding:0;font:inherit;font-weight:700;color:var(--azul);text-decoration:underline}
+.vi-item{padding:10px 0;border-top:1px solid var(--linea)}.vi-item:first-child{border-top:0}.vi-item .campos{margin-top:6px}
+.vi-add{width:100%;text-align:left;font:inherit;background:none;border:0;border-top:1px solid var(--linea);color:var(--tinta)}
 .dos-bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 16px 0}.dos-bt .nuevo{margin:0;width:100%;font-size:15px}
 button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
 .btn-wa{flex:1 1 40%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;padding:11px 6px;border-radius:10px;background:var(--verde);color:#fff;text-decoration:none}
@@ -201,7 +212,6 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
 <main id="vHoy"></main>
 <main id="vCli" hidden><div class="seg3" id="subs"><button class="chip" type="button" data-sub="pipe" aria-pressed="true">Pipeline</button><button class="chip" type="button" data-sub="vis" aria-pressed="false">Visitas y ofertas</button><button class="chip" type="button" data-sub="col" aria-pressed="false">Colegas</button></div>
 <div class="buscar"><input id="cliQ" type="search" placeholder="Buscar cliente por nombre…" autocomplete="off"></div><div id="cliCuerpo"></div></main>
-<main id="vDu" hidden><div class="buscar"><input id="duQ" type="search" placeholder="Buscar propietario o propiedad…" autocomplete="off"></div><div id="duCuerpo"></div></main>
 <main id="vOp" hidden></main>
 <main id="vProp" hidden>
 <div class="mandar" id="mandar" hidden><span id="mandarTxt"></span><button type="button" id="mandarSi" hidden>✅ Ya lo mandé</button><button type="button" id="mandarTodo" hidden>Ver todo el inventario</button><button type="button" id="mandarNo">Cancelar</button></div>
@@ -235,7 +245,7 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
   <a id="varCol" target="_blank" rel="noopener">🤝 A colega</a>
   <button id="limpiar" type="button">Quitar selección</button>
 </div>
-<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="du" aria-current="false">Propietarios</button><button type="button" data-v="op" aria-current="false">Matches</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
+<nav class="nav"><button type="button" data-v="hoy" aria-current="true">Hoy</button><button type="button" data-v="cli" aria-current="false">Clientes</button><button type="button" data-v="op" aria-current="false">Matches</button><button type="button" data-v="prop" aria-current="false">Propiedades</button></nav>
 <div class="modal" id="nv" hidden><div class="top"><b>Cliente nuevo</b><button type="button" id="nvCerrar">Cerrar</button></div>
   <section><div class="campos"><label class="ancho">Nombre y apellido<input id="nvNombre" type="text" autocomplete="off"></label></div></section>
   <section><h4>DE DÓNDE LLEGÓ</h4><div class="sectores" id="nvOrigen"></div></section>
@@ -265,11 +275,19 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
   <div class="seg3 dos"><button class="chip" type="button" data-rev="inv" aria-pressed="true">De nuestro inventario</button><button class="chip" type="button" data-rev="ext" aria-pressed="false">De colega o nueva</button></div>
   <section id="reInv"><div class="buscar"><input id="reQ" type="search" placeholder="Buscar por nombre, sector o código…" autocomplete="off"></div><div id="reLista" class="re-lista"></div></section>
   <section id="reExt" hidden><p class="ayuda">Para una propiedad de una colega o una nuestra que todavía no está en la base.</p>
-    <label class="txt">Qué propiedad es<textarea id="reDesc" rows="2" placeholder="Ej.: apto 120 m² en Los Balsos, 3 alcobas, 1.800 millones"></textarea></label>
-    <label class="txt">Colega (vacío si es nuestra)<input id="reCol" type="text" class="inp" autocomplete="off"></label></section>
+    <label class="txt">Nombre de la unidad<textarea id="reDesc" rows="1" placeholder="Ej.: Torre Lucca 1203, o apto en Los Balsos"></textarea></label>
+    <label class="txt">Colega (vacío si es nuestra)<input id="reCol" type="text" class="inp" autocomplete="off"></label>
+    <label class="txt">Link que te mandó (opcional)<input id="reLink" type="url" class="inp" placeholder="https://…"></label></section>
   <section><div class="campos"><label class="ancho">¿Cuándo se la mandaron?<input id="reFecha" type="date"></label></div></section>
   <p class="estado" id="reEstado"></p><div class="pie"><button type="button" id="reGuardar">Guardar</button></div></div>
-<div class="modal" id="du" hidden><div class="top"><b id="duTit">Propietario</b><button type="button" id="duCerrar">Cerrar</button></div><p class="estado" id="duEstado"></p><div id="duCuerpo2"></div></div>
+<div class="modal sobre" id="vi" hidden><div class="top"><b id="viTit">Agendar visita</b><button type="button" id="viCerrar">Cerrar</button></div>
+  <section><h4>PROPIEDADES DE LA VISITA</h4><div id="viSel"></div></section>
+  <section><h4>DE LAS QUE LE MANDASTE</h4><div id="viEnv" class="re-lista"></div></section>
+  <section><h4>DEL INVENTARIO</h4><div class="buscar"><input id="viQ" type="search" placeholder="Buscar por nombre o sector…" autocomplete="off"></div><div id="viInv" class="re-lista"></div></section>
+  <section><h4>DE UNA COLEGA</h4><label class="txt">Nombre de la unidad<input id="viDesc" type="text" class="inp" autocomplete="off"></label>
+    <label class="txt">Colega<input id="viCol" type="text" class="inp" autocomplete="off"></label><label class="txt">Link que te mandó<input id="viLink" type="url" class="inp" placeholder="https://…"></label>
+    <button class="secundario" type="button" id="viColB">➕ Agregar a la visita</button></section>
+  <p class="estado" id="viEstado"></p><div class="pie"><button type="button" id="viGuardar">Agendar</button></div></div>
 <div class="modal" id="fi" hidden><div class="top"><b id="fiTit">Cliente</b><button type="button" id="fiCerrar">Cerrar</button></div><p class="estado" id="fiEstado"></p><div id="fiCuerpo"></div></div>
 <div class="modal" id="ed" hidden>
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
@@ -523,7 +541,10 @@ const MOTIVOS = ["Con otra asesora", "Directo con el propietario", "Por precio",
 const PAUSAS = ["No responde", "Depende de vender", "Se enfrió", "Presupuesto", "Lo está pensando", "Otro"];
 // Días máximos en cada etapa antes de avisar que el cliente está quieto.
 const LIMITE = { "Nuevo": 1, "Opciones enviadas": 7, "Visitó": 5, "Oferta": 7 };
-let HIST = {};
+let HIST = {}, DESC = [];
+const REAC = ["😍 Le encantó", "👍 Le interesa", "🤔 Tal vez", "👎 No le gustó"];
+const MOTIVOS_MATCH = ["Sector", "Precio", "Tamaño", "No es su estilo", "Ya la conoce", "Otro"];
+const descartado = (req, cod) => DESC.some(x => x.req === req && x.cod === cod);
 const enEtapa = c => dias(c.desde || c.ultimo || c.creado || HOY, HOY);
 const quieto = c => activo(c) && LIMITE[c.etapa] && enEtapa(c) > LIMITE[c.etapa];
 const NIV = ["Compatible", "Revisar", "Por encima del tope"];
@@ -582,7 +603,7 @@ function cruzar() {
     if (!abiertos.length && activo(c)) M.faltan.push({ c, r: null, f: ["la búsqueda completa"] });
     for (const r of abiertos) {
       const f = faltaReq(r); if (f.length) { if (activo(c)) M.faltan.push({ c, r, f }); continue; }
-      for (const p of P) { if (ya.has(p.cod)) continue; const n = nivel(p, r); if (!n) continue;
+      for (const p of P) { if (ya.has(p.cod) || descartado(r.id, p.cod)) continue; const n = nivel(p, r); if (!n) continue;
         const a = (M.porCli[c.id] = M.porCli[c.id] || {}); if (!a[p.cod] || n.n < a[p.cod].n) a[p.cod] = { ...n, req: r.id }; }
     }
   }
@@ -629,8 +650,9 @@ function pintarHoy() {
   const toca = C.filter(c => c.fecha && c.fecha <= HOY && (activo(c) || c.etapa === "En pausa"))
     .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.ultimo || "").localeCompare(b.ultimo || ""));
   const colegas = COLE.filter(x => coleAbierta(x) && (!x.fecha || x.fecha <= HOY));
-  const duHoy = DU.filter(d => duActivo(d) && d.fecha && d.fecha <= HOY).sort((a, b) => a.fecha.localeCompare(b.fecha));
-  const duAct = DU.filter(d => d.etapa === "En comercialización" && d.proxAct && d.proxAct <= HOY && !duHoy.includes(d));
+  const visitas = C.flatMap(c => c.pres.filter(x => x.estado === "Visita agendada" && x.visita).map(p => ({ c, p })));
+  const leFue = visitas.filter(x => x.p.visita <= HOY).sort((a, b) => (a.p.visita + a.p.hora).localeCompare(b.p.visita + b.p.hora));
+  const proxVis = visitas.filter(x => x.p.visita > HOY).sort((a, b) => (a.p.visita + a.p.hora).localeCompare(b.p.visita + b.p.hora));
   const pronto = C.filter(c => c.fecha > HOY && c.fecha <= masDias(7) && (activo(c) || c.etapa === "En pausa")).sort((a, b) => a.fecha.localeCompare(b.fecha));
   const conOp = Object.keys(M.porCli).length, enToca = new Set(toca.map(c => c.id).concat(sinPaso.map(c => c.id)));
   const quietos = C.filter(c => quieto(c) && !enToca.has(c.id)).sort((a, b) => enEtapa(b) - enEtapa(a));
@@ -639,19 +661,23 @@ function pintarHoy() {
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button>
       <button type="button" data-ev="no_responde" data-id="${c.id}">No responde</button></div></div>`).join("");
   $("vHoy").innerHTML = `<div class="stats">
-      <button type="button" data-ir="hoy"><b>${toca.length + sinPaso.length + colegas.length + duHoy.length + duAct.length}</b>para atender hoy</button>
+      <button type="button" data-ir="hoy"><b>${toca.length + sinPaso.length + colegas.length + leFue.length}</b>para atender hoy</button>
       <button type="button" data-ir="cli"><b>${C.filter(activo).length}</b>clientes activos</button>
       <button type="button" data-ir="op"><b>${conOp}</b>con opciones nuevas</button>
       <button type="button" data-ir="op"><b>${M.faltan.length}</b>búsquedas por completar</button></div>
     ${AVISOS.map(a => `<p class="vacio mal">${esc(a)}</p>`).join("")}
-    <div class="dos-bt"><button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button><button class="nuevo" type="button" id="btnDu">➕ Propietario nuevo</button></div>
+    <button class="nuevo" type="button" id="btnNuevo">➕ Cliente nuevo</button>
     ${sinPaso.length ? `<h3>Sin próximo paso</h3><div class="lista">${sinPaso.map(c => tarjetaCli(c)).join("")}</div>` : ""}
     ${toca.length ? `<h3>A quién escribir</h3><div class="lista">${hoyVis}</div>` : ""}
     ${quietos.length ? `<h3>Quietos hace rato</h3><div class="lista">${quietos.map(c => tarjetaCli(c)).join("")}</div>` : ""}
-    ${duHoy.length ? `<h3>Propietarios</h3><div class="lista">${duHoy.map(tarjetaDu).join("")}</div>` : ""}
-    ${duAct.length ? `<h3>Mandarles actualización</h3><div class="lista">${duAct.map(tarjetaDu).join("")}</div>` : ""}
+    ${leFue.length ? `<h3>¿Cómo le fue?</h3><div class="lista">${leFue.map(({ c, p }) => `<div class="hoy-card"><button class="cli-b" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
+      <span>Visitó ${tit(p.cod, p.nombre)}${p.colega ? " · colega " + esc(p.colega) : ""}</span><span>${fCorta(p.visita)}${p.hora ? " · " + p.hora : ""}</span></button>
+      <div class="reac">${REAC.map(r => `<button type="button" data-cf="${p.id}" data-cfc="${c.id}" data-r="${esc(r)}">${r}</button>`).join("")}</div>
+      <div class="cf-extra"><input type="text" class="inp" id="cfc-${p.id}" placeholder="Lo que dijo (opcional)"><input type="number" inputmode="numeric" class="inp" id="cfo-${p.id}" placeholder="Oferta en pesos (si hizo)"></div></div>`).join("")}</div>` : ""}
     ${colegas.length ? `<h3>Negocios con colegas</h3><div class="lista">${colegas.map(tarjetaCole).join("")}</div>` : ""}
-    ${!toca.length && !sinPaso.length && !colegas.length && !quietos.length && !duHoy.length && !duAct.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
+    ${!toca.length && !sinPaso.length && !colegas.length && !quietos.length && !leFue.length ? `<p class="vacio">Todo al día. 💙</p>` : ""}
+    ${proxVis.length ? `<h3>Próximas visitas</h3><div class="lista">${proxVis.map(({ c, p }) => `<button class="cli-b cli-card" type="button" data-cli="${c.id}"><b>${esc(c.nombre)}</b>
+      <span>${tit(p.cod, p.nombre)}${p.colega ? " · colega " + esc(p.colega) : ""}</span><span>${fCorta(p.visita)}${p.hora ? " · " + p.hora : ""}</span></button>`).join("")}</div>` : ""}
     ${pronto.length ? `<h3>Próximos 7 días</h3><div class="lista">${pronto.map(c => tarjetaCli(c)).join("")}</div>` : ""}`;
 }
 
@@ -686,7 +712,7 @@ function pintarClientes() {
 const tit = (cod, alt) => { const p = P.find(x => x.cod === cod), n = (p && nombre(p)) || alt || ""; return n ? `<b>${esc(n)}</b>${cod ? ` <small class="cd">${esc(cod)}</small>` : ""}` : `<b>${esc(cod)}</b>`; };
 const titTxt = (cod, alt) => { const p = P.find(x => x.cod === cod); return (p && nombre(p)) || alt || cod; };
 const chapaNiv = n => `<span class="chapa n${n}">${NIV[n]}</span>`;
-const filaProp = o => `<div class="op-fila"><span>${tit(o.cod)}${esNueva(o.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([o.p.sector, precio(o.p), datos(o.p)].filter(Boolean).join(" · "))}</span>${chapaNiv(o.n)}</div>`;
+const filaProp = o => `<div class="op-fila"><button class="nls" type="button" data-nls="${o.req}" data-nlc="${esc(o.cod)}" aria-label="No le sirve">✕</button><span>${tit(o.cod)}${esNueva(o.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}<br>${esc([o.p.sector, precio(o.p), datos(o.p)].filter(Boolean).join(" · "))}</span>${chapaNiv(o.n)}</div>`;
 function pintarOp() {
   if (!CLAVE) return $("vOp").innerHTML = `<p class="vacio">Escribe el PIN para ver las oportunidades.</p>`;
   const seg = `<div class="seg3 dos">${[["cli", "Por cliente"], ["prop", "Por propiedad"]].map(([k, t]) => `<button class="chip" type="button" data-opv="${k}" aria-pressed="${opVe === k}">${t}</button>`).join("")}</div>`;
@@ -711,36 +737,91 @@ function pintarOp() {
   }
   $("vOp").innerHTML = `<p class="nota arriba">Cruce automático del inventario con lo que busca cada cliente. No repite lo que ya le mandaron.</p>${seg}<div class="lista">${cuerpo}</div>`;
 }
-const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarDu(); pintarOp(); };
+const pintarCRM = () => { pintarHoy(); pintarClientes(); pintarOp(); };
 async function cargarCRM() {
   if (!CLAVE) return pintarCRM();
   if (!cargado) $("vHoy").innerHTML = `<p class="vacio">Cargando desde Notion…</p>`;
   try { const d = await crm({ accion: "leer" }); C = d.clientes; COLE = d.cole || []; PROPS = d.props || {};
-    // Propietario sin etapa en Notion: se deduce del estado de sus propiedades (no se escribe hasta que lo cambien).
-    DU = (d.duenos || []).map(x => { if (x.etapa) return x; const es = x.cods.map(c => (PROPS[c] || {}).e);
-      const et = es.some(e => ["Activa", "Oferta recibida", "Por completar", "Por verificar", "Pausada"].includes(e)) ? "En comercialización"
-        : es.length && es.every(e => /^Vendida|^Arrendada/.test(e || "")) ? "Cerrado" : es.length && es.every(e => e === "Retirada") ? "Retirado" : "Prospecto";
-      return { ...x, etapa: et, deducida: true }; }); PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
+    DESC = d.descartes || []; PROPS = d.props || {}; AVISOS = d.avisos || []; HOY = d.hoy; cargado = Date.now();
     cruzar(); pintarCRM(); pintar(); if (FICHA) abrirFicha(FICHA); }
-  catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("duCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
+  catch (e) { $("vHoy").innerHTML = $("cliCuerpo").innerHTML = $("vOp").innerHTML = `<p class="vacio mal">${esc(e.message)}</p>`; }
 }
-document.addEventListener("visibilitychange", () => { if (!document.hidden && cargado && Date.now() - cargado > 60000 && $("fi").hidden && $("nv").hidden && $("rq").hidden && $("co").hidden && $("mvd").hidden && $("du").hidden && $("re").hidden) cargarCRM(); });
-function ir(v) { vista = v; ["Hoy", "Cli", "Du", "Op", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && cargado && Date.now() - cargado > 60000 && $("fi").hidden && $("nv").hidden && $("rq").hidden && $("co").hidden && $("mvd").hidden && $("re").hidden && $("vi").hidden) cargarCRM(); });
+function ir(v) { vista = v; ["Hoy", "Cli", "Op", "Prop"].forEach(x => $("v" + x).hidden = x.toLowerCase() !== v);
   document.querySelectorAll(".nav button").forEach(b => b.setAttribute("aria-current", b.dataset.v === v)); window.scrollTo(0, 0); }
 document.querySelector(".nav").onclick = e => { const b = e.target.closest("[data-v]"); if (b) ir(b.dataset.v); };
 $("cliQ").oninput = pintarClientes;
 
-// ---------- Calendario DÚO 💙: abre Google Calendar con la visita lista (la hora y la ubicación las pone Camila) ----------
-const CAL = "9df8b1f378bb3fa14e5950e3fabda781b37d9e52a2c4f9f6e29258e01d990a07@group.calendar.google.com";
-const ymd = f => f.replace(/-/g, "");
-const linkCal = (titulo, f) => `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${ymd(f)}/${ymd(new Date(Date.parse(f) + 864e5).toISOString().slice(0, 10))}&src=${encodeURIComponent(CAL)}`;
-function visitaCal(c) {
-  const p = c.pres.filter(x => x.estado === "Visita agendada" && x.visita && x.visita >= HOY).sort((a, b) => a.visita.localeCompare(b.visita))[0];
-  const f = p ? p.visita : (c.etapa === "Visita agendada" && c.fecha >= HOY ? c.fecha : "");
-  if (!f) return "";
-  const edificio = p ? ((NOMBRES[p.cod] || [])[0] || p.nombre) : "";
-  return `<a class="cal" href="${esc(linkCal(`${edificio || "Visita"} - ${c.nombre}`, f))}" target="_blank" rel="noopener">📅 Poner la visita del ${fCorta(f)} en el calendario DÚO</a>`;
+// ---------- "No le sirve": descartar un match con su motivo ----------
+function pedirMatch(req, cod) {
+  MV = { match: { req, cod } }; $("mvTit").textContent = `${titTxt(cod)}: ¿por qué no le sirve?`;
+  $("mvCampo").innerHTML = `<div class="sectores">${MOTIVOS_MATCH.map(m => `<button class="chip" type="button" data-mm="${m}" aria-pressed="false">${m}</button>`).join("")}</div>`;
+  $("mvd").hidden = false;
 }
+document.addEventListener("click", e => { const b = e.target.closest("[data-mm]"); if (!b || !MV || !MV.match) return;
+  const { req, cod } = MV.match; MV = null; $("mvd").hidden = true;
+  DESC.push({ req, cod, motivo: b.dataset.mm }); cruzar(); pintarCRM(); pintar(); if (MANDAR) { delete MANDAR.niv[cod]; bandaMandar(); }
+  crm({ accion: "descartar_match", requerimiento: req, cod, motivo: b.dataset.mm }).then(() => aviso("✅ Listo, no te la vuelvo a mostrar para este cliente."))
+    .catch(err => { DESC = DESC.filter(x => !(x.req === req && x.cod === cod)); cruzar(); pintarCRM(); pintar(); aviso(err.message, true); }); });
+function sugerirSector(r) {
+  const cuenta = {};
+  for (const x of DESC.filter(x => x.req === r.id && x.motivo === "Sector")) { const p = P.find(y => y.cod === x.cod); if (p) cuenta[p.sector] = (cuenta[p.sector] || 0) + 1; }
+  const s = Object.entries(cuenta).find(([sec, n]) => n >= 2 && r.sectores.includes(sec));
+  return s ? `<p class="falta">Descartaste ${s[1]} en ${esc(s[0])} por sector. ¿Lo sacamos de su búsqueda? <button class="enlace" type="button" data-rq="${r.cliente}" data-req="${r.id}">Editar búsqueda</button></p>` : "";
+}
+
+// ---------- Agendar visita: una o varias propiedades, cada una con fecha y hora; la cita se crea sola ----------
+let VI = null;
+function abrirVisita(id, presId) {
+  const c = C.find(x => x.id === id); VI = { id, items: [] };
+  $("viTit").textContent = "Visita de " + c.nombre; $("viEstado").textContent = ""; $("viEstado").className = "estado";
+  const enviadas = c.pres.filter(p => ["Enviada", "Visita agendada"].includes(p.estado));
+  $("viEnv").innerHTML = enviadas.length ? enviadas.map(p => `<label class="re-fila"><input type="checkbox" data-vie="${p.id}"><span>${tit(p.cod, p.nombre)}${p.colega ? `<br><small>colega ${esc(p.colega)}</small>` : ""}</span></label>`).join("")
+    : `<p class="ayuda">Todavía no tiene propiedades enviadas. Elige del inventario o una de colega.</p>`;
+  $("viQ").value = ""; $("viDesc").value = ""; $("viCol").value = ""; $("viLink").value = ""; listaVi();
+  if (presId) agregarVi({ pres: presId });
+  pintarVi(); $("vi").hidden = false;
+}
+const nomItem = it => it.pres ? (() => { const p = C.find(c => c.id === VI.id).pres.find(x => x.id === it.pres); return titTxt(p.cod, p.nombre); })() : it.cod ? titTxt(it.cod) : it.externa.descripcion + (it.externa.colega ? " (colega " + it.externa.colega + ")" : "");
+function agregarVi(it) {
+  const prev = VI.items[VI.items.length - 1], f = prev ? prev.fecha : masDias(1), h = prev && prev.hora ? String(Math.min(+prev.hora.slice(0, 2) + 1, 20)).padStart(2, "0") + ":00" : "10:00";
+  VI.items.push({ ...it, fecha: f, hora: h }); pintarVi();
+}
+function pintarVi() {
+  $("viSel").innerHTML = VI.items.length ? VI.items.map((it, i) => `<div class="vi-item"><b>${esc(nomItem(it))}</b><div class="campos"><label>Fecha<input type="date" data-vf="${i}" value="${it.fecha}" min="${HOY}"></label>
+    <label>Hora<input type="time" data-vh="${i}" value="${it.hora}"></label></div><button class="enlace" type="button" data-vq="${i}">Quitar</button></div>`).join("")
+    : `<p class="ayuda">Elige abajo una o varias propiedades.</p>`;
+  document.querySelectorAll("[data-vie]").forEach(x => x.checked = VI.items.some(it => it.pres === x.dataset.vie));
+}
+function listaVi() {
+  const q = norm($("viQ").value.trim());
+  $("viInv").innerHTML = q.length < 2 ? "" : P.filter(p => coincide(q, [nombre(p), p.cod, p.tipo, p.sector, p.titulo].join(" "))).slice(0, 15)
+    .map(p => `<button class="re-fila vi-add" type="button" data-vic="${esc(p.cod)}"><span>➕ ${tit(p.cod)}<br><small>${esc([p.sector, precio(p)].filter(Boolean).join(" · "))}</small></span></button>`).join("") || `<p class="ayuda">No encontré nada.</p>`;
+}
+$("viQ").oninput = listaVi;
+$("vi").addEventListener("change", e => { const t = e.target;
+  if (t.dataset.vie) { if (t.checked) agregarVi({ pres: t.dataset.vie }); else { VI.items = VI.items.filter(it => it.pres !== t.dataset.vie); pintarVi(); } }
+  if (t.dataset.vf) VI.items[+t.dataset.vf].fecha = t.value;
+  if (t.dataset.vh) VI.items[+t.dataset.vh].hora = t.value; });
+$("vi").addEventListener("click", e => { const t = e.target;
+  const a = t.closest("[data-vic]"); if (a) { agregarVi({ cod: a.dataset.vic }); $("viQ").value = ""; listaVi(); return; }
+  const q = t.closest("[data-vq]"); if (q) { VI.items.splice(+q.dataset.vq, 1); return pintarVi(); }
+  if (t.id === "viColB") { const d = $("viDesc").value.trim(); if (d.length < 2) { $("viEstado").textContent = "Escribe el nombre de la unidad."; $("viEstado").className = "estado mal"; return; }
+    agregarVi({ externa: { descripcion: d, colega: $("viCol").value.trim(), link: $("viLink").value.trim() } }); $("viDesc").value = $("viCol").value = $("viLink").value = ""; } });
+const cerrarVi = () => { $("vi").hidden = true; VI = null; };
+$("viCerrar").onclick = cerrarVi;
+$("viGuardar").onclick = async () => {
+  const mal = t => { $("viEstado").textContent = t; $("viEstado").className = "estado mal"; };
+  if (!VI.items.length) return mal("Elige al menos una propiedad.");
+  if (VI.items.some(it => !it.fecha)) return mal("Falta la fecha de alguna visita.");
+  $("viGuardar").disabled = true; $("viEstado").textContent = "Guardando y creando las citas…"; $("viEstado").className = "estado";
+  try { const id = VI.id, d = await crm({ accion: "visita", id, items: VI.items.map(({ pres, cod, externa, fecha, hora }) => ({ pres, cod, externa, fecha, hora })) });
+    cerrarVi(); delete HIST[id]; await cargarCRM(); abrirFicha(id);
+    avisoFi(d.calendario ? `✅ Visita agendada y ${d.citas} cita${d.citas === 1 ? "" : "s"} en el calendario DÚO.` : "✅ Visita agendada. (El calendario automático todavía no está conectado.)");
+  } catch (e) { mal(e.message); }
+  $("viGuardar").disabled = false;
+};
+
 // ---------- Ficha del cliente ----------
 const resumenReq = r => [r.operacion.join(" o "), r.tipo.join(" o "), r.sectores.join(", "), r.zonas, r.max && "hasta " + COP(r.max), r.alcobas && r.alcobas + "+ alcobas", r.area && r.area + "+ m²"].filter(Boolean).join(" · ");
 function abrirFicha(id) {
@@ -749,20 +830,15 @@ function abrirFicha(id) {
   const reqs = c.reqs.filter(r => r.estado !== "Cerrada");
   const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc(titTxt(p.cod, p.nombre))}</option>`).join("");
   const nReq = r => Object.values(M.porCli[id] || {}).filter(x => x.req === r.id).length;
-  const du = duDe(c);
-  $("fiCuerpo").innerHTML = `${visitaCal(c)}${du ? `<button class="cal" type="button" data-due="${du.id}">También es propietario${du.cods.length ? ": " + esc(du.cods.map(cod => titTxt(cod)).join(", ")) : ""} (${esc(du.etapa || "sin etapa")})</button>` : ""}<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
+  $("fiCuerpo").innerHTML = `<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
       ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
-      ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}
+      ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}${sugerirSector(r)}
       <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
       <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
       <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
     <section><h4>QUÉ PASÓ</h4><div class="acc">
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button><button type="button" data-ev="no_responde" data-id="${c.id}">No responde (${c.intentos})</button>
-      <button type="button" data-pausar="${c.id}">Pausar</button></div>
-      ${opts ? `<div class="campos fi-p"><label class="ancho">Propiedad<select id="fiPres">${opts}</select></label>
-        <label>Fecha de visita<input id="fiVisita" type="date"></label><label>Reacción<select id="fiReac"><option value="">Sin dato</option>${["😍 Le encantó", "👍 Le interesa", "🤔 Tal vez", "👎 No le gustó"].map(x => `<option>${x}</option>`).join("")}</select></label>
-        <label class="ancho">Lo que dijo<input id="fiCom" type="text"></label><label class="ancho">Oferta en pesos<input id="fiOf" type="number" inputmode="numeric" min="0"></label></div>
-        <div class="acc"><button type="button" data-p="visita">Agendó visita</button><button type="button" data-p="visito">Visitó</button><button type="button" data-p="oferta">Hizo oferta</button><button type="button" data-p="descartada">Descartó</button></div>` : ""}
+      <button type="button" data-vis="${c.id}">📅 Agendar visita</button><button type="button" data-pausar="${c.id}">Pausar</button></div>
       <p class="ayuda">Si la compra fue con ustedes, díselo al asistente: él registra la venta.</p></section>
     <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="fiPaso" type="text" value="${esc(c.paso)}"></label>
       <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label></div>
@@ -770,11 +846,16 @@ function abrirFicha(id) {
       <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo), activo(c) && `${enEtapa(c)} días en ${c.etapa}${c.desde ? "" : " (aprox.)"}`, c.pausa && "pausa: " + c.pausa, c.motivo && "compró: " + c.motivo].filter(Boolean).join(" · ")}</p></section>
     <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
       <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>
-    <section><h4>QUÉ LE HEMOS MANDADO</h4><button class="secundario" type="button" data-reg="${c.id}">➕ Registrar algo que le mandé</button>${c.pres.length ? c.pres.slice().sort((a, b) => (b.envio || "").localeCompare(a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span><span>${esc(p.estado)}${p.reaccion ? " · " + esc(p.reaccion) : ""}${p.envio ? " · " + fCorta(p.envio) : ""}</span>${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}</section>`;
+    <section><h4>SUS PROPIEDADES</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.visita || b.envio || "").localeCompare(a.visita || a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span>
+      <span>${esc(p.estado)}${p.colega ? " · colega " + esc(p.colega) : ""}${p.estado === "Visita agendada" && p.visita ? " · " + fCorta(p.visita) + (p.hora ? " " + p.hora : "") : ""}${p.reaccion && p.reaccion !== "⏳ Sin respuesta" ? " · " + esc(p.reaccion) : ""}${!p.visita && p.envio ? " · enviada " + fCorta(p.envio) : ""}</span>
+      ${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}${p.link ? `<a class="ayuda" href="${esc(p.link)}" target="_blank" rel="noopener">Ver link de la colega</a>` : ""}
+      ${p.estado === "Enviada" ? `<div class="mini"><button type="button" data-vis="${c.id}" data-visp="${p.id}">📅 Agendar visita</button><button type="button" data-desc="${p.id}">No le gustó</button></div>` : ""}
+      ${p.estado === "Visita agendada" ? `<div class="mini">${REAC.map(r => `<button type="button" data-cf="${p.id}" data-cfc="${c.id}" data-r="${esc(r)}">${r.split(" ")[0]}</button>`).join("")}<button type="button" data-vis="${c.id}" data-visp="${p.id}">Reagendar</button></div>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}
+      <button class="secundario" type="button" data-reg="${c.id}">➕ Agregar propiedad que le mostré</button></section>`;
   cargarHist(id);
 }
 async function cargarHist(id, cont = "fiHist") {
-  const pinta = xs => { if ((cont === "fiHist" ? FICHA : DUF) !== id || !$(cont)) return; $(cont).innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
+  const pinta = xs => { if (FICHA !== id || !$(cont)) return; $(cont).innerHTML = xs.length ? xs.slice().reverse().map(t => `<p>${esc(t)}</p>`).join("") : `<p class="ayuda">Todavía no hay historial.</p>`; };
   if (HIST[id]) return pinta(HIST[id]);
   try { HIST[id] = (await crm({ accion: "historial", id })).historial; pinta(HIST[id]); }
   catch (e) { if ($(cont)) $(cont).innerHTML = `<p class="ayuda">${esc(e.message)}</p>`; }
@@ -797,6 +878,7 @@ function mover(id, etapa) {
   const ev = (tipo, datos) => hacer({ accion: "evento", id, tipo, datos }, `✅ ${c.nombre} pasa a ${etapa}.`);
   if (etapa === "Nuevo") return hacer({ accion: "editar", id, campos: { etapa, paso: "Mandar opciones", fecha: HOY } }, `✅ ${c.nombre} pasa a Nuevo.`);
   if (etapa === "Opciones enviadas") return hacer({ accion: "editar", id, campos: { etapa, paso: "Preguntar qué le parecieron las opciones", fecha: masDias(1) } }, `✅ ${c.nombre} pasa a Opciones enviadas.`);
+  if (etapa === "Visita agendada") { pintarCRM(); return abrirVisita(id); }
   if (etapa === "Visitó") return ev("visito");
   if (etapa === "Oferta") return ev("oferta");
   pedir(id, etapa);
@@ -835,14 +917,15 @@ document.addEventListener("click", e => {
     delete HIST[FICHA]; return hacer({ accion: "evento", id: FICHA, tipo: "nota", datos: { texto: v } }, "✅ Nota guardada."); }
   const rq = t.closest("[data-rq]"); if (rq) return abrirReq(rq.dataset.rq, rq.dataset.req);
   const co = t.closest("[data-cole]"); if (co) return abrirCole(co.dataset.cole);
-  const cl = t.closest("[data-cli]"); if (cl) { if (!$("du").hidden) cerrarDu(); return abrirFicha(cl.dataset.cli); }
-  if (t.closest("#fi [data-due]")) cerrarFicha();
+  const cl = t.closest("[data-cli]"); if (cl) return abrirFicha(cl.dataset.cli);
   if (t.id === "btnNuevo" || t.closest("[data-nuevo]")) return abrirNuevo();
   if (t.id === "btnCole") return abrirCole("");
-  const pr = t.closest("[data-p]"); if (pr) { const k = pr.dataset.p;
-    if (k === "visita" && !$("fiVisita").value) return avisoFi("Pon la fecha de la visita.", true);
-    return hacer({ accion: "evento", id: FICHA, tipo: k, datos: { pres: $("fiPres").value, fecha: $("fiVisita").value, reaccion: $("fiReac").value, comentario: $("fiCom").value.trim(), oferta: $("fiOf").value } },
-      k === "oferta" ? "✅ Oferta registrada. Cambia la propiedad a Oferta recibida con el lápiz ✏️." : "✅ Guardado."); }
+  const cf = t.closest("[data-cf]"); if (cf) { const pid = cf.dataset.cf, cc = $("cfc-" + pid), co = $("cfo-" + pid);
+    return hacer({ accion: "como_le_fue", id: cf.dataset.cfc, pres: pid, datos: { reaccion: cf.dataset.r, comentario: cc ? cc.value.trim() : "", oferta: co ? co.value : "" } },
+      co && co.value ? "✅ Oferta registrada. Cambia la propiedad a Oferta recibida con el lápiz ✏️." : "✅ Guardado cómo le fue."); }
+  const vs = t.closest("[data-vis]"); if (vs) return abrirVisita(vs.dataset.vis, vs.dataset.visp);
+  const dsc = t.closest("[data-desc]"); if (dsc) return hacer({ accion: "evento", id: FICHA, tipo: "descartada", datos: { pres: dsc.dataset.desc } }, "✅ Quedó que no le gustó.");
+  const nls = t.closest("[data-nls]"); if (nls) return pedirMatch(nls.dataset.nls, nls.dataset.nlc);
   if (t.id === "fiGuardar") return hacer({ accion: "editar", id: FICHA, campos: { paso: $("fiPaso").value.trim(), fecha: $("fiFecha").value } }, "✅ Seguimiento guardado.");
   const md = t.closest("[data-mandar]"); if (md) return mandar(FICHA, md.dataset.mandar);
 });
@@ -905,95 +988,12 @@ $("rqGuardar").onclick = async () => {
   $("rqGuardar").disabled = false;
 };
 
-// ---------- Propietarios: el embudo de captación y la relación con el dueño ----------
-const ETAPAS_DU = ["Prospecto", "Primera reunión", "Mandato firmado", "En comercialización", "Cerrado", "Retirado"];
-const duActivo = d => !["Cerrado", "Retirado"].includes(d.etapa);
-let DU = [], duEtapa = "", DUF = null;
-const mismo = (a, b) => norm(a).replace(/\s+/g, " ").trim() === norm(b).replace(/\s+/g, " ").trim();
-const duDe = c => DU.find(d => mismo(d.nombre, c.nombre));
-const cliDe = d => C.find(c => mismo(c.nombre, d.nombre));
-function statsProp(cod) {
-  const ps = C.flatMap(c => c.pres.filter(x => x.cod === cod)), co = COLE.filter(x => x.cod === cod);
-  return { mostrada: ps.length, visitas: ps.filter(x => ["Visitó", "Oferta", "Negocio cerrado"].includes(x.estado) || x.visita).length + co.filter(x => x.visita || !["Visita agendada"].includes(x.etapa)).length,
-    ofertas: ps.filter(x => x.estado === "Oferta").length + co.filter(x => ["Propuesta recibida", "Negociación"].includes(x.etapa)).length };
-}
-const tipoDe = cod => { const p = P.find(x => x.cod === cod); return p ? ({ Apartamento: "apartamento", Casa: "casa", Lote: "lote", Oficina: "oficina" }[p.tipo] || "propiedad") : "propiedad"; };
-function msgDueno(d) {
-  const n = d.nombre.split(" ")[0], partes = d.cods.map(cod => { const s = statsProp(cod);
-    const cual = `tu ${tipoDe(cod)}${d.cods.length > 1 ? " (" + titTxt(cod) + ")" : ""}`;
-    if (!s.mostrada && !s.visitas) return `${cual}: la estamos moviendo con clientes y colegas`;
-    return `${cual}: hasta hoy la hemos mostrado a ${s.mostrada} cliente${s.mostrada === 1 ? "" : "s"}${s.visitas ? ` y ${s.visitas} la ${s.visitas === 1 ? "ha" : "han"} visitado` : ""}${s.ofertas ? `, con ${s.ofertas} oferta${s.ofertas === 1 ? "" : "s"}` : ""}`; });
-  return `¡Hola, ${n}! 💙 Te contamos cómo va ${partes.join("; ") || "tu propiedad"}. Cualquier novedad te contamos de una.`;
-}
-const tarjetaDu = d => { const v = d.fecha ? dias(d.fecha, HOY) : 0, c = cliDe(d);
-  return `<div class="cli-card"><button class="cli-b" type="button" data-due="${d.id}"><b>${esc(d.nombre)}</b>
-    <span class="cli-et">${esc(d.etapa || "Sin etapa")}${d.exclusiva === "Exclusiva" ? " · EXCLUSIVA" : ""}</span>
-    ${d.cods.length ? `<span>${d.cods.map(cod => esc(titTxt(cod))).join(" · ")}</span>` : ""}
-    <span>${esc(d.paso || (duActivo(d) ? "Sin próximo paso" : ""))}</span>
-    ${d.fecha ? `<span class="${v > 0 ? "tarde" : ""}">${v > 0 ? `Vencido hace ${v} día${v === 1 ? "" : "s"}` : v === 0 ? "Hoy" : fCorta(d.fecha)}</span>` : ""}
-    ${c ? `<span class="chapa nueva">También es cliente</span>` : ""}</button>
-    ${duActivo(d) || d.etapa ? `<label class="mv">Etapa<select data-dmv="${d.id}">${ETAPAS_DU.map(x => `<option${x === d.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label>` : ""}</div>`; };
-function pintarDu() {
-  if (!CLAVE) return $("duCuerpo").innerHTML = `<p class="vacio">Escribe el PIN para ver los propietarios.</p>`;
-  const q = norm($("duQ").value.trim()), n = e => DU.filter(d => (d.etapa || "Prospecto") === e).length;
-  if (!duEtapa) duEtapa = ETAPAS_DU.find(e => n(e) && e !== "En comercialización" && duActivo({ etapa: e })) || "En comercialización";
-  const xs = q ? DU.filter(d => norm([d.nombre, ...d.cods.map(cod => titTxt(cod))].join(" ")).includes(q)) : DU.filter(d => (d.etapa || "Prospecto") === duEtapa);
-  $("duCuerpo").innerHTML = `<button class="nuevo" type="button" id="btnDu">➕ Propietario nuevo</button>
-    ${q ? "" : `<div class="chips etapas">${ETAPAS_DU.map(e => `<button class="chip" type="button" data-de="${e}" aria-pressed="${duEtapa === e}">${e} ${n(e)}</button>`).join("")}</div>`}
-    <div class="lista">${xs.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9") || a.nombre.localeCompare(b.nombre)).map(tarjetaDu).join("") || `<p class="vacio">Nadie aquí.</p>`}</div>`;
-}
-$("duQ").oninput = pintarDu;
-function abrirDu(id) {
-  const d = DU.find(x => x.id === id); if (!d) return cerrarDu(); DUF = id; $("du").hidden = false; document.body.style.overflow = "hidden";
-  $("duTit").textContent = d.nombre; $("duEstado").textContent = d.deducida ? `Etapa deducida por sus propiedades (${d.etapa}). Se guarda en Notion cuando la cambies o toques Guardar.` : ""; $("duEstado").className = "estado";
-  const c = cliDe(d), toca = d.proxAct && d.proxAct <= HOY;
-  $("duCuerpo2").innerHTML = `${c ? `<button class="cal" type="button" data-cli="${c.id}">También es cliente: ver su búsqueda (${esc(c.etapa)})</button>` : ""}
-    <section><h4>SUS PROPIEDADES</h4>${d.cods.map(cod => { const s = statsProp(cod), p = P.find(x => x.cod === cod);
-      return `<div class="pres"><span class="pn">${tit(cod)}</span><span>${esc([(PROPS[cod] || {}).e, p && precio(p)].filter(Boolean).join(" · "))}</span>
-        <span>Mostrada a ${s.mostrada} · ${s.visitas} visita${s.visitas === 1 ? "" : "s"} · ${s.ofertas} oferta${s.ofertas === 1 ? "" : "s"}</span></div>`; }).join("")
-      || `<p class="ayuda">Todavía no tiene propiedades en la base. Cuando la subas con el formulario, se le relaciona.</p>`}</section>
-    ${d.cods.length ? `<section><h4>ACTUALIZARLO</h4><p class="ayuda">${d.ultAct ? "Última actualización: " + fCorta(d.ultAct) : "Todavía no se le ha mandado actualización."}${toca ? " · <b>Ya toca otra.</b>" : d.proxAct ? " · Próxima: " + fCorta(d.proxAct) : ""}</p>
-      <p class="msg">${esc(msgDueno(d))}</p><div class="acc"><a class="btn-wa" href="${esc(wa(msgDueno(d)))}" target="_blank" rel="noopener">💬 Mandar por WhatsApp</a>
-      <button type="button" data-dact="${d.id}">✅ Ya se la mandé</button></div></section>` : ""}
-    <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="duPaso" type="text" value="${esc(d.paso)}" placeholder="Ej.: ir a ver el apto y tomar fotos"></label>
-      <label class="ancho">Fecha<input id="duFecha" type="date" value="${d.fecha}"></label>
-      <label class="ancho">Etapa<select id="duEtapaSel">${ETAPAS_DU.map(x => `<option${x === d.etapa ? " selected" : ""}>${x}</option>`).join("")}</select></label></div>
-      <button class="primario" type="button" id="duGuardar">Guardar</button></section>
-    <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="duNota" rows="1" placeholder="Ej.: entrega el apto el viernes; quiere precio de 1.900"></textarea></label>
-      <button class="secundario" type="button" id="duNotaB">Guardar nota</button><div id="duHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>`;
-  cargarHist(id, "duHist");
-}
-function cerrarDu() { DUF = null; $("du").hidden = true; document.body.style.overflow = ""; }
-$("duCerrar").onclick = cerrarDu;
-const avisoDu = (t, m) => { if ($("du").hidden) return aviso(t, m); $("duEstado").textContent = t; $("duEstado").className = "estado " + (m ? "mal" : "bien"); };
-async function hacerDu(cuerpo, ok) {
-  if (cuerpo.id) delete HIST[cuerpo.id];
-  if (!$("du").hidden) avisoDu("Guardando en Notion…"); else aviso("Guardando en Notion…");
-  try { await crm(cuerpo); await cargarCRM(); if (DUF) abrirDu(DUF); avisoDu(ok); }
-  catch (e) { pintarCRM(); avisoDu(e.message, true); }
-}
-function abrirDuNuevo() {
-  const n = prompt("Nombre del propietario"); if (!n || !n.trim()) return;
-  const paso = prompt("¿Qué sigue con él? (ej.: ir a ver el apto)", "Conocer la propiedad") || "";
-  hacerDu({ accion: "dueno_nuevo", datos: { nombre: n.trim(), paso: paso.trim() } }, "✅ Propietario creado.");
-}
-document.addEventListener("click", e => { const t = e.target;
-  const de = t.closest("[data-de]"); if (de) { duEtapa = de.dataset.de; return pintarDu(); }
-  const du = t.closest("[data-due]"); if (du) return abrirDu(du.dataset.due);
-  if (t.id === "btnDu") return abrirDuNuevo();
-  const da = t.closest("[data-dact]"); if (da) return hacerDu({ accion: "dueno_actualizado", id: da.dataset.dact }, "✅ Listo. La próxima actualización le toca en 15 días.");
-  if (t.id === "duGuardar") return hacerDu({ accion: "dueno_editar", id: DUF, campos: { paso: $("duPaso").value.trim(), fecha: $("duFecha").value, etapa: $("duEtapaSel").value } }, "✅ Guardado.");
-  if (t.id === "duNotaB") { const v = $("duNota").value.trim(); if (v.length < 2) return avisoDu("Escribe la nota.", true);
-    return hacerDu({ accion: "dueno_nota", id: DUF, texto: v }, "✅ Nota guardada."); }
-  const ce = t.closest("#du [data-cli]"); if (ce) { cerrarDu(); }
-});
-document.addEventListener("change", e => { const s = e.target.closest("[data-dmv]"); if (s) hacerDu({ accion: "dueno_editar", id: s.dataset.dmv, campos: { etapa: s.value } }, "✅ Etapa guardada."); });
 // ---------- Registrar lo que ya se le mandó (sin pasar por WhatsApp) ----------
 let RE = null;
 function abrirRe(id) {
   const c = C.find(x => x.id === id);
   RE = { id, modo: "inv", sel: new Set(), ya: new Set(c.pres.map(p => p.cod).filter(Boolean)) };
-  $("reTit").textContent = "Lo que le mandé a " + c.nombre; $("reQ").value = ""; $("reDesc").value = ""; $("reCol").value = "";
+  $("reTit").textContent = "Lo que le mandé a " + c.nombre; $("reQ").value = ""; $("reDesc").value = ""; $("reCol").value = ""; $("reLink").value = "";
   $("reFecha").value = HOY; $("reFecha").max = HOY; $("reEstado").textContent = ""; $("reEstado").className = "estado";
   modoRe("inv"); $("re").hidden = false;
 }
@@ -1018,7 +1018,7 @@ $("reGuardar").onclick = async () => {
   if (RE.modo === "ext" && $("reDesc").value.trim().length < 3) return mal("Describe la propiedad.");
   $("reGuardar").disabled = true; $("reEstado").textContent = "Guardando en Notion…"; $("reEstado").className = "estado";
   try { const id = RE.id, d = await crm({ accion: "presentar", id, fecha: $("reFecha").value,
-      cods: RE.modo === "inv" ? [...RE.sel] : [], externa: RE.modo === "ext" ? { descripcion: $("reDesc").value.trim(), colega: $("reCol").value.trim() } : undefined });
+      cods: RE.modo === "inv" ? [...RE.sel] : [], externa: RE.modo === "ext" ? { descripcion: $("reDesc").value.trim(), colega: $("reCol").value.trim(), link: $("reLink").value.trim() } : undefined });
     cerrarRe(); delete HIST[id]; await cargarCRM(); abrirFicha(id);
     avisoFi(`✅ Registrado: ${d.creadas} propiedad${d.creadas === 1 ? "" : "es"}.${d.repetidas ? ` ${d.repetidas} ya estaba${d.repetidas === 1 ? "" : "n"}.` : ""}`);
   } catch (e) { mal(e.message); }
@@ -1076,7 +1076,7 @@ document.addEventListener("click", e => { if (!MANDAR) return; const a = e.targe
 // Lo que se ve en cada tarjeta de propiedad: el nivel si se está mandando, o a quién le sirve.
 function etiqueta(p) {
   if (MANDAR) { const n = MANDAR.niv[p.cod]; if (!n) return "";
-    return `<div class="nivs">${chapaNiv(n.n)}${esNueva(p.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}${n.dudas.length ? `<span class="ayuda">Falta confirmar: ${esc(n.dudas.join(", "))}</span>` : ""}${n.conf.length ? `<span class="ayuda">Pidió: ${esc(n.conf.join(", "))}</span>` : ""}</div>`; }
+    return `<div class="nivs"><button class="nls-t" type="button" data-nls="${n.req}" data-nlc="${esc(p.cod)}">✕ No le sirve</button>${chapaNiv(n.n)}${esNueva(p.cod) ? ` <span class="chapa nueva">Nueva</span>` : ""}${n.dudas.length ? `<span class="ayuda">Falta confirmar: ${esc(n.dudas.join(", "))}</span>` : ""}${n.conf.length ? `<span class="ayuda">Pidió: ${esc(n.conf.join(", "))}</span>` : ""}</div>`; }
   const xs = M.porProp[p.cod]; if (!xs) return "";
   return `<div class="sirve">💡 Le sirve a ${esc(xs.map(x => (C.find(c => c.id === x.id) || {}).nombre).filter(Boolean).join(", "))}</div>`;
 }
