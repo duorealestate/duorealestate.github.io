@@ -155,6 +155,13 @@ main h3{margin:16px 16px 0;font-size:14px;font-family:var(--mono);letter-spacing
 .mv-caja{width:100%;background:var(--crema);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px}
 .mv-caja select,.mv-caja input,.inp{font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--linea);border-radius:10px;width:100%;background:#fff;color:var(--tinta)}
 .modal.sobre{z-index:12}
+.kanban{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.kanban::-webkit-scrollbar{display:none}
+.kcol{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-height:45vh}
+.desliza{margin:6px 16px 0;text-align:center;font-size:13px}
+.seg-top{border:2px solid var(--azul)!important}.seg-top .mv{padding:0;border:0}
+.fechas{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.fechas .chip{font-size:14px;padding:7px 11px}
+.fechas input{font:inherit;font-size:15px;padding:6px 8px;border:1px solid var(--linea);border-radius:999px;background:var(--crema)}
 #vi{z-index:14}
 .reac{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linea);border-top:1px solid var(--linea)}
 .reac button{font:inherit;font-size:13px;padding:11px 2px;border:0;background:#fff;color:var(--azul-profundo);font-weight:700}
@@ -251,7 +258,7 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
   <section><h4>DE DÓNDE LLEGÓ</h4><div class="sectores" id="nvOrigen"></div></section>
   <section><h4>QUÉ BUSCA</h4><p class="ayuda">Llena lo que sepas. Con operación, zona y tope ya se puede buscar.</p>
     <div class="sectores" id="nvOp"></div><div class="sectores nv-z" id="nvZonas"></div>
-    <div class="campos nv-z"><label>Tope (millones)<input id="nvMax" type="number" inputmode="numeric" min="0"></label><label>Alcobas mínimas<input id="nvAlc" type="number" inputmode="numeric" min="0"></label></div>
+    <div class="campos nv-z"><label>Tope (en millones)<input id="nvMax" type="text" inputmode="decimal" autocomplete="off" placeholder="2000 = $2.000 M"></label><label>Alcobas mínimas<input id="nvAlc" type="number" inputmode="numeric" min="0"></label></div>
     <label class="txt nv-z">Lo que dijo<textarea id="nvBusca" rows="1"></textarea></label></section>
   <p class="estado" id="nvEstado"></p><div class="pie"><button type="button" id="nvGuardar">Guardar cliente</button></div></div>
 <div class="toast" id="toast" hidden role="status"></div>
@@ -259,7 +266,7 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
 <div class="modal sobre" id="rq" hidden><div class="top"><b id="rqTit">Búsqueda</b><button type="button" id="rqCerrar">Cerrar</button></div>
   <section><h4>OPERACIÓN</h4><div class="sectores" id="rqOp"></div><h4 class="nv-z">TIPO</h4><div class="sectores" id="rqTipo"></div></section>
   <section><h4>ZONA</h4><div class="sectores" id="rqZonas"></div><label class="txt nv-z">Zona específica (opcional)<input id="rqZonaTxt" type="text" class="inp"></label></section>
-  <section><h4>NÚMEROS</h4><div class="campos"><label class="ancho">Tope (millones; en arriendo, canon en millones)<input id="rqMax" type="number" inputmode="decimal" min="0" step="any"></label>
+  <section><h4>NÚMEROS</h4><div class="campos"><label class="ancho">Tope (en millones: 2000 = $2.000 millones; en arriendo, el canon: 6 = $6 millones)<input id="rqMax" type="text" inputmode="decimal" autocomplete="off"><small id="rqMaxTxt" class="ayuda"></small></label>
     <label>Alcobas mínimas<input id="rqAlc" type="number" inputmode="numeric" min="0"></label><label>Área mínima m²<input id="rqArea" type="number" inputmode="numeric" min="0"></label></div></section>
   <section><h4>LO QUE DIJO</h4><label class="txt">Indispensable (separado por comas)<textarea id="rqInd" rows="1"></textarea></label>
     <label class="txt">Deseable<textarea id="rqDes" rows="1"></textarea></label><label class="txt">Evitar (por ejemplo, un edificio)<textarea id="rqEv" rows="1"></textarea></label></section>
@@ -545,6 +552,9 @@ const PAUSAS = ["No responde", "Depende de vender", "Se enfrió", "Presupuesto",
 // Días máximos en cada etapa antes de avisar que el cliente está quieto.
 const LIMITE = { "Nuevo": 1, "Opciones enviadas": 7, "Visitó": 5, "Oferta": 7 };
 let HIST = {}, DESC = [];
+// "2000", "2.000" o "2000000000" son lo mismo: 2.000 millones. Menos de 100.000 se toma como millones.
+const aPesos = v => { const n = Number(String(v || "").replace(/[^\d.,]/g, "").replace(/\.(?=\d{3}(\D|$))/g, "").replace(",", ".")); return !n ? 0 : n < 1e5 ? Math.round(n * 1e6) : Math.round(n); };
+const enPalabras = v => v ? (v >= 1e6 ? `$${(v / 1e6).toLocaleString("es-CO", { maximumFractionDigits: 1 })} millones` : `$${v.toLocaleString("es-CO")}`) : "";
 const REAC = ["😍 Le encantó", "👍 Le interesa", "🤔 Tal vez", "👎 No le gustó"];
 const MOTIVOS_MATCH = ["Sector", "Precio", "Tamaño", "No es su estilo", "Ya la conoce", "Otro"];
 const descartado = (req, cod) => DESC.some(x => x.req === req && x.cod === cod);
@@ -691,10 +701,17 @@ function pintarClientes() {
   const q = norm($("cliQ").value.trim()); $("cliQ").parentNode.hidden = sub !== "pipe";
   if (sub === "pipe") {
     const xs = C.filter(c => !q || norm(c.nombre).includes(q)), n = e => xs.filter(c => (c.etapa || "Nuevo") === e).length;
-    const lista = q ? xs : xs.filter(c => (c.etapa || "Nuevo") === etapaVe);
-    $("cliCuerpo").innerHTML = `${q ? "" : `<div class="chips etapas">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${etq(e)} ${n(e)}</button>`).join("")}</div>`}
-      <button class="nuevo" type="button" data-nuevo>➕ Cliente nuevo</button>
-      <div class="lista">${lista.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(c => tarjetaCli(c, true)).join("") || `<p class="vacio">${q ? "No encontré a nadie con ese nombre." : "Nadie en esta etapa."}</p>`}</div>`;
+    const orden = l => l.sort((a, b) => (a.fecha || "9").localeCompare(b.fecha || "9")).map(c => tarjetaCli(c, true)).join("");
+    if (q) { $("cliCuerpo").innerHTML = `<div class="lista">${orden(xs) || `<p class="vacio">No encontré a nadie con ese nombre.</p>`}</div>`; return; }
+    // Una columna por etapa: se pasa de una a otra deslizando el dedo; los botones de arriba siguen sirviendo.
+    $("cliCuerpo").innerHTML = `<div class="chips etapas" id="kbChips">${ETAPAS_TODAS.map(e => `<button class="chip" type="button" data-e="${e}" aria-pressed="${etapaVe === e}">${etq(e)} ${n(e)}</button>`).join("")}</div>
+      <p class="ayuda desliza">← Desliza para cambiar de etapa →</p>
+      <div class="kanban" id="kb">${ETAPAS_TODAS.map(e => `<section class="kcol" data-k="${e}"><div class="lista">${orden(xs.filter(c => (c.etapa || "Nuevo") === e)) || `<p class="vacio">Nadie en ${esc(etq(e))}.</p>`}</div></section>`).join("")}</div>
+      <button class="nuevo" type="button" data-nuevo>➕ Cliente nuevo</button>`;
+    const kb = $("kb"), i0 = Math.max(0, ETAPAS_TODAS.indexOf(etapaVe));
+    requestAnimationFrame(() => { kb.scrollLeft = i0 * kb.clientWidth; });
+    let tm; kb.onscroll = () => { clearTimeout(tm); tm = setTimeout(() => { const e = ETAPAS_TODAS[Math.round(kb.scrollLeft / kb.clientWidth)]; if (!e || e === etapaVe) return; etapaVe = e;
+      document.querySelectorAll("#kbChips [data-e]").forEach(b => { b.setAttribute("aria-pressed", b.dataset.e === e); if (b.dataset.e === e) b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); }); }, 80); };
   } else if (sub === "vis") {
     const xs = C.flatMap(c => c.pres.filter(p => ["Visita agendada", "Visitó", "Oferta"].includes(p.estado)).map(p => ({ c, p })))
       .sort((a, b) => (b.p.visita || b.p.envio || "").localeCompare(a.p.visita || a.p.envio || ""));
@@ -833,29 +850,34 @@ function abrirFicha(id) {
   const reqs = c.reqs.filter(r => r.estado !== "Cerrada");
   const opts = c.pres.filter(p => p.estado !== "Descartada").map(p => `<option value="${p.id}">${esc(titTxt(p.cod, p.nombre))}</option>`).join("");
   const nReq = r => Object.values(M.porCli[id] || {}).filter(x => x.req === r.id).length;
-  $("fiCuerpo").innerHTML = `<section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
-      ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
-      ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}${sugerirSector(r)}
-      <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
-      <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
-      <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
+  const pila_ = pila(c), chipF = [["Hoy", 0], ["Mañana", 1], ["En 3 días", 3], ["En una semana", 7]];
+  $("fiCuerpo").innerHTML = `<section class="seg-top"><h4>EN QUÉ VA</h4>${selEtapa(c)}
+      <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo), activo(c) && `${enEtapa(c)} días en esta etapa${c.desde ? "" : " (aprox.)"}`, c.pausa && "pausa: " + c.pausa, c.motivo && etq("Ya compró", c).toLowerCase() + ": " + c.motivo].filter(Boolean).join(" · ")}</p>
+      <h4 class="nv-z">QUÉ SIGUE CON ${esc(pila_.toUpperCase())}</h4><p class="ayuda">Lo próximo que toca hacer y cuándo. Ese día te sale en Hoy.</p>
+      <input id="fiPaso" type="text" class="inp" value="${esc(c.paso)}" placeholder="Ej.: preguntarle qué le parecieron las opciones">
+      <div class="chips fechas">${chipF.map(([t, d]) => `<button class="chip" type="button" data-fd="${masDias(d)}" aria-pressed="${c.fecha === masDias(d)}">${t}</button>`).join("")}<input id="fiFecha" type="date" value="${c.fecha}" aria-label="Otra fecha"></div>
+      <button class="primario" type="button" id="fiGuardar">Guardar lo que sigue</button></section>
     <section><h4>QUÉ PASÓ</h4><div class="acc">
       <button type="button" data-ev="respondio" data-id="${c.id}">Respondió</button><button type="button" data-ev="no_responde" data-id="${c.id}">No responde (${c.intentos})</button>
       <button type="button" data-vis="${c.id}">📅 Agendar visita</button><button type="button" data-pausar="${c.id}">Pausar</button>
       <button type="button" data-yacompro="${c.id}">🏁 ${etq("Ya compró", c)}</button></div>
-      <p class="ayuda">Si la compra fue con ustedes, díselo al asistente: él registra la venta.</p></section>
-    <section><h4>SEGUIMIENTO</h4><div class="campos"><label class="ancho">Próximo paso<input id="fiPaso" type="text" value="${esc(c.paso)}"></label>
-      <label class="ancho">Fecha<input id="fiFecha" type="date" value="${c.fecha}"></label></div>
-      <button class="primario" type="button" id="fiGuardar">Guardar seguimiento</button>${selEtapa(c)}
-      <p class="ayuda">${[c.origen && "Llegó por " + c.origen, c.ultimo && "último contacto " + fCorta(c.ultimo), activo(c) && `${enEtapa(c)} días en ${c.etapa}${c.desde ? "" : " (aprox.)"}`, c.pausa && "pausa: " + c.pausa, c.motivo && "compró: " + c.motivo].filter(Boolean).join(" · ")}</p></section>
-    <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
-      <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>
+      <p class="ayuda">Si compró con ustedes, díselo al asistente: él registra la venta.</p></section>
+
+
     <section><h4>SUS PROPIEDADES</h4>${c.pres.length ? c.pres.slice().sort((a, b) => (b.visita || b.envio || "").localeCompare(a.visita || a.envio || "")).map(p => `<div class="pres"><span class="pn">${tit(p.cod, p.nombre)}</span>
       <span>${esc(p.estado)}${p.colega ? " · colega " + esc(p.colega) : ""}${p.estado === "Visita agendada" && p.visita ? " · " + fCorta(p.visita) + (p.hora ? " " + p.hora : "") : ""}${p.reaccion && p.reaccion !== "⏳ Sin respuesta" ? " · " + esc(p.reaccion) : ""}${!p.visita && p.envio ? " · enviada " + fCorta(p.envio) : ""}</span>
       ${p.comentario ? `<span class="ayuda">${esc(p.comentario)}</span>` : ""}${p.link ? `<a class="ayuda" href="${esc(p.link)}" target="_blank" rel="noopener">Ver link de la colega</a>` : ""}
       ${p.estado === "Enviada" ? `<div class="mini"><button type="button" data-vis="${c.id}" data-visp="${p.id}">📅 Agendar visita</button><button type="button" data-desc="${p.id}">No le gustó</button></div>` : ""}
       ${p.estado === "Visita agendada" ? `<div class="mini">${REAC.map(r => `<button type="button" data-cf="${p.id}" data-cfc="${c.id}" data-r="${esc(r)}">${r.split(" ")[0]}</button>`).join("")}<button type="button" data-vis="${c.id}" data-visp="${p.id}">Reagendar</button></div>` : ""}</div>`).join("") : `<p class="ayuda">Todavía nada.</p>`}
-      <button class="secundario" type="button" data-reg="${c.id}">➕ Agregar propiedad que le mostré</button></section>`;
+      <button class="secundario" type="button" data-reg="${c.id}">➕ Agregar propiedad que le mostré</button></section>
+    <section><h4>QUÉ BUSCA</h4>${reqs.map(r => { const f = faltaReq(r), n = nReq(r); return `<div class="req"><p>${esc(resumenReq(r) || r.titulo)}</p>
+      ${r.indispensables ? `<p class="ayuda">Indispensable: ${esc(r.indispensables)}</p>` : ""}${r.deseables ? `<p class="ayuda">Deseable: ${esc(r.deseables)}</p>` : ""}${r.evitar ? `<p class="ayuda">Evitar: ${esc(r.evitar)}</p>` : ""}
+      ${f.length ? `<p class="falta">Para cruzarla con el inventario falta ${esc(f.join(", "))}.</p>` : ""}${sugerirSector(r)}
+      <button class="primario" type="button" data-mandar="${r.id}">🏠 Mandar opciones${n ? ` (${n} que encajan)` : ""}</button>
+      <button class="secundario" type="button" data-rq="${c.id}" data-req="${r.id}">Editar búsqueda</button></div>`; }).join("") || `<p class="ayuda">Sin búsqueda registrada.</p><button class="primario" type="button" data-mandar="">🏠 Mandar opciones</button>`}
+      <button class="secundario" type="button" data-rq="${c.id}" data-req="">➕ Añadir búsqueda</button></section>
+    <section><h4>NOTAS E HISTORIAL</h4><label class="txt">Nota rápida<textarea id="fiNota" rows="1" placeholder="Ej.: le gustó la cocina, prefiere piso bajo"></textarea></label>
+      <button class="secundario" type="button" id="fiNotaB">Guardar nota</button><div id="fiHist" class="hist"><p class="ayuda">Cargando historial…</p></div></section>`;
   cargarHist(id);
 }
 async function cargarHist(id, cont = "fiHist") {
@@ -912,10 +934,13 @@ document.addEventListener("click", e => {
   const st = t.closest("[data-ir]"); if (st) return ir(st.dataset.ir);
   const sb = t.closest("[data-sub]"); if (sb) { sub = sb.dataset.sub; return pintarClientes(); }
   const ov = t.closest("[data-opv]"); if (ov) { opVe = ov.dataset.opv; return pintarOp(); }
-  const et = t.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; return pintarClientes(); }
+  const et = t.closest("[data-e]"); if (et) { etapaVe = et.dataset.e; const kb = $("kb");
+    if (kb) { kb.scrollTo({ left: ETAPAS_TODAS.indexOf(etapaVe) * kb.clientWidth, behavior: "smooth" }); document.querySelectorAll("#kbChips [data-e]").forEach(b => b.setAttribute("aria-pressed", b === et)); return; }
+    return pintarClientes(); }
   const ev = t.closest("[data-ev]"); if (ev) return hacer({ accion: "evento", id: ev.dataset.id, tipo: ev.dataset.ev }, OK_EV[ev.dataset.ev]);
   const oc = t.closest("[data-opc]"); if (oc) return mandar(oc.dataset.opc, "");
   const rg = t.closest("[data-reg]"); if (rg) return abrirRe(rg.dataset.reg);
+  const fd = t.closest("[data-fd]"); if (fd) { $("fiFecha").value = fd.dataset.fd; document.querySelectorAll("[data-fd]").forEach(b => b.setAttribute("aria-pressed", b === fd)); return; }
   const yc = t.closest("[data-yacompro]"); if (yc) return pedir(yc.dataset.yacompro, "Ya compró");
   const pz = t.closest("[data-pausar]"); if (pz) return pedir(pz.dataset.pausar, "En pausa");
   if (t.id === "fiNotaB") { const v = $("fiNota").value.trim(); if (v.length < 2) return avisoFi("Escribe la nota.", true);
@@ -957,7 +982,7 @@ $("nvGuardar").onclick = async () => {
   if (nombre.length < 2) return mal("Falta el nombre.");
   if (!NV.origen) return mal("Elige de dónde llegó.");
   $("nvGuardar").disabled = true; $("nvEstado").textContent = "Guardando en Notion…"; $("nvEstado").className = "estado";
-  try { const d = await crm({ accion: "nuevo", datos: { nombre, origen: NV.origen, operacion: NV.operacion, sectores: [...NV.sectores], max: $("nvMax").value, alcobas: $("nvAlc").value, busca: $("nvBusca").value.trim() } });
+  try { const d = await crm({ accion: "nuevo", datos: { nombre, origen: NV.origen, operacion: NV.operacion, sectores: [...NV.sectores], max: aPesos($("nvMax").value) || "", alcobas: $("nvAlc").value, busca: $("nvBusca").value.trim() } });
     cerrarNv(); FICHA = d.id; await cargarCRM();
   } catch (e) { mal(e.message); }
   $("nvGuardar").disabled = false;
@@ -971,11 +996,11 @@ function abrirReq(id, reqId) {
   RQ = { id, reqId: reqId || "", operacion: new Set(r.operacion), tipo: new Set(r.tipo), sectores: new Set(r.sectores) };
   $("rqTit").textContent = (reqId ? "Búsqueda de " : "Nueva búsqueda de ") + c.nombre;
   $("rqOp").innerHTML = chipsRq(["Compra", "Arriendo"], "operacion", r.operacion); $("rqTipo").innerHTML = chipsRq(TIPOS, "tipo", r.tipo); $("rqZonas").innerHTML = chipsRq(ZONAS, "sectores", r.sectores);
-  $("rqZonaTxt").value = r.zonas || ""; $("rqMax").value = r.max ? Math.round(r.max / 1e6) : ""; $("rqAlc").value = r.alcobas || ""; $("rqArea").value = r.area || "";
+  $("rqZonaTxt").value = r.zonas || ""; $("rqMax").value = r.max ? +(r.max / 1e6).toFixed(1) : ""; $("rqAlc").value = r.alcobas || ""; $("rqArea").value = r.area || "";
   $("rqInd").value = r.indispensables || ""; $("rqDes").value = r.deseables || ""; $("rqEv").value = r.evitar || "";
   $("rqEstado").className = "estado"; $("rq").hidden = false; document.body.style.overflow = "hidden"; listaRq();
 }
-function listaRq() { const f = [!RQ.operacion.size && "si compra o arrienda", !+$("rqMax").value && "el tope", !(RQ.sectores.size || $("rqZonaTxt").value.trim()) && "la zona"].filter(Boolean);
+function listaRq() { $("rqMaxTxt").textContent = aPesos($("rqMax").value) ? "= " + enPalabras(aPesos($("rqMax").value)) : ""; const f = [!RQ.operacion.size && "si compra o arrienda", !aPesos($("rqMax").value) && "el tope", !(RQ.sectores.size || $("rqZonaTxt").value.trim()) && "la zona"].filter(Boolean);
   $("rqEstado").textContent = f.length ? `Para cruzarla con el inventario falta ${f.join(", ")}.` : "✅ Lista para cruzar con el inventario."; $("rqEstado").className = "estado " + (f.length ? "" : "bien"); }
 $("rq").addEventListener("click", e => { const b = e.target.closest("[data-rqc]"); if (!b) return; const s = RQ[b.dataset.rqc], v = b.textContent;
   s.has(v) ? s.delete(v) : s.add(v); b.setAttribute("aria-pressed", s.has(v)); listaRq(); });
@@ -986,7 +1011,7 @@ $("rqGuardar").onclick = async () => {
   $("rqGuardar").disabled = true; $("rqEstado").textContent = "Guardando en Notion…";
   try { const id = RQ.id;
     await crm({ accion: "requerimiento", id, requerimiento: RQ.reqId || undefined, datos: { operacion: [...RQ.operacion], tipo: [...RQ.tipo], sectores: [...RQ.sectores], zonas: $("rqZonaTxt").value.trim(),
-      max: $("rqMax").value ? +$("rqMax").value * 1e6 : "", alcobas: $("rqAlc").value, area: $("rqArea").value, indispensables: $("rqInd").value.trim(), deseables: $("rqDes").value.trim(), evitar: $("rqEv").value.trim() } });
+      max: aPesos($("rqMax").value) || "", alcobas: $("rqAlc").value, area: $("rqArea").value, indispensables: $("rqInd").value.trim(), deseables: $("rqDes").value.trim(), evitar: $("rqEv").value.trim() } });
     cerrarRq(); FICHA = id; await cargarCRM(); const n = opciones(id).length;
     avisoFi(n ? `✅ Búsqueda guardada. Hay ${n} opci${n === 1 ? "ón" : "ones"} que encajan.` : "✅ Búsqueda guardada.");
   } catch (e) { $("rqEstado").textContent = e.message; $("rqEstado").className = "estado mal"; }
