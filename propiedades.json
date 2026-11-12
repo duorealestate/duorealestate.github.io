@@ -808,6 +808,10 @@
       "5"
      ],
      [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
       "Administración",
       "$980.288"
      ],
@@ -1415,7 +1419,12 @@
    "det": {
     "amen": [],
     "carac": [],
-    "detalles": [],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
     "lista": [
      "Lote de 3.150 m²",
      "Matrícula independiente",
@@ -1463,6 +1472,10 @@
      [
       "Estrato",
       "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
      ],
      [
       "Administración",
@@ -1822,6 +1835,10 @@
       "6"
      ],
      [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
       "Administración",
       "$631.000"
      ],
@@ -1940,6 +1957,10 @@
      [
       "Estrato",
       "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
      ],
      [
       "Administración",
@@ -2176,6 +2197,10 @@
      [
       "Estrato",
       "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
      ],
      [
       "Administración",
@@ -3176,7 +3201,12 @@
    "det": {
     "amen": [],
     "carac": [],
-    "detalles": [],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
     "lista": [
      "Matrículas independientes",
      "Unidad cerrada de 9 lotes con lago",
@@ -3339,6 +3369,10 @@
     "carac": [],
     "detalles": [
      [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
       "Administración",
       "$267.000"
      ]
@@ -3393,6 +3427,10 @@
      [
       "Estrato",
       "5"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
      ],
      [
       "Administración",
@@ -3506,7 +3544,12 @@
    "det": {
     "amen": [],
     "carac": [],
-    "detalles": [],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
     "lista": [
      "Lote de 4.282 m²",
      "Matrícula independiente",
@@ -3545,7 +3588,12 @@
    "det": {
     "amen": [],
     "carac": [],
-    "detalles": [],
+    "detalles": [
+     [
+      "Alcoba de servicio",
+      "No"
+     ]
+    ],
     "lista": [
      "Lote de 4.169 m²",
      "Matrícula independiente",
