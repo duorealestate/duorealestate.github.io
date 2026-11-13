@@ -4741,5 +4741,54 @@
    "venta": 1050.0
   },
   "url": "https://duorealestate.com.co/D091"
+ },
+ "D092": {
+  "fotos": 8,
+  "notion_id": "41722d40-016d-8119-bf5c-c109f340dfa3",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 101.0,
+   "ban": 2.0,
+   "canon": 0,
+   "codigo": "D092",
+   "creada": "2026-11-13",
+   "det": {
+    "amen": [
+     "Portería 24 h",
+     "Piscina"
+    ],
+    "carac": [
+     "Balcón"
+    ],
+    "detalles": [
+     [
+      "Administración",
+      "$577.500"
+     ],
+     [
+      "Predial",
+      "$1.500.000 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D092/45f186b426-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 1.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.060 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 1060000000.0
+  },
+  "url": "https://duorealestate.com.co/D092"
  }
 }
