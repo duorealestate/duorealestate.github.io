@@ -4651,9 +4651,9 @@
   "notion_id": "41622d40-016d-81e3-88d6-c76806977c50",
   "tarjeta": {
    "alc": 2.0,
-   "area": 0,
+   "area": 142.0,
    "ban": 3.0,
-   "canon": 11000000.0,
+   "canon": 11500000000.0,
    "codigo": "D090",
    "creada": "2026-11-12",
    "det": {
@@ -4686,7 +4686,7 @@
    "precios": [
     [
      "ARRIENDO",
-     "$11.000.000 / mes"
+     "$11.500.000.000 / mes"
     ]
    ],
    "sector": "El Poblado",
