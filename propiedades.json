@@ -4732,13 +4732,13 @@
    "precios": [
     [
      "VENTA",
-     "$0 millones"
+     "$1.050 millones"
     ]
    ],
    "sector": "Alto de las Palmas",
    "tipo": "Apartamento",
    "titulo": "Apartamento en Alto de las Palmas",
-   "venta": 1050.0
+   "venta": 1050000000.0
   },
   "url": "https://duorealestate.com.co/D091"
  },
