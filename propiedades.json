@@ -4675,7 +4675,10 @@
       "No"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Moderno · balcón",
+     "Zonas verdes · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D090/99c55026a8-800.jpg",
@@ -4691,7 +4694,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Moderno, amplio y con balcón",
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D090"
@@ -4721,7 +4724,10 @@
       "No"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Dúplex · en obra gris, para terminar a tu gusto",
+     "Zonas verdes · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D091/03916c467d-800.jpg",
@@ -4737,7 +4743,7 @@
    ],
    "sector": "Alto de las Palmas",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en Alto de las Palmas",
+   "titulo": "Dúplex en obra gris, para hacerlo a tu gusto",
    "venta": 1050000000.0
   },
   "url": "https://duorealestate.com.co/D091"
@@ -4770,7 +4776,10 @@
       "$1.500.000 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Balcón",
+     "Piscina · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D092/45f186b426-800.jpg",
@@ -4786,7 +4795,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Bien ubicado, con balcón y piscina en la unidad",
    "venta": 1060000000.0
   },
   "url": "https://duorealestate.com.co/D092"
