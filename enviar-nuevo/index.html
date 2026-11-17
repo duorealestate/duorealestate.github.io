@@ -56,6 +56,9 @@ header p{margin:6px 0 0;font-size:15px;opacity:.9}
 .card.sel{border-color:var(--verde)}
 .fila{display:flex;gap:12px;padding:12px}
 .fila img{width:96px;height:96px;object-fit:cover;border-radius:10px;flex:none;background:var(--crema-tarjeta)}
+.fotoweb{position:relative;flex:none;display:block;align-self:flex-start}
+.fotoweb span{position:absolute;left:4px;right:4px;bottom:4px;text-align:center;font-size:12px;font-weight:700;padding:3px 0;border-radius:6px;background:rgba(28,35,51,.72);color:#fff}
+.verweb{display:inline-block;margin-top:6px;font-size:15px;font-weight:700;color:var(--azul)}
 .cod{font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--azul)}
 .nom{font-weight:700;font-size:16px;color:var(--azul-profundo);margin-top:2px}
 .tit{font-family:var(--serif);font-size:20px;line-height:1.2;margin:2px 0}
@@ -463,9 +466,9 @@ function pintar() {
   $("conteo").textContent = vis.length + (vis.length === 1 ? " propiedad" : " propiedades");
   $("verF").textContent = vis.length === 1 ? "Ver 1 propiedad" : `Ver ${vis.length} propiedades`;
   $("lista").innerHTML = vis.length ? vis.map(p => `<div class="card${sel.has(p.cod) ? " sel" : ""}">${EDITOR && CLAVE ? `<button class="lapiz" type="button" data-editar="${esc(p.cod)}" aria-label="Editar ${esc(p.cod)}">✏️</button>` : ""}
-    <div class="fila"><img src="${esc(p.foto)}" alt="" loading="lazy">
+    <div class="fila"><a class="fotoweb" href="${esc(p.web)}" target="_blank" rel="noopener" aria-label="Ver ${esc(p.cod)} en la web"><img src="${esc(p.foto)}" alt="" loading="lazy"><span>📷 Fotos</span></a>
       <div><div class="cod">${esc(p.cod)} · ${esc(p.sector.toUpperCase())}</div>${nombre(p) ? `<div class="nom">🔒 ${esc(nombre(p))}</div>` : ""}
-      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div>${etiqueta(p)}</div></div>
+      <div class="tit">${esc(p.titulo || p.tipo)}</div><div class="precio">${esc(precio(p))}</div><div class="dat">${esc(datos(p))}</div><a class="verweb" href="${esc(p.web)}" target="_blank" rel="noopener">🌐 Ver en la web ↗</a>${etiqueta(p)}</div></div>
     <button class="abrir" type="button" data-abrir="${esc(p.cod)}" aria-expanded="${abiertas.has(p.cod)}">${abiertas.has(p.cod) ? "Ocultar características ▴" : "Ver características ▾"}</button>
     ${abiertas.has(p.cod) ? `<div class="det">${detalle(p)}</div>` : ""}
     <label class="marcar"><input type="checkbox" data-cod="${esc(p.cod)}" ${sel.has(p.cod) ? "checked" : ""}> Marcar para mandar varias juntas</label>
