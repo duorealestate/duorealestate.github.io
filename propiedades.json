@@ -1820,63 +1820,6 @@
   },
   "url": "https://duorealestate.com.co/D036"
  },
- "D040": {
-  "fotos": 4,
-  "notion_id": "3ce22d40-016d-80f4-b6b5-da09fc48962e",
-  "tarjeta": {
-   "alc": 0,
-   "area": 8079.0,
-   "ban": 0,
-   "canon": 0,
-   "codigo": "D040",
-   "creada": "2026-09-01",
-   "det": {
-    "amen": [],
-    "carac": [],
-    "detalles": [
-     [
-      "Estrato",
-      "6"
-     ],
-     [
-      "Alcoba de servicio",
-      "No"
-     ],
-     [
-      "Administración",
-      "$631.000"
-     ],
-     [
-      "Predial",
-      "$14.327.000 (anual)"
-     ]
-    ],
-    "lista": [
-     "Lote de 8.079 m²",
-     "Totalmente plano",
-     "Índice de construcción del 20 %",
-     "Unidad cerrada"
-    ]
-   },
-   "ext": 0,
-   "foto": "/fotos/D040/5caba9e956-800.jpg",
-   "ops": [
-    "Venta"
-   ],
-   "parq": 0,
-   "precios": [
-    [
-     "VENTA",
-     "$2.020 millones"
-    ]
-   ],
-   "sector": "El Retiro",
-   "tipo": "Lote",
-   "titulo": "8.079 m² totalmente planos en unidad cerrada",
-   "venta": 2020000000.0
-  },
-  "url": "https://duorealestate.com.co/D040"
- },
  "D041": {
   "fotos": 10,
   "notion_id": "3ce22d40-016d-809e-915b-ea6e79f7fedb",
