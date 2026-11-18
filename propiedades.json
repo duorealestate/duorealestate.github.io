@@ -4848,5 +4848,62 @@
    "venta": 1800000000.0
   },
   "url": "https://duorealestate.com.co/D094"
+ },
+ "D095": {
+  "fotos": 12,
+  "notion_id": "41c22d40-016d-8109-b6e4-c3ead0c6ebfe",
+  "tarjeta": {
+   "alc": 3.0,
+   "area": 355.0,
+   "ban": 4.0,
+   "canon": 0,
+   "codigo": "D095",
+   "creada": "2026-11-18",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Estudio",
+     "Vista panorámica",
+     "Cuarto útil",
+     "Remodelado"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$2.700.000"
+     ],
+     [
+      "Predial",
+      "$3.000.000 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D095/b2d241173d-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 4.0,
+   "precios": [
+    [
+     "VENTA",
+     "$3.400 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 3400000000.0
+  },
+  "url": "https://duorealestate.com.co/D095"
  }
 }
