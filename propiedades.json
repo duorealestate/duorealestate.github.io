@@ -4770,7 +4770,10 @@
       "$3.240.603 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Vista · parte plana",
+     "Sector El Capiro · unidad cerrada"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D093/ad2d206d39-800.jpg",
@@ -4786,7 +4789,7 @@
    ],
    "sector": "Llanogrande",
    "tipo": "Lote",
-   "titulo": "Lote en Llanogrande",
+   "titulo": "Lote con vista y parte plana en unidad cerrada",
    "venta": 2100000000.0
   },
   "url": "https://duorealestate.com.co/D093"
@@ -4828,7 +4831,11 @@
       "$2.900.000 (semestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Muy buena terraza · balcón · estudio",
+     "Habitación de servicio",
+     "Piscina · zona infantil · zonas verdes · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D094/04d836af41-800.jpg",
@@ -4844,7 +4851,7 @@
    ],
    "sector": "Envigado",
    "tipo": "Casa",
-   "titulo": "Casa en Envigado",
+   "titulo": "Casa con muy buena terraza y unidad completa",
    "venta": 1800000000.0
   },
   "url": "https://duorealestate.com.co/D094"
@@ -4885,7 +4892,12 @@
       "$3.000.000 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Uno por piso · ascensor directo al apartamento",
+     "Cada alcoba con su baño · vestier principal muy amplio",
+     "Estudio · cuarto útil · habitación de servicio",
+     "Remodelado · ventanas por todos lados · vista panorámica"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D095/3e9bdf0598-800.jpg",
@@ -4901,7 +4913,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Uno por piso, lleno de luz y de verde",
    "venta": 3400000000.0
   },
   "url": "https://duorealestate.com.co/D095"
