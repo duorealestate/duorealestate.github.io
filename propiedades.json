@@ -5027,11 +5027,16 @@
     "Venta"
    ],
    "parq": 2.0,
-   "precios": [],
+   "precios": [
+    [
+     "VENTA",
+     "$1.790 millones"
+    ]
+   ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
    "titulo": "Apartamento en El Poblado",
-   "venta": 0
+   "venta": 1790000000.0
   },
   "url": "https://duorealestate.com.co/D097"
  }
