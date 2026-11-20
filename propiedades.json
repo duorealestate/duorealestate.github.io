@@ -4977,5 +4977,62 @@
    "venta": 940000000.0
   },
   "url": "https://duorealestate.com.co/D096"
+ },
+ "D097": {
+  "fotos": 6,
+  "notion_id": "41e22d40-016d-8186-91ab-c91e5e5826b3",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 160.0,
+   "ban": 3.0,
+   "canon": 0,
+   "codigo": "D097",
+   "creada": "2026-11-20",
+   "det": {
+    "amen": [
+     "Piscina",
+     "Gimnasio",
+     "Zona infantil",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ],
+     [
+      "Administración",
+      "$1.035.000"
+     ],
+     [
+      "Predial",
+      "$1.954.250 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D097/2313657689-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 2.0,
+   "precios": [],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 0
+  },
+  "url": "https://duorealestate.com.co/D097"
  }
 }
