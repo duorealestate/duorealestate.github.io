@@ -4957,7 +4957,12 @@
       "$1.250.000 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Cocina abierta reformada",
+     "Cada alcoba con su baño · balcón · cuarto útil",
+     "Fácil salida a Las Palmas y a la Transversal Inferior",
+     "Piscina · gimnasio · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D096/0ca86001ad-800.jpg",
@@ -4973,7 +4978,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Cocina reformada y salida fácil a Las Palmas",
    "venta": 940000000.0
   },
   "url": "https://duorealestate.com.co/D096"
@@ -5019,7 +5024,13 @@
       "$1.954.250 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Moderno · acabados muy bonitos",
+     "Cocina abierta integrada a la zona social",
+     "Cada alcoba con su baño y su vestier",
+     "Balcón · vista panorámica · cuarto útil · habitación de servicio",
+     "Piscina · gimnasio · zona infantil · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D097/2313657689-800.jpg",
@@ -5035,7 +5046,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Moderno, con la cocina abierta a la zona social",
    "venta": 1790000000.0
   },
   "url": "https://duorealestate.com.co/D097"
