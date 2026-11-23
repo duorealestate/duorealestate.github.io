@@ -5148,5 +5148,54 @@
    "venta": 1350000000.0
   },
   "url": "https://duorealestate.com.co/D099"
+ },
+ "D100": {
+  "fotos": 12,
+  "notion_id": "42122d40-016d-81cd-8ae2-d5f5ac3aa95e",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 190.0,
+   "ban": 3.0,
+   "canon": 10000000.0,
+   "codigo": "D100",
+   "creada": "2026-11-23",
+   "det": {
+    "amen": [],
+    "carac": [
+     "Balcón",
+     "Vista panorámica",
+     "Cuarto útil",
+     "Remodelado"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "Sí"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D100/444303dea4-800.jpg",
+   "ops": [
+    "Alquiler"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "ARRIENDO",
+     "$10.000.000 / mes"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 0
+  },
+  "url": "https://duorealestate.com.co/D100"
  }
 }
