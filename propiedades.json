@@ -5104,5 +5104,49 @@
    "venta": 550000000.0
   },
   "url": "https://duorealestate.com.co/D098"
+ },
+ "D099": {
+  "fotos": 10,
+  "notion_id": "42122d40-016d-81b5-8a32-eab2c1bfadcb",
+  "tarjeta": {
+   "alc": 0,
+   "area": 130.0,
+   "ban": 2.0,
+   "canon": 0,
+   "codigo": "D099",
+   "creada": "2026-11-23",
+   "det": {
+    "amen": [],
+    "carac": [],
+    "detalles": [
+     [
+      "Administración",
+      "$1.070.000"
+     ],
+     [
+      "Predial",
+      "$2.200.000 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D099/47f62b83aa-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 1.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.350 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Oficina",
+   "titulo": "Oficina en El Poblado",
+   "venta": 1350000000.0
+  },
+  "url": "https://duorealestate.com.co/D099"
  }
 }
