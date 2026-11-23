@@ -5050,5 +5050,59 @@
    "venta": 1790000000.0
   },
   "url": "https://duorealestate.com.co/D097"
+ },
+ "D098": {
+  "fotos": 4,
+  "notion_id": "42122d40-016d-81b7-9d89-fdf0409c9223",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 68.0,
+   "ban": 2.0,
+   "canon": 0,
+   "codigo": "D098",
+   "creada": "2026-11-23",
+   "det": {
+    "amen": [
+     "Portería 24 h",
+     "Salón social",
+     "Zona infantil"
+    ],
+    "carac": [
+     "Balcón"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "4"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$379.000"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D098/4de1b46e8b-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 1.0,
+   "precios": [
+    [
+     "VENTA",
+     "$550 millones"
+    ]
+   ],
+   "sector": "",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento",
+   "venta": 550000000.0
+  },
+  "url": "https://duorealestate.com.co/D098"
  }
 }
