@@ -5239,7 +5239,12 @@
       "Sí"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Aire acondicionado en las alcobas",
+     "Balcón · vista panorámica · habitación de servicio",
+     "Cuarto útil con estanterías",
+     "Portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D101/91e9f9c3e8-800.jpg",
@@ -5255,7 +5260,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Moderno, privado y cerca de Provenza",
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D101"
