@@ -5200,5 +5200,64 @@
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D101"
+ },
+ "D102": {
+  "fotos": 6,
+  "notion_id": "42222d40-016d-81cf-b0d0-c95f759686cf",
+  "tarjeta": {
+   "alc": 2.0,
+   "area": 142.7,
+   "ban": 3.0,
+   "canon": 0,
+   "codigo": "D102",
+   "creada": "2026-11-24",
+   "det": {
+    "amen": [
+     "Zonas verdes",
+     "Salón social",
+     "Portería 24 h"
+    ],
+    "carac": [
+     "Balcón",
+     "Cuarto útil"
+    ],
+    "detalles": [
+     [
+      "Estrato",
+      "6"
+     ],
+     [
+      "Alcoba de servicio",
+      "No"
+     ],
+     [
+      "Administración",
+      "$1.134.959"
+     ],
+     [
+      "Predial",
+      "$2.316.734 (trimestral)"
+     ]
+    ],
+    "lista": []
+   },
+   "ext": 0,
+   "foto": "/fotos/D102/b4dddd6c53-800.jpg",
+   "ops": [
+    "Venta"
+   ],
+   "parq": 2.0,
+   "precios": [
+    [
+     "VENTA",
+     "$1.900 millones"
+    ]
+   ],
+   "sector": "El Poblado",
+   "tipo": "Apartamento",
+   "titulo": "Apartamento en El Poblado",
+   "venta": 1900000000.0
+  },
+  "url": "https://duorealestate.com.co/D102"
  }
 }
