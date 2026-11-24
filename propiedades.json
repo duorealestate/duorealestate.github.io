@@ -5216,7 +5216,7 @@
   "notion_id": "42222d40-016d-819c-bf50-dcb2c1b0b4da",
   "tarjeta": {
    "alc": 3.0,
-   "area": 0,
+   "area": 250.0,
    "ban": 4.0,
    "canon": 18000000.0,
    "codigo": "D101",
