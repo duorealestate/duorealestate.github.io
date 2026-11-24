@@ -341,7 +341,7 @@ def _pil():
 
 def sin_borde(im, ImageChops):
     """Quita franjas blancas parejas (arriba y abajo, o a los lados).
-    Si al quitarlas la foto queda vertical, se recorta al centro en 4:3 horizontal (decisión de Camila, 4 nov. 2026)."""
+    Las fotos verticales se dejan verticales (decisión de Camila, 24 nov. 2026; antes se recortaban a 4:3)."""
     w, h = im.size
     blanco = im.copy()
     blanco.paste((255, 255, 255), (0, 0, w, h))
@@ -355,13 +355,7 @@ def sin_borde(im, ImageChops):
     franjas_v = izq >= minimo and der >= minimo and abs(izq - der) <= 0.02 * w and max(arriba, abajo) <= 4
     if not (franjas_h or franjas_v):
         return im
-    im = im.crop(caja)
-    w, h = im.size
-    if w < h * 4 / 3:  # quedó vertical o casi cuadrada: recorte al centro en 4:3
-        alto = round(w * 3 / 4)
-        arriba = (h - alto) // 2
-        im = im.crop((0, arriba, w, arriba + alto))
-    return im
+    return im.crop(caja)
 
 
 def reducir(orig, destino, lado_max, calidad):
