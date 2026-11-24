@@ -5084,7 +5084,11 @@
       "$379.000"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Reformado · estilo moderno · techos altos",
+     "Balcón con una vista muy linda",
+     "Zona infantil · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D098/4de1b46e8b-800.jpg",
@@ -5100,7 +5104,7 @@
    ],
    "sector": "",
    "tipo": "Apartamento",
-   "titulo": "Apartamento",
+   "titulo": "Reformado, con techos altos y una vista muy linda",
    "venta": 550000000.0
   },
   "url": "https://duorealestate.com.co/D098"
@@ -5181,7 +5185,12 @@
       "Sí"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Acabados de estilo industrial · remodelado",
+     "Sala · comedor · cocina abierta",
+     "Cada alcoba con su baño y su vestier · habitación de servicio · cuarto útil",
+     "Balcón espacioso lleno de verde · vista panorámica"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D100/444303dea4-800.jpg",
@@ -5197,7 +5206,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Estilo industrial y ventanería de piso a techo",
    "venta": 0
   },
   "url": "https://duorealestate.com.co/D100"
