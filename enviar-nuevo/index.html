@@ -306,7 +306,7 @@ button.cal{width:calc(100% - 32px);border:0;font:inherit;font-weight:700;font-si
   <div class="top"><b id="edTit">Editar</b><button type="button" id="edCerrar">Cerrar</button></div>
   <p class="estado" id="edEstado"></p>
   <div id="edCuerpo" hidden>
-    <section><h4>FOTOS</h4><p class="ayuda">La primera es la portada de la web y de WhatsApp. Ordénalas con las flechas. Solo horizontales, máximo 10.</p><div class="fotos" id="edFotos"></div>
+    <section><h4>FOTOS</h4><p class="ayuda">La primera es la portada de la web y de WhatsApp. Ordénalas con las flechas. Horizontales o verticales, máximo 10.</p><div class="fotos" id="edFotos"></div>
       <input id="edFile" type="file" accept="image/*" multiple hidden><button class="secundario" type="button" id="edFotoB">➕ Agregar fotos</button><p class="estado" id="edFotoEstado"></p></section>
     <section><h4>PRECIO Y COSTOS</h4><div class="campos" id="edPrecio"></div></section>
     <section><h4>CARACTERÍSTICAS</h4><div class="campos" id="edCampos"></div><div id="edChips"></div></section>
@@ -559,12 +559,11 @@ $("edQuitarSi").onclick = async () => {
   } catch (e) { estadoEd(e.message, "mal"); }
   $("edQuitarSi").disabled = false;
 };
-// Fotos nuevas: solo horizontales; se achican en el celular antes de subirlas.
+// Fotos nuevas: horizontales o verticales (decisión de Camila, 24 nov. 2026); se achican en el celular antes de subirlas.
 function prepararFoto(file) {
   return new Promise((ok, mal) => { const img = new Image(), url = URL.createObjectURL(file);
     img.onload = () => { URL.revokeObjectURL(url); const w = img.naturalWidth, h = img.naturalHeight;
-      if (w <= h) return mal(new Error(`"${file.name}" es vertical. Solo se suben fotos horizontales.`));
-      const k = Math.min(1, 2400 / w), c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
+      const k = Math.min(1, 2400 / Math.max(w, h)), c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
       c.toBlob(b => { const r = new FileReader(); r.onload = () => ok({ nombre: file.name.replace(/\.\w+$/, "") + ".jpg", datos: String(r.result).split(",")[1] }); r.readAsDataURL(b); }, "image/jpeg", 0.85); };
     img.onerror = () => { URL.revokeObjectURL(url); mal(new Error(`No pude abrir "${file.name}".`)); }; img.src = url; });
