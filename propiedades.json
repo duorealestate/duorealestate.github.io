@@ -5239,7 +5239,12 @@
       "$2.316.734 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Distribución tipo mariposa · cocina abierta",
+     "Arquitectura en obra negra · detalles de estilo industrial",
+     "Muy iluminado · balcón · cuarto útil",
+     "Zonas verdes · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D102/e63cbaa465-800.jpg",
@@ -5255,7 +5260,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Distribución mariposa y estilo industrial",
    "venta": 1900000000.0
   },
   "url": "https://duorealestate.com.co/D102"
@@ -5299,7 +5304,13 @@
       "$2.316.734 (trimestral)"
      ]
     ],
-    "lista": []
+    "lista": [
+     "Terraza amplia e iluminada · jardín privado",
+     "Distribución tipo mariposa · cocina abierta",
+     "Arquitectura en obra negra · diseño semi industrial",
+     "Cada alcoba con su baño · cava",
+     "Zonas verdes · salón social · portería 24 horas"
+    ]
    },
    "ext": 0,
    "foto": "/fotos/D103/941851fad4-800.jpg",
@@ -5315,7 +5326,7 @@
    ],
    "sector": "El Poblado",
    "tipo": "Apartamento",
-   "titulo": "Apartamento en El Poblado",
+   "titulo": "Una terraza que recorre todo el apartamento",
    "venta": 2250000000.0
   },
   "url": "https://duorealestate.com.co/D103"
